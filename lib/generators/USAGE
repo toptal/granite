@@ -1,0 +1,25 @@
+Description:
+    Generates a sample granite action.
+
+Example:
+    `rails generate granite user/create`
+
+    Will create:
+      apq/actions/ba/user/business_action.rb
+      apq/actions/ba/user/create.rb
+      spec/apq/actions/ba/user/create_spec.rb
+
+    `rails generate granite user/create -C`
+    `rails generate granite user/create --collection`
+
+    Will create:
+      apq/actions/ba/user/create.rb
+      spec/apq/actions/ba/user/create_spec.rb
+
+    `rails generate granite user/create simple`
+
+    Will create:
+      apq/actions/ba/user/create/simple/
+      apq/actions/ba/user/business_action.rb
+      apq/actions/ba/user/create.rb
+      spec/apq/actions/ba/user/create_spec.rb

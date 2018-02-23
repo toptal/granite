@@ -1,0 +1,298 @@
+require:
+  - rubocop-rspec
+
+AllCops:
+  Include:
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+    - 'vendor/bundle/**/*'
+    - 'log/**/*'
+  DisplayCopNames: true
+  TargetRubyVersion: 2.4
+
+ClassAndModuleChildren:
+  Enabled: false
+
+ClassLength:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+EmptyLinesAroundClassBody:
+  Enabled: false
+
+EmptyLinesAroundModuleBody:
+  Enabled: false
+
+EmptyLinesAroundArguments:
+  Enabled: false
+
+LineLength:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
+
+MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+PercentLiteralDelimiters:
+  PreferredDelimiters:
+    '%r': '{}'
+    '%i': '[]'
+    '%w': '[]'
+    '%W': '[]'
+    '%Q': '{}'
+
+PredicateName:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+SignalException:
+  EnforcedStyle: semantic
+
+SpaceBeforeFirstArg:
+  Enabled: false
+
+SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+
+TrailingCommaInArguments:
+  EnforcedStyleForMultiline: no_comma
+
+TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Bundler/OrderedGems:
+  Enabled: false
+
+FactoryBot/DynamicAttributeDefinedStatically:
+  Enabled: true
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+Lint/InterpolationCheck:
+  Enabled: false
+
+Lint/UriEscapeUnescape:
+  Enabled: false
+
+Lint/UselessAccessModifier:
+  ContextCreatingMethods:
+    - projector
+
+Lint/Void:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Exclude:
+    - "**/*_spec.rb"
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Performance/HashEachMethods:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: true
+  Exclude:
+    - db/migrate/*.rb
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Rails/ReadWriteAttribute:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - "**/*_spec.rb"
+    - "**/spec/**/*"
+
+Rails/UnknownEnv:
+  Environments:
+    - cucumber
+    - development
+    - production
+    - staging
+    - test
+
+RSpec/AnyInstance:
+  Enabled: false
+
+RSpec/BeEql:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: true
+  Prefixes:
+    - when
+    - with
+    - without
+    - as
+
+RSpec/DescribeClass:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: true
+  SkipBlocks: true
+
+RSpec/DescribeMethod:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
+  Enabled: true
+  Exclude:
+    - 'spec/fixtures/*'
+
+RSpec/EmptyLineAfterFinalLet:
+  Enabled: false
+
+RSpec/EmptyLineAfterSubject:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/ExampleWording:
+  Enabled: true
+
+RSpec/ExpectActual:
+  Enabled: true
+
+RSpec/ExpectChange:
+  EnforcedStyle: block
+
+RSpec/ExpectOutput:
+  Enabled: true
+
+RSpec/FilePath:
+  Enabled: true
+  Exclude:
+    - 'spec/fixtures/*'
+
+RSpec/Focus:
+  Enabled: true
+
+RSpec/HookArgument:
+  Enabled: true
+
+RSpec/ImplicitExpect:
+  Enabled: true
+
+RSpec/InstanceVariable:
+  Enabled: true
+
+RSpec/LeadingSubject:
+  Enabled: true
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/MessageExpectation:
+  Enabled: false
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/MultipleDescribes:
+  Enabled: true
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/NotToNot:
+  Enabled: false
+
+RSpec/RepeatedDescription:
+  Enabled: true
+
+RSpec/RepeatedExample:
+  Enabled: true
+
+RSpec/ScatteredLet:
+  Enabled: false
+
+RSpec/SingleArgumentMessageChain:
+  Enabled: true
+
+RSpec/ScatteredSetup:
+  Enabled: true
+
+RSpec/SubjectStub:
+  Enabled: false
+
+RSpec/VerifiedDoubles:
+  Enabled: true
+
+Style/BracesAroundHashParameters:
+  EnforcedStyle: context_dependent
+
+Style/CommentedKeyword:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/Encoding:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: true
+  Exclude:
+    - 'spec/support/**/*'
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/OptionHash:
+  Enabled: true
+
+Style/RescueStandardError:
+  Enabled: false
+
+Style/Send:
+  Enabled: true
+
+Style/UnneededPercentQ:
+  Enabled: true

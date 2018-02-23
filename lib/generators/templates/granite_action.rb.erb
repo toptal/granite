@@ -1,0 +1,22 @@
+class BA::<%= class_name %> < <%= base_class_name %>
+<% if projector -%>
+  projector :<%= projector %>
+
+<% end -%>
+  allow_if { false }
+
+  precondition do
+  end
+<% if options.collection? -%>
+
+  def subject
+    @subject ||= <%= subject_class_name %>.new
+  end
+<% end -%>
+
+  private
+
+  def execute_perform!(*)
+    subject.save!
+  end
+end

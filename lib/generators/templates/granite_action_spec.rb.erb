@@ -1,0 +1,45 @@
+require 'rails_helper'
+
+RSpec.describe BA::<%= class_name %> do
+<% if options.collection? -%>
+  subject(:action) { described_class.as(performer).new(attributes) }
+
+<% else -%>
+  subject(:action) { described_class.as(performer).new(<%= subject_name %>, attributes) }
+
+  let(:<%= subject_name %>) { <%= subject_class_name %>.new }
+<% end -%>
+  let(:performer) { double }
+  let(:attributes) { {} }
+
+  describe 'policies' do
+    it { is_expected.to be_allowed }
+
+    context 'when user is not authorized' do
+      it { is_expected.not_to be_allowed }
+    end
+  end
+
+  describe 'preconditions' do
+    it { is_expected.to satisfy_preconditions }
+
+    context 'when preconditions fail' do
+      it { is_expected.not_to satisfy_preconditions }
+    end
+  end
+
+  describe 'validations' do
+  end
+
+  describe '#perform!' do
+<% if options.collection? -%>
+    specify do
+      expect { perform! }.to change { <%= subject_class_name %>.count }.by(1)
+    end
+<% else -%>
+    specify do
+      expect { perform!(<%= subject_name %>) }.to change { <%= subject_name %>.reload.attributes }.to(attributes)
+    end
+<% end -%>
+  end
+end

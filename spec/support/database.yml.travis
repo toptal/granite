@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  database: granite_ci_test
+  username: postgres
+  password:
