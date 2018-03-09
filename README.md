@@ -22,7 +22,8 @@ Or install it yourself as:
 
 ## Usage
 
-Please see [our getting started documentation](GETTING_STARTED.md).
+Please see [our getting started documentation](GETTING_STARTED.md) or check
+the [granite application example](https://github.com/toptal/example_granite_application).
 
 ### Versioning
 
