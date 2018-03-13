@@ -67,9 +67,6 @@ SpaceInsideHashLiteralBraces:
 TrailingCommaInArguments:
   EnforcedStyleForMultiline: no_comma
 
-TrailingCommaInLiteral:
-  EnforcedStyleForMultiline: no_comma
-
 Bundler/OrderedGems:
   Enabled: false
 
@@ -105,7 +102,7 @@ Metrics/ModuleLength:
 Naming/HeredocDelimiterNaming:
   Enabled: false
 
-Performance/HashEachMethods:
+Naming/UncommunicativeMethodParamName:
   Enabled: false
 
 Rails/ApplicationRecord:
@@ -293,6 +290,12 @@ Style/RescueStandardError:
 
 Style/Send:
   Enabled: true
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: no_comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: no_comma
 
 Style/UnneededPercentQ:
   Enabled: true
