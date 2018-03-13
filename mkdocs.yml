@@ -1,0 +1,21 @@
+site_name: Granite Manual
+repo_url: https://github.com/toptal/granite
+google_analytics: ['UA-115649289-1', 'auto']
+theme:
+  name: material
+  logo: img/logo.png
+  favicon: img/favicon.ico
+  palette:
+    primary: indigo
+    accent: pink
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+copyright: 'Copyright &copy; 2013 - 2018 Toptal Team'
+pages:
+  - Home: index.md
+  - Projectors: projectors.md
+  - Testing: testing.md
