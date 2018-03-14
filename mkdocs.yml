@@ -19,7 +19,4 @@ pages:
   - Home: index.md
   - Projectors: projectors.md
   - Testing: testing.md
-  - Tutorial:
-    - Application example: tutorial/application_example.md
-    - Project setup: tutorial/project_setup.md
-    - Book creation: tutorial/create_book_action.md
+  - Tutorial: tutorial.md
