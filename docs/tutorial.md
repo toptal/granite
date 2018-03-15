@@ -334,7 +334,7 @@ class BA::Book::Rent < BA::Book::BusinessAction
   private
 
   def execute_perform!(*)
-    Rent.create!(book: subject, user: performer)
+    Rental.create!(book: subject, user: performer)
     subject.available = false
     subject.save!
   end
@@ -374,7 +374,7 @@ rented by this person:
 class BA::Book::DeliverBack < BA::Book::BusinessAction
   precondition do
     rental_conditions = { book: subject, user: performer, delivered_back_at: nil }
-    Rent.where(rental_conditions).exists?
+    Rental.where(rental_conditions).exists?
   end
 end
 ```
@@ -382,31 +382,78 @@ end
 The logic of the deliver back, we just need to pick the current rental and
 assign the `delivered_back_at` date. Also, make the book available again.
 
+Let's start by testing the preconditions and guarantee that only the user that
+rent the book can deliver it back.
+
+```ruby
+RSpec.describe BA::Book::DeliverBack do
+  subject(:action) { described_class.as(performer).new(book) }
+
+  let(:book) { Book.create! title: 'Learn to fly', available: true }
+  let(:performer) { User.create! }
+
+  describe 'preconditions' do
+    context 'when the user rented the book' do
+      before { BA::Book::Rent.as(performer).new(book).perform! }
+      it { is_expected.to be_satisfy_preconditions }
+    end
+
+    context 'when preconditions fail' do
+      it { is_expected.not_to be_satisfy_preconditions }
+    end
+  end
+end
+
 ```ruby
 class BA::Book::DeliverBack < BA::Book::BusinessAction
+
+  subject :book
+  allow_if { performer.is_a?(User) }
+
   precondition do
-    Rent.where(rental_conditions).exists?
-  end
-
-  private
-
-  def execute_perform!(*)
-    rent.delivered_back_at = Time.now
-    rent.save!
-
-    subject.available = true
-    subject.save!
-  end
-
-  def rent
-    @rent ||= Rent.find_by(rental_conditions)
-  end
-
-  def rental_conditions
-    { book: subject, user: performer, delivered_back_at: nil }
+    decline_with(:not_renting) unless performer.renting?(book)
   end
 end
 ```
+
+And the `User` now have a few scopes and the `#renting?` method:
+
+```ruby
+class User < ApplicationRecord
+  devise :database_authenticatable, :registerable
+  has_many :rentals
+  has_many :books, through: :rents
+
+  def renting?(book)
+    rentals.current.where(id: book.id).exists?
+  end
+end
+```
+
+Now implementing the spec that covers the logic of deliver back, is expected to
+make the book available and mark the rental with the delivered date.
+
+```ruby
+RSpec.describe BA::Book::DeliverBack do
+  subject(:action) { described_class.as(performer).new(book) }
+
+  let(:book) { Book.create! title: 'Learn to fly', available: true }
+  let(:performer) { User.create! }
+
+  # describe 'preconditions' ...
+
+  describe '#perform!' do
+    let!(:rental) { BA::Book::Rent.as(performer).new(book).perform! }
+
+    specify do
+      expect { action.perform! }
+        .to change { book.reload.available }.from(false).to(true)
+        .and change { rental.reload.delivered_back_at }.from(nil)
+    end
+  end
+end
+```
+
 
 ## Wishlist::Add
 
