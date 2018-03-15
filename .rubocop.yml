@@ -103,7 +103,10 @@ Naming/HeredocDelimiterNaming:
   Enabled: false
 
 Naming/UncommunicativeMethodParamName:
-  Enabled: false
+  Enabled: true
+  AllowedNames:
+    - as # used in keywords arguments
+    - e  # used in exceptions
 
 Rails/ApplicationRecord:
   Enabled: true
