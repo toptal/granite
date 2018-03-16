@@ -1,15 +1,14 @@
-# Applicatin example
+# Application example
 
-The business we're going to cover is very simple.
-
-We have a simple book library and we need to allow logged users to create new
+The business we're going to cover is straightforward.
+It will be a book library, and we need to allow logged users to create new
 books and rent it.
 
 ## Book library
 
-A symple system to track books. Each book has a title.
+A simple system to track books. Each book has a title.
 
-- The books view is public
+- Everybody can view the list of books
 - **Only** logged users can edit the books
 - Logged users can **edit** or **remove** a book
 
@@ -25,11 +24,11 @@ A symple system to track books. Each book has a title.
 The logged user can manage a **wishlist** considering:
 
 - When a book is **not available** and the user "**didn't read** it
-- If the person **already read** the book, also **doesn't make sense add it in the wishlist
-- When the book become available, the system should notify people that are with this book in the wishlist
-- When the book is rented by someone that have the book in the wishlist, it should be removed after delivered back
+- If the person **already read** the book, also **doesn't make sense add it to the wishlist
+- When the book becomes available, the system should notify people that are with this book on the wishlist
+- When the book is rented by someone that has the book on the wishlist, it should be removed after delivered back
 
-The application domain is very simple and we're going to build step by step
+The application domain is very simple, and we're going to build step by step
 this small logic case to show how granite can be useful and abstract a few
 steps of your application.
 
@@ -38,9 +37,9 @@ steps of your application.
 We're testing here with Rails version x. The following example can be found
 here: https://github.com/toptal/example_granite_application
 
-### Generating new project
+### Generating a new project
 
-This tutorial is using Rails version `5.1.4` and the first step is install it:
+This tutorial is using Rails version `5.1.4`, and the first step is to install it:
 
 ```bash
 gem install rails -v=5.1.4
@@ -60,14 +59,14 @@ rails db:setup
 
 ## Setup devise
 
-Let's add devise to control users access and have a simple control under logged
+Let's add devise to control users access and have a simple control over logged
 users. Adding it to `Gemfile`.
 
 ```ruby
 gem 'devise'
 ```
 
-Now, use bundle install to 
+Run `bundle install` and then generate the default devise resources.
 
 ```bash
 rails generate devise:install
@@ -102,7 +101,7 @@ the [testing](testing.md) section.
 
 ## Book::Create
 
-It's time to create our first model and have some initial domain on it.
+It's time to create our first model and has some domain on it.
 
 Let's use a scaffold to have a starting point with the `Book` model:
 
@@ -110,7 +109,7 @@ Let's use a scaffold to have a starting point with the `Book` model:
 rails g scaffold book title:string
 ```
 
-Now, we can start working in the first business action.
+Now, we can start working on the first business action.
 
 Let's generate the boilerplate business action class with Rails granite generator:
 
@@ -136,7 +135,7 @@ class BA::Book::Create < BA::Book::BusinessAction
 end
 ```
 
-And also a default business action was added with the shared subject:
+And also a default business action was added to the shared subject:
 
 ```
 class BA::Book::BusinessAction < BaseAction
@@ -168,7 +167,7 @@ RSpec.describe BA::Book::Create do
   describe 'policies' do
     it { is_expected.to be_allowed }
 
-    context 'when user is not authorized' do
+    context 'when the user is not authorized' do
       let(:performer) { double }
       it { is_expected.not_to be_allowed }
     end
@@ -176,10 +175,9 @@ RSpec.describe BA::Book::Create do
 end
 ```
 
-
 ## Attributes
 
-We also need to be specific of what attributes this action can touch and then
+We also need to be specific about what attributes this action can touch and then
 we need to define attributes for it:
 
 ```ruby
@@ -217,7 +215,7 @@ RSpec.describe BA::Book::Create do
   describe 'policies' do
     it { is_expected.to be_allowed }
 
-    context 'when user is not authorized' do
+    context 'when the user is not authorized' do
       let(:performer) { double }
       it { is_expected.not_to be_allowed }
     end
@@ -236,7 +234,7 @@ end
 
 ## Perform
 
-For now, the perform is a simple call to `book.save!` because granite already
+For now, the perform is a simple call to `book.save!` because of granite already
 assign the attributes.
 
 Then we need to test if it's generating the right record:
@@ -262,6 +260,46 @@ RSpec.describe BA::Book::Create do
 end
 ```
 
+The last step is to replace the current book creation in the controller to call
+the business action instead.
+
+First thing is rescue from Granite::NotAllowed when some action is not allowed
+to be executed.
+
+```ruby
+class BooksController < ApplicationController
+  rescue_from Granite::Action::NotAllowedError do |exception|
+    redirect_to books_path, alert: 'You\'re not allowed to execute this action.'
+  end
+  # ...
+end
+```
+
+It will generically manage exceptions in case some unauthorized user tries to force acting without having access.
+
+The next step is to wrap the method `#create` with the proper business action call.
+
+```ruby
+class BooksController < ApplicationController
+
+  # ...
+
+  # POST /books
+  def create
+    book_action = BA::Book::Create.as(current_user).new(book_params)
+      if book_action.perform
+        redirect_to book_action.subject, notice: 'Book was successfully created.'
+      else
+        @book = book_action.subject
+        render :new
+      end
+    end
+  end
+
+  # ...
+end
+```
+
 ## Book::Rent
 
 The Rental system description says:
@@ -283,7 +321,7 @@ Let's create `Rent` model first:
 rails g model rent book:references user:references delivered_back_at:timestamp
 ```
 
-and add available column in the books table:
+and add an `available` column in the books table:
 
 ```bash
 rails g migration add_availability_to_books available:boolean
@@ -308,12 +346,12 @@ RSpec.describe BA::Book::Rent do
   let(:book) { Book.new(title: 'First book', available: available) }
 
   describe 'preconditions' do
-    context 'with available book' do
+    context 'with an available book' do
       let(:available) { true }
       it { is_expected.to be_satisfy_preconditions }
     end
 
-    context 'with unavailable book' do
+    context 'with an unavailable book' do
       let(:available) { false }
       it { is_expected.to be_invalid }
       it { is_expected.not_to satisfy_preconditions }
@@ -323,7 +361,7 @@ end
 ```
 
 [Preconditions](/granite/#preconditions) are related to the book in the context.
-And the action will decline the context to not be executed if it does not satisfy the preconditions.
+And the action will decline the context not to be executed if it does not satisfy the preconditions.
 
 Let's implement the `precondition` and `perform` code:
 
@@ -365,7 +403,7 @@ end
 
 ## Book::DeliverBack
 
-To deliver back a book, it need to be rented by the person that is logged in.
+First, think about the policies: to deliver back the book, it needs to be rented by the person that is logged in.
 
 Then we need to have a precondition to verify if the current book is being
 rented by this person:
@@ -403,6 +441,10 @@ RSpec.describe BA::Book::DeliverBack do
     end
   end
 end
+```
+
+And implementing the preconditions:
+
 
 ```ruby
 class BA::Book::DeliverBack < BA::Book::BusinessAction
@@ -425,13 +467,13 @@ class User < ApplicationRecord
   has_many :books, through: :rents
 
   def renting?(book)
-    rentals.current.where(id: book.id).exists?
+    rentals.current.where(book_id: book.id).exists?
   end
 end
 ```
 
-Now implementing the spec that covers the logic of deliver back, is expected to
-make the book available and mark the rental with the delivered date.
+Now implementing the spec that covers the logic of delivering back, is expected to
+make the book available and mark the rental with the given date.
 
 ```ruby
 RSpec.describe BA::Book::DeliverBack do
@@ -454,10 +496,334 @@ RSpec.describe BA::Book::DeliverBack do
 end
 ```
 
+## I18n
+
+The last step to make it user-friendly and return a personalized
+message when the business action calls `decline_with(:unavailable)`.
+
+It's time to create the internationalization file for it.
+
+File: `config/locales/granite.en.yml`
+```yml
+en:
+  granite_action:
+    errors:
+      models:
+        ba/book/rent:
+          attributes:
+            base:
+              unavailable: 'The book is unavailable.'
+```
+
+Great! Now it's time to change our views to allow people to interact with the
+actions we created.
+
+First, we need to add controller methods to call the `Rent` and `DeliverBack`
+business actions and create routes for it.
+
+```ruby
+class BooksController < ApplicationController
+
+  # a few other scaffold methods here
+
+  # POST /books/1/rent
+  def rent
+    @book = Book.find(params[:book_id])
+    book_action = BA::Book::Rent.as(current_user).new(@book)
+    if book_action.perform
+      redirect_to books_url, notice: 'Enjoy the book!'
+    else
+      redirect_to books_url, alert:  book_action.errors.full_messages
+    end
+  end
+
+  # POST /books/1/deliver_back
+  def deliver_back
+    @book = Book.find(params[:book_id])
+    book_action = BA::Book::DeliverBack.as(current_user).new(@book)
+      if book_action.perform
+        redirect_to books_url, notice: 'Thanks for delivering it back.'
+      else
+        redirect_to books_url, alert:  book_action.errors.full_messages
+      end
+    end
+  end
+end
+```
+
+And add routes for `rent` and `deliver_back` in `config/routes.rb`:
+
+```ruby
+  resources :books do
+    post :rent
+    post :deliver_back
+  end
+```
+
+Now, it's time to change the current view to add such actions:
+
+```erb
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <% if book.available? %>
+          <td><%= link_to 'Rent', rent_book_path(book), method: :post %></td>
+        <% else %>
+          <td>(Rented)</td>
+        <% end %>
+        <% if current_user && current_user.renting?(book) %>
+           <td><%= link_to 'Deliver back', deliver_back_book_path(book), method: :post %></td>
+        <% end %>
+        <td><%= link_to 'Show', book %></td>
+        <td><%= link_to 'Edit', edit_book_path(book) %></td>
+        <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Do you really want to destroy this book?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+```
+
+Now is a good opportunity to introduce [projectors](projectors.md).
+
+The actual implementation contains a few boilerplate codes in the controller that make us repeat a
+few different logics that are already in the business action.
+
+Projectors can help with that. Avoiding the need for creating repetitive
+controller methods and reverify preconditions and policies to decide what
+actions can be executed.
+
+### Setup view context for Granite projector
+
+You'll need to set up the master controller class. Let's create a file to configure what will be the base controller for granite:
+
+File: `config/initializers/granite.rb`
+```ruby
+Granite.tap do |m|
+  m.base_controller = 'ApplicationController'
+end
+```
+
+The next step is to change `ApplicationController` to setup context
+view and allow granite to inherit behavior from it.
+
+`app/controllers/application_controller`
+```ruby
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+  around_action :setup_granite_view_context
+  before_action { view_context }
+
+  protected
+  def setup_granite_view_context(&block)
+    Granite.with_view_context(view_context, &block)
+  end
+end
+```
+
+## Inline projector
+
+The current `rent` and `delivered_back` methods have a very similar structure.
+
+And the projectors allows to declare the HTTP method like `get` or `post` and mount it in a route as an anonymous controller.
+
+Inside the block, the action is already set with all parameters from the web
+request and ready to be executed.
+
+As the current controller actions are executed with `POST`, let's follow the same line and
+create a simple projector that allows to receive some post data and redirect to the resources list back.
+
+The projector will have a default `success_redirect` and `failure_redirect` after the action execution.
+By default, let's assume that we'll redirect it to the collection and render a
+positive notice or a negative alert to the previous action.
+
+```ruby
+class InlineProjector < Granite::Projector
+
+  post :perform, as: '' do
+    if action.perform!
+      redirect_to projector.success_redirect, notice: t('.notice')
+    else
+      messages = projector.action.errors.full_messages.to_sentence
+      redirect_to projector.failure_redirect, alert:  t('.error', messages)
+    end
+  end
+
+  def collection_subject
+    action.subject.class.name.downcase.pluralize
+  end
+
+  def success_redirect
+    h.public_send("#{collection_subject}_path")
+  end
+
+  def build_action(*args)
+    action_class.as(self.class.proxy_performer || h.current_user).new(*args)
+  end
+end
+```
+
+We also need to say who is the performer of the action.
+The `build_action` method in the projector is implemented to override the
+current performer in action with the `current_role`.
+
+!!! info
+    Note that `h` is an alias for `view_context` and you can access anything
+    from the controller through it.
+
+Now, it's time to say that we're going to use the projector inside the `Rent` action:
+
+File: `apq/actions/ba/book/rent.rb`
+```diff
+class BA::Book::Rent < BaseAction
+  subject :book
+
++  projector :inline
+
+  allow_if { performer.is_a?(User) }
+
+  precondition do
+    decline_with(:unavailable) unless book.available?
+  end
+
+  private
+
+  def execute_perform!(*)
+    subject.available = false
+    subject.save!
+    ::Rental.create!(book: subject, user: performer)
+  end
+end
+```
+
+And also drop the method from the `BooksController`:
+
+File: `app/controllers/books_controller.rb`
+```diff
+@@ -25,28 +25,6 @@ class BooksController < ApplicationController
+     @book = Book.find(params[:id])
+   end
+
+-  # POST /books/1/rent
+-  def rent
+-    @book = Book.find(params[:book_id])
+-    book_action = BA::Book::Rent.as(current_user).new(@book)
+-    if book_action.perform
+-      redirect_to books_url, notice: 'Book was successfully rented.'
+-    else
+-      redirect_to books_url, alert:  book_action.errors.full_messages.to_sentence
+-    end
+-  end
+```
+
+As the last step, we need to change the `config/routes.rb` to use the `granite`
+keyword to mount the `action#projector` into some route.
+
+File: `config/routes.rb`
+```diff
+Rails.application.routes.draw do
+  root 'books#index'
+
+  devise_for :users
+
+  resources :books do
+-   post :rent
++   granite 'BA/book/rent#inline'
+    post :deliver_back
+  end
+end
+```
+
+!!! warning
+    As it's a tutorial, your next task is to do the same for `deliver_back`.
+
+    1. Add `projector :inline` to `BA::Book::DeliverBack` class.
+    2. Remove the controller method
+    3. Refactor the `config/routes.rb` declaring the `granite 'action#projector'`
+
+
+## Projector Helpers
+
+You can define useful methods for helping you rendering your view and improving
+the experience with your actions. Now, let's create a `button` function,
+to replace the action links in the current list.
+
+First, we need to have a method in our projector that can render the button if
+the action is performable.
+
+It will render nothing if the current user does not have access or it's an
+anonymous session.
+
+We'll render the action name stricken if the action is not performable with the
+error messages in the title, because if people mouse over, they can see the
+"tooltip" with why it's not possible to execute the action.
+
+```ruby
+class InlineProjector < Granite::Projector
+
+  # ...
+  # The previous methods remain here
+  # ...
+
+  def button(link_options = {})
+    return unless action.allowed?
+    if action.performable?
+      h.link_to action_label, perform_path, method: :post
+    else
+      h.content_tag(:strike, action_label, title: action.errors.full_messages.to_sentence)
+    end
+  end
+
+  def action_label
+    action.class.name.demodulize.underscore.humanize
+  end
+end
+```
+
+And now, we can replace the links with the new `button` function:
+
+```erb
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= Ba::Book::Rent.as(current_user).new(book).inline.button%></td>
+        <td><%= Ba::Book::DeliverBack.as(current_user).new(book).inline.button%></td>
+        <td>... more links here ...</td>
+      </tr>
+    <% end %>
+  </tbody>
+```
+
+Now it's clear, and the "Deliver Back" link will appear only for the user
+that rented the book.
+
+Look a print screen comparing two users looking for two books. The user from
+the left side has rented "Learn to fly" book.
+
+![List of books with links](img/tutorial_example_books_list.png)
+
+Now, look that does not make sense to have the Rent appearing stricken when
+the person is renting the book. We can change the policies to hide the
+action link.
+
+```diff
+@@ -1,6 +1,7 @@
+ # frozen_string_literal: true
+
+ class Ba::Book::Rent < BaseAction
++  allow_if { !performer.renting?(subject) }
+   allow_if { performer.is_a?(User) }
+
+   projector :inline
+```
+
+And now the stricken `Rent` disappeared for the user that is already renting the book.
+
+![List of books with links](img/tutorial_example_books_list_after_refactoring.png)
+
 
 ## Wishlist::Add
 
 ## Wishlist::Remove
 
 ## Wishlist::NotifyAvailability
-
