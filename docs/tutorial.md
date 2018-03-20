@@ -17,7 +17,7 @@ A simple system to track books. Each book has a title.
 - All available books can be **rented**
 - Logged users can rent a book
 - A book is not **available** when it's rented to someone
-- A book is **available** after it's delivered back
+- A book is **available** after return
 
 ### Books wishlist
 
@@ -26,7 +26,7 @@ The logged user can manage a **wishlist** considering:
 - When a book is **not available** and the user **didn't read** it
 - If the person **already read** the book, also **doesn't make sense add it to the wishlist**
 - When the book becomes available, the system should notify people that are with this book on the wishlist
-- When the book is rented by someone that has the book on the wishlist, it should be removed after delivered back
+- When the book is rented by someone that has the book on the wishlist, it should be removed after return
 
 The application domain is very simple, and we're going to build step by step
 this small logic case to show how granite can be useful and abstract a few
@@ -117,7 +117,7 @@ Let's generate the boilerplate business action class with Rails granite generato
 rails g granite book/create
 ```
 
-The following classes was generated:
+The following classes were generated:
 
 ```ruby
 # apq/actions/ba/book/create.rb
@@ -301,23 +301,16 @@ end
 
 ## Book::Rent
 
-The Rental system description says:
-
-- All available books can be **rented**
-- Logged users can rent a book
-- A book is not **available** when it's rented to someone
-- A book is **available** after it's delivered back
-
-So, what we're going to do is:
+To start renting the book, we need a few steps:
 
 1. Generate migration to create the rental table referencing the book and the user
 2. Add an `available` boolean column in the books table
 3. Create a business action `Book::Rent` and test the conditions above
 
-Let's create `Rent` model first:
+Let's create `Rental` model first:
 
 ```bash
-rails g model rent book:references user:references delivered_back_at:timestamp
+rails g model rental book:references user:references returned_at:timestamp
 ```
 
 and add an `available` column in the books table:
@@ -394,36 +387,36 @@ RSpec.describe BA::Book::Rent do
     specify do
       expect { action.perform! }
         .to change(book, :available).from(true).to(false)
-        .and change(Rent, :count).by(1)
+        .and change(Rental, :count).by(1)
     end
   end
 end
 ```
 
-## Book::DeliverBack
+## Book::Return
 
-First, think about the policies: to deliver back the book, it needs to be rented by the person that is logged in.
+First, think about the policies: to return the book, it needs to be rented by the person that is logged in.
 
 Then we need to have a precondition to verify if the current book is being
 rented by this person:
 
 ```ruby
-class BA::Book::DeliverBack < BA::Book::BusinessAction
+class BA::Book::Return < BA::Book::BusinessAction
   precondition do
-    rental_conditions = { book: subject, user: performer, delivered_back_at: nil }
+    rental_conditions = { book: subject, user: performer, returned_at: nil }
     Rental.where(rental_conditions).exists?
   end
 end
 ```
 
-The logic of the deliver back, we just need to pick the current rental and
-assign the `delivered_back_at` date. Also, make the book available again.
+The logic of the return, we just need to pick the current rental and
+assign the `returned_at` date. Also, make the book available again.
 
 Let's start by testing the preconditions and guarantee that only the user that
-rent the book can deliver it back.
+rent the book can return it.
 
 ```ruby
-RSpec.describe BA::Book::DeliverBack do
+RSpec.describe BA::Book::Return do
   subject(:action) { described_class.as(performer).new(book) }
 
   let(:book) { Book.create! title: 'Learn to fly', available: true }
@@ -446,7 +439,7 @@ And implementing the preconditions:
 
 
 ```ruby
-class BA::Book::DeliverBack < BA::Book::BusinessAction
+class BA::Book::Return < BA::Book::BusinessAction
 
   subject :book
   allow_if { performer.is_a?(User) }
@@ -471,11 +464,11 @@ class User < ApplicationRecord
 end
 ```
 
-Now implementing the spec that covers the logic of delivering back, is expected to
+Now implementing the spec that covers the logic of return, is expected to
 make the book available and mark the rental with the given date.
 
 ```ruby
-RSpec.describe BA::Book::DeliverBack do
+RSpec.describe BA::Book::Return do
   subject(:action) { described_class.as(performer).new(book) }
 
   let(:book) { Book.create! title: 'Learn to fly', available: true }
@@ -489,7 +482,7 @@ RSpec.describe BA::Book::DeliverBack do
     specify do
       expect { action.perform! }
         .to change { book.reload.available }.from(false).to(true)
-        .and change { rental.reload.delivered_back_at }.from(nil)
+        .and change { rental.reload.returned_at }.from(nil)
     end
   end
 end
@@ -517,7 +510,7 @@ en:
 Great! Now it's time to change our views to allow people to interact with the
 actions we created.
 
-First, we need to add controller methods to call the `Rent` and `DeliverBack`
+First, we need to add controller methods to call the `Rent` and `Return`
 business actions and create routes for it.
 
 ```ruby
@@ -536,10 +529,10 @@ class BooksController < ApplicationController
     end
   end
 
-  # POST /books/1/deliver_back
-  def deliver_back
+  # POST /books/1/return_book
+  def return_book
     @book = Book.find(params[:book_id])
-    book_action = BA::Book::DeliverBack.as(current_user).new(@book)
+    book_action = BA::Book::Return.as(current_user).new(@book)
       if book_action.perform
         redirect_to books_url, notice: 'Thanks for delivering it back.'
       else
@@ -550,12 +543,12 @@ class BooksController < ApplicationController
 end
 ```
 
-And add routes for `rent` and `deliver_back` in `config/routes.rb`:
+And add routes for `rent` and `return_book` in `config/routes.rb`:
 
 ```ruby
   resources :books do
     post :rent
-    post :deliver_back
+    post :return_book
   end
 ```
 
@@ -572,7 +565,7 @@ Now, it's time to change the current view to add such actions:
           <td>(Rented)</td>
         <% end %>
         <% if current_user && current_user.renting?(book) %>
-           <td><%= link_to 'Deliver back', deliver_back_book_path(book), method: :post %></td>
+           <td><%= link_to 'Return', return_book_path(book), method: :post %></td>
         <% end %>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
@@ -621,7 +614,7 @@ end
 
 ## Inline projector
 
-The current `rent` and `delivered_back` methods have a very similar structure.
+The current `rent` and `returned_at` methods have a very similar structure.
 
 And the projectors allows to declare the HTTP method like `get` or `post` and mount it in a route as an anonymous controller.
 
@@ -689,7 +682,7 @@ class BA::Book::Rent < BaseAction
   def execute_perform!(*)
     subject.available = false
     subject.save!
-    ::Rental.create!(book: subject, user: performer)
+    Rental.create!(book: subject, user: performer)
   end
 end
 ```
@@ -715,7 +708,7 @@ File: `app/controllers/books_controller.rb`
 ```
 
 As the last step, we need to change the `config/routes.rb` to use the `granite`
-keyword to mount the `action#projector` into some route.
+to mount the `action#projector` into the defined routes.
 
 File: `config/routes.rb`
 ```diff
@@ -727,15 +720,15 @@ Rails.application.routes.draw do
   resources :books do
 -   post :rent
 +   granite 'BA/book/rent#inline'
-    post :deliver_back
+    post 'return', to: 'books#return_book', as 'return'
   end
 end
 ```
 
 !!! warning
-    As it's a tutorial, your next task is to do the same for `deliver_back`.
+    As it's a tutorial, your next task is to do the same for `return_book`.
 
-    1. Add `projector :inline` to `BA::Book::DeliverBack` class.
+    1. Add `projector :inline` to `BA::Book::Return` class.
     2. Remove the controller method
     3. Refactor the `config/routes.rb` declaring the `granite 'action#projector'`
 
@@ -786,20 +779,18 @@ And now, we can replace the links with the new `button` function:
       <tr>
         <td><%= book.title %></td>
         <td><%= Ba::Book::Rent.as(current_user).new(book).inline.button%></td>
-        <td><%= Ba::Book::DeliverBack.as(current_user).new(book).inline.button%></td>
+        <td><%= Ba::Book::Return.as(current_user).new(book).inline.button%></td>
         <td>... more links here ...</td>
       </tr>
     <% end %>
   </tbody>
 ```
 
-Now it's clear, and the "Deliver Back" link will appear only for the user
+Now it's clear, and the "Return" link will appear only for the user
 that rented the book.
 
 Look a print screen comparing two users looking for two books. The user from
 the left side has rented "Learn to fly" book.
-
-![List of books with links](img/tutorial_example_books_list.png)
 
 Now, look that does not make sense to have the Rent appearing stricken when
 the person is renting the book. We can change the policies to hide the
@@ -817,8 +808,6 @@ action link.
 ```
 
 And now the stricken `Rent` disappeared for the user that is already renting the book.
-
-![List of books with links](img/tutorial_example_books_list_after_refactoring.png)
 
 
 ## Wishlist::Add
