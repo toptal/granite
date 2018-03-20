@@ -5,14 +5,30 @@ Granite is Business Actions architecture for Rails apps.
 It's a combination of user interaction (attributes and validations), context (preconditions) and
 permissions (authorization policies).
 
+## What problems it solves?
+
+When your application becomes more prominent, you use patterns to allow you to
+leverage your productivity. Instead of start inflating the controller and
+model, you create a folder "app/managers" or something similar and start
+pushing your business logic there.
+
+These managers deals with a user wanting to perform some action interacting with the system.
+The user needs to send some extra data to accomplish the task.
+Some subject data is going to be managed during the action.
+
+While implementing such actions, you have the choice if you want to introduce
+validations and inflate the manager or keep the validations on the
+controller. That can repeat in case multiple endpoints consume it.
+
 ## Business actions
 
 The central concept of Granite is a business action. Each business action can
-have a simple `execute_perform!` method.
+start from a simple `execute_perform!` method.
 
 ### Hello world
 
-Basically it is an active model-like class (form object) defined to execute a sequence of commands. The simplest business action looks like this:
+Basically it is an active model-like class (form object) defined to execute a sequence of commands.
+The simplest business action looks like this:
 
 ```ruby
 class Action < Granite::Action
@@ -60,7 +76,7 @@ class Action < Granite::Action
   collection :ids, Integer
 
   private def execute_perform!(*)
-    puts 'Hello World'
+    puts "Hello #{name}! We have the following ids: #{ids}'
   end
 end
 ```
@@ -106,7 +122,6 @@ when main action is validated. For this we use:
 precondition embedded: :subaction
 validates :subaction, nested: true
 ```
-
 
 ### Subject
 
