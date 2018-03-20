@@ -23,8 +23,8 @@ A simple system to track books. Each book has a title.
 
 The logged user can manage a **wishlist** considering:
 
-- When a book is **not available** and the user "**didn't read** it
-- If the person **already read** the book, also **doesn't make sense add it to the wishlist
+- When a book is **not available** and the user **didn't read** it
+- If the person **already read** the book, also **doesn't make sense add it to the wishlist**
 - When the book becomes available, the system should notify people that are with this book on the wishlist
 - When the book is rented by someone that has the book on the wishlist, it should be removed after delivered back
 
@@ -189,8 +189,7 @@ class BA::Book::Create < BA::Book::BusinessAction
 end
 ```
 
-We can define some validations to not allow try to save without specify a
-title:
+We can define some validations to not allow saving without specifying a title:
 
 ```ruby
 # apq/actions/ba/book/create.rb
@@ -234,7 +233,7 @@ end
 
 ## Perform
 
-For now, the perform is a simple call to `book.save!` because of granite already
+For now, the perform is a simple call to `book.save!` because Granite already
 assign the attributes.
 
 Then we need to test if it's generating the right record:
@@ -263,13 +262,13 @@ end
 The last step is to replace the current book creation in the controller to call
 the business action instead.
 
-First thing is rescue from Granite::NotAllowed when some action is not allowed
+First thing is rescue from `Granite::NotAllowed` when some action is not allowed
 to be executed.
 
 ```ruby
 class BooksController < ApplicationController
   rescue_from Granite::Action::NotAllowedError do |exception|
-    redirect_to books_path, alert: 'You\'re not allowed to execute this action.'
+    redirect_to books_path, alert: "You're not allowed to execute this action."
   end
   # ...
 end

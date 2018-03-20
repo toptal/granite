@@ -1,6 +1,6 @@
 # Granite Framework
 
-Granite is Business Actions architecture for Rails apps.
+Granite is a business actions architecture for Rails apps.
 
 It's a combination of user interaction (attributes and validations), context (preconditions) and
 permissions (authorization policies).
