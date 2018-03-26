@@ -1,5 +1,6 @@
 site_name: Granite Manual
 repo_url: https://github.com/toptal/granite
+edit_uri: edit/master/docs/
 google_analytics: ['UA-115649289-1', 'auto']
 theme:
   name: material
