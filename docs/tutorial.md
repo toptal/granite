@@ -1,7 +1,7 @@
 # Application example
 
 The business we're going to cover is straightforward.
-It will be a book library, and we need to allow logged users to create new
+It will be a book library, and we need to allow logged in users to create new
 books and rent it.
 
 ## Book library
@@ -9,19 +9,19 @@ books and rent it.
 A simple system to track books. Each book has a title.
 
 - Everybody can view the list of books
-- **Only** logged users can edit the books
-- Logged users can **edit** or **remove** a book
+- **Only** logged in users can edit the books
+- Logged in users can **edit** or **remove** a book
 
 ### The Rental system
 
 - All available books can be **rented**
-- Logged users can rent a book
+- Logged in users can rent a book
 - A book is not **available** when it's rented to someone
 - A book is **available** after return
 
 ### Books wishlist
 
-The logged user can manage a **wishlist** considering:
+The logged in user can manage a **wishlist** considering:
 
 - When a book is **not available** and the user **didn't read** it
 - If the person **already read** the book, also **doesn't make sense add it to the wishlist**
@@ -78,9 +78,16 @@ And then, let's create a simple devise model to interact with:
 rails generate devise user
 ```
 
+And migrate again:
+
+```bash
+rails db:migrate
+```
+
 !!! info
     If you get in any trouble in this section, please check the updated
     documentation on the official [website](https://github.com/plataformatec/devise).
+
 
 ## Setup granite
 
@@ -117,7 +124,7 @@ Let's generate the boilerplate business action class with Rails granite generato
 rails g granite book/create
 ```
 
-The following classes were generated:
+The following class was generated:
 
 ```ruby
 # apq/actions/ba/book/create.rb
@@ -135,7 +142,8 @@ class BA::Book::Create < BA::Book::BusinessAction
 end
 ```
 
-And also a default business action was added to the shared subject:
+Additionally, a "base", shared class is generated, that defines the subject
+type for all the inherited classes in the namespace Book.
 
 ```
 class BA::Book::BusinessAction < BaseAction
@@ -146,7 +154,7 @@ end
 ## Policies
 
 The generated code says `allow_if { false }` and we need to restrict it to
-logged users. Let's replace this line to restrict the action only for logged users:
+logged in users. Let's replace this line to restrict the action only for logged in users:
 
 ```ruby
 # apq/actions/ba/book/create.rb
@@ -459,7 +467,7 @@ class User < ApplicationRecord
   has_many :books, through: :rents
 
   def renting?(book)
-    rentals.current.where(book_id: book.id).exists?
+    rentals.current.where(book: book).exists?
   end
 end
 ```
