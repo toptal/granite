@@ -246,7 +246,7 @@ assign the attributes.
 
 Then we need to test if it's generating the right record:
 
-```ruby
+```diff
 require 'rails_helper'
 
 RSpec.describe BA::Book::Create do
@@ -255,15 +255,30 @@ RSpec.describe BA::Book::Create do
   let(:performer) { User.new }
   let(:attributes) { { 'title' => 'Ruby Pickaxe'} }
 
-  # describe 'policies' ...
-  # describe 'validations' ...
+  describe 'policies' do
+    it { is_expected.to be_allowed }
 
-  describe '#perform!' do
-    specify do
-      expect { action.perform! }.to change { Book.count }.by(1)
-      expect(action.subject.attributes.except('id', 'created_at', 'updated_at')).to eq(attributes)
+    context 'when the user is not authorized' do
+      let(:performer) { double }
+      it { is_expected.not_to be_allowed }
     end
   end
+
+  describe 'validations' do
+    it { is_expected.to be_valid }
+
+    context 'when preconditions fail' do
+      let(:attributes) { { } }
+      it { is_expected.not_to be_valid }
+    end
+  end
+
++   describe '#perform!' do
++     specify do
++       expect { action.perform! }.to change { Book.count }.by(1)
++       expect(action.subject.attributes.except('id', 'created_at', 'updated_at')).to eq(attributes)
++     end
++   end
 end
 ```
 
@@ -365,9 +380,9 @@ And the action will decline the context not to be executed if it does not satisf
 
 Let's implement the `precondition` and `perform` code:
 
-```ruby
+```diff
 class BA::Book::Rent < BA::Book::BusinessAction
-  precondition { book.available? }
++ precondition { book.available? }
 
   private
 
@@ -381,7 +396,7 @@ end
 
 Now, let's cover the perform with another spec:
 
-```ruby
+```diff
 RSpec.describe BA::Book::Rent do
   subject(:action) { described_class.as(performer).new(book) }
 
@@ -389,7 +404,18 @@ RSpec.describe BA::Book::Rent do
 
   let(:book) { Book.new(title: 'First book', available: available) }
 
-  # describe 'preconditions' ...
++ describe 'preconditions' do
++   context 'with an available book' do
++     let(:available) { true }
++     it { is_expected.to be_satisfy_preconditions }
++   end
++
++   context 'with an unavailable book' do
++     let(:available) { false }
++     it { is_expected.to be_invalid }
++     it { is_expected.not_to satisfy_preconditions }
++   end
++ end
 
   describe '#perform!' do
     specify do
@@ -464,7 +490,7 @@ And the `User` now have a few scopes and the `#renting?` method:
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable
   has_many :rentals
-  has_many :books, through: :rents
+  has_many :books, through: :rentals
 
   def renting?(book)
     rentals.current.where(book: book).exists?
@@ -475,24 +501,33 @@ end
 Now implementing the spec that covers the logic of return, is expected to
 make the book available and mark the rental with the given date.
 
-```ruby
+```diff
 RSpec.describe BA::Book::Return do
   subject(:action) { described_class.as(performer).new(book) }
 
   let(:book) { Book.create! title: 'Learn to fly', available: true }
   let(:performer) { User.create! }
 
-  # describe 'preconditions' ...
+  describe 'preconditions' do
+    context 'when the user rented the book' do
+      before { BA::Book::Rent.as(performer).new(book).perform! }
+      it { is_expected.to be_satisfy_preconditions }
+    end
 
-  describe '#perform!' do
-    let!(:rental) { BA::Book::Rent.as(performer).new(book).perform! }
-
-    specify do
-      expect { action.perform! }
-        .to change { book.reload.available }.from(false).to(true)
-        .and change { rental.reload.returned_at }.from(nil)
+    context 'when preconditions fail' do
+      it { is_expected.not_to be_satisfy_preconditions }
     end
   end
+
++   describe '#perform!' do
++     let!(:rental) { Rental.create! book: book, user: performer }
++ 
++     specify do
++       expect { action.perform! }
++         .to change { book.reload.available }.from(false).to(true)
++         .and change { rental.reload.returned_at }.from(nil)
++     end
++   end
 end
 ```
 
@@ -585,7 +620,7 @@ Now, it's time to change the current view to add such actions:
 
 Now is a good opportunity to introduce [projectors](projectors.md).
 
-The actual implementation contains a few boilerplate codes in the controller that make us repeat a
+The actual implementation contains a few boilerplate code in the controller that make us repeat a
 few different logics that are already in the business action.
 
 Projectors can help with that. Avoiding the need for creating repetitive
@@ -768,8 +803,6 @@ class InlineProjector < Granite::Projector
     return unless action.allowed?
     if action.performable?
       h.link_to action_label, perform_path, method: :post
-    else
-      h.content_tag(:strike, action_label, title: action.errors.full_messages.to_sentence)
     end
   end
 
@@ -796,26 +829,6 @@ And now, we can replace the links with the new `button` function:
 
 Now it's clear, and the "Return" link will appear only for the user
 that rented the book.
-
-Look a print screen comparing two users looking for two books. The user from
-the left side has rented "Learn to fly" book.
-
-Now, look that does not make sense to have the Rent appearing stricken when
-the person is renting the book. We can change the policies to hide the
-action link.
-
-```diff
-@@ -1,6 +1,7 @@
- # frozen_string_literal: true
-
- class Ba::Book::Rent < BaseAction
-+  allow_if { !performer.renting?(subject) }
-   allow_if { performer.is_a?(User) }
-
-   projector :inline
-```
-
-And now the stricken `Rent` disappeared for the user that is already renting the book.
 
 
 ## Wishlist::Add
