@@ -1,18 +1,18 @@
 # Granite Framework
 
-Granite is a business actions architecture for Rails apps.
+Granite is a business actions architecture for Rails applications.
 
 It's a combination of user interaction (attributes and validations), context (preconditions) and
 permissions (authorization policies).
 
-## What problems it solves?
+## What problems does Granite solve
 
-When your application becomes more prominent, you use patterns to allow you to
-leverage your productivity. Instead of start inflating the controller and
+When your application becomes more prominent, Granite allows you to leverage
+patterns for improving productivity. Instead of start bloating controller and
 model, you create a folder "app/managers" or something similar and start
 pushing your business logic there.
 
-These managers deals with a user wanting to perform some action interacting with the system.
+These managers deal with a user wanting to perform some action interacting with the system.
 The user needs to send some extra data to accomplish the task.
 Some subject data is going to be managed during the action.
 
