@@ -7,23 +7,17 @@ permissions (authorization policies).
 
 ## What problems does Granite solve
 
-When your application becomes more prominent, Granite allows you to leverage
-patterns for improving productivity. Instead of start bloating controller and
-model, you create a folder "app/managers" or something similar and start
-pushing your business logic there.
+Granite leverages patterns for improving productivity when developing a growing application.
+Instead of bloating controller and model, you put business logic in e.g. app/managers directory.
 
 These managers deal with a user wanting to perform some action interacting with the system.
 The user needs to send some extra data to accomplish the task.
 Some subject data is going to be managed during the action.
 
-While implementing such actions, you have the choice if you want to introduce
-validations and inflate the manager or keep the validations on the
-controller. That can repeat in case multiple endpoints consume it.
-
 ## Business actions
 
 The central concept of Granite is a business action. Each business action can
-start from a simple `execute_perform!` method.
+start with a simple `execute_perform!` method.
 
 ### Hello world
 

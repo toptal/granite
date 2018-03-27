@@ -15,7 +15,7 @@ markdown_extensions:
       guess_lang: false
   - toc:
       permalink: true
-copyright: 'Copyright &copy; 2013 - 2018 Toptal Team'
+copyright: 'Copyright &copy; 2013 - 2018 Toptal'
 pages:
   - Home: index.md
   - Projectors: projectors.md
