@@ -8,11 +8,10 @@ permissions (authorization policies).
 ## What problems does Granite solve
 
 Granite leverages patterns for improving productivity when developing a growing application.
-Instead of bloating controller and model, you put business logic in e.g. app/managers directory.
+Instead of bloating controller and model, you put business logic in e.g. app/actions directory.
 
-These managers deal with a user wanting to perform some action interacting with the system.
-The user needs to send some extra data to accomplish the task.
-Some subject data is going to be managed during the action.
+These atomic actions process data and perform arbitrary operations upon user request or when
+called programmatically, e.g. by a background worker or another action.
 
 ## Business actions
 
