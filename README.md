@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-Please see [our official documentation](https://granite.toptal.net) or check the
+Please see [our official documentation](https://toptal.github.io/granite/) or check the
 [granite application example](https://github.com/toptal/example_granite_application).
 
 ### Versioning
