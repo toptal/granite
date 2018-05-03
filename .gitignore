@@ -2,7 +2,6 @@
 .DS_Store
 
 /coverage/
-/spec/support/database.yml
 /log/*.log
 /*.gem
 /Gemfile.lock

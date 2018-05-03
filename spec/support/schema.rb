@@ -1,5 +1,3 @@
-require 'bundler/setup'
-
 ActiveRecord::Schema.define(version: 2017_11_16_12_20_01) do # rubocop:disable Style/NumericLiterals
   create_table :roles, force: :cascade do |t|
     t.string :status

@@ -37,19 +37,9 @@ This project is intended to be a safe, welcoming space for collaboration, and co
 
 ### Running specs
 
-To run specs you can run
+Run specs with:
 
 ```
-bin/setup
-rspec
-```
-
-Or, alternatively you can copy and adapt the `spec/support/database.yml` for your environment:
-
-```
-cp spec/support/database.yml.example spec/support/database.yml
-[Necessary customization here]
-psql -c 'create database granite;' -U granite
 rspec
 ```
 

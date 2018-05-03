@@ -44,6 +44,10 @@ RSpec.configure do |config|
     Time.use_zone(example.metadata[:time_zone]) { example.run }
   end
 
+  # config.mock_with :rspec do |mocks|
+  #   mocks.verify_partial_doubles = true
+  # end
+
   config.include RSpec::Matchers::FailMatchers, file_path: %r{spec/lib/granite/rspec/}
 end
 
