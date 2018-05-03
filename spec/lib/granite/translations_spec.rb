@@ -1,4 +1,4 @@
-RSpec.describe Granite::Action::Translations do
+RSpec.describe Granite::Translations do
   before do
     stub_class(:test_action, Granite::Action) do
       attribute :id, Integer

@@ -151,8 +151,8 @@ RSpec.describe Granite::Action::Performing do
             block.call
           end
         end
-        stub_const('ActiveRecord::Base', nil)
-        stub_const('ActiveRecord', nil)
+        hide_const('ActiveRecord::Base')
+        hide_const('ActiveRecord')
       end
 
       context 'without exceptions' do
@@ -171,7 +171,7 @@ RSpec.describe Granite::Action::Performing do
       end
 
       context 'with exception' do
-        specify { expect { action.perform(block: -> { ActiveRecord::Base }) }.to raise_error(NameError, 'uninitialized constant Base') }
+        specify { expect { action.perform(block: -> { ActiveRecord::Base }) }.to raise_error(NameError, 'uninitialized constant ActiveRecord') }
       end
     end
 
