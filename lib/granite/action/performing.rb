@@ -89,7 +89,8 @@ module Granite
       def try_perform!(context: nil, **options)
         return unless satisfy_preconditions?
         transactional do
-          perform!(context: context, **options)
+          validate!(context)
+          perform_action!(**options)
         end
       end
 
