@@ -1,4 +1,4 @@
-RSpec.describe Granite::Action::Represents::Attribute do
+RSpec.describe Granite::Represents::Attribute do
   subject { action.attribute(:sign_in_count) }
 
   let(:action) { Action.new attributes }
@@ -37,6 +37,25 @@ RSpec.describe Granite::Action::Represents::Attribute do
     specify do
       subject.write(2)
       expect { subject.sync }.to change { action.user.sign_in_count }.from(1).to(2)
+    end
+
+    context 'when represents attribute of nil' do
+      before do
+        stub_class(:action, Granite::Action) do
+          allow_if { true }
+
+          represents :sign_in_count, of: :user
+          represents :related_ids, of: :user
+
+          def user
+          end
+        end
+      end
+
+      specify do
+        subject.write(2)
+        expect { subject.sync }.not_to raise_error
+      end
     end
   end
 

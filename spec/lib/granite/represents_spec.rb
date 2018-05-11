@@ -1,10 +1,10 @@
 # spec: unit
 
 require 'active_support/concern'
+require 'granite/represents'
 require 'granite/action'
-require 'granite/action/represents'
 
-RSpec.describe Granite::Action::Represents do
+RSpec.describe Granite::Represents do
   subject(:action) { Action.new(attributes) }
   let(:attributes) { {} }
 
@@ -31,7 +31,7 @@ RSpec.describe Granite::Action::Represents do
   end
 
   it 'contains custom represented attribute' do
-    expect(Action.reflect_on_attribute(:field)).to be_a(Granite::Action::Represents::Reflection)
+    expect(Action.reflect_on_attribute(:field)).to be_a(Granite::Represents::Reflection)
   end
 
   it 'fetches value from represented model' do
@@ -40,7 +40,7 @@ RSpec.describe Granite::Action::Represents do
 
   it 'does not sync value before validation if value was not changed' do
     subject
-    expect_any_instance_of(Granite::Action::Represents::Attribute).not_to receive(:sync)
+    expect_any_instance_of(Granite::Represents::Attribute).not_to receive(:sync)
     subject.valid?
   end
 
@@ -49,7 +49,7 @@ RSpec.describe Granite::Action::Represents do
 
     it 'syncs before validation if value was changed' do
       subject
-      expect_any_instance_of(Granite::Action::Represents::Attribute).to receive(:sync)
+      expect_any_instance_of(Granite::Represents::Attribute).to receive(:sync)
       subject.field = 3
       subject.valid?
     end

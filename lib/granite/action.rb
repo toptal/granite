@@ -4,14 +4,12 @@ require 'active_record/validations'
 require 'active_support/callbacks'
 
 require 'granite/action/types'
-require 'granite/action/represents'
 require 'granite/action/error'
 require 'granite/action/performing'
 require 'granite/action/performer'
 require 'granite/action/preconditions'
 require 'granite/action/policies'
 require 'granite/action/projectors'
-require 'granite/action/translations'
 require 'granite/action/subject'
 
 module Granite
@@ -41,20 +39,13 @@ module Granite
       end
     end
 
-    include ActiveSupport::Callbacks
-    include ActiveData::Model
-    include ActiveData::Model::Representation
-    include ActiveData::Model::Associations
-    include ActiveData::Model::Dirty
-    include ActiveModel::Validations::Callbacks
+    include Base
     include Performing
     include Subject
     include Performer
     include Preconditions
     include Policies
     include Projectors
-    include Translations
-    include Represents
     prepend AssignAttributes
 
     handle_exception ActiveRecord::RecordInvalid do |e|

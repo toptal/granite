@@ -24,6 +24,7 @@ RSpec.describe Granite::Action do
         private
 
         def execute_perform!(*)
+          errors.messages[:email] = ['custom error']
           DummyUser.new(attributes).validate!
         end
       end
@@ -42,7 +43,7 @@ RSpec.describe Granite::Action do
 
       specify do
         expect { action.perform }.to change { action.errors.messages }
-          .to(email: ['is invalid'], full_name: ["can't be blank"])
+          .to(email: ['custom error', 'is invalid'], full_name: ["can't be blank"])
       end
     end
 
@@ -56,11 +57,27 @@ RSpec.describe Granite::Action do
           validates :email, format: /\A\w+@gmail.com\Z/
           validates :full_name, presence: true
         end
+
+        stub_class(:action, Granite::Action) do
+          allow_if { true }
+
+          attribute :email, String
+          attribute :full_name, String
+
+          validates :email, presence: true
+
+          private
+
+          def execute_perform!(*)
+            errors.messages[:email] = ['custom error']
+            DummyUser.new(attributes).validate!
+          end
+        end
       end
 
       specify do
         expect { action.perform }.to change { action.errors.messages }
-          .to(email: ['is invalid'], full_name: ["can't be blank"])
+          .to(email: ['custom error', 'is invalid'], full_name: ["can't be blank"])
       end
     end
 
@@ -77,6 +94,7 @@ RSpec.describe Granite::Action do
           private
 
           def execute_perform!(*)
+            errors.messages[:email] = ['custom error']
             NestedAction.new(attributes).perform!
           end
         end
@@ -93,7 +111,7 @@ RSpec.describe Granite::Action do
 
       specify do
         expect { action.perform }.to change { action.errors.messages }
-          .to(email: ['is invalid'], full_name: ["can't be blank"])
+          .to(email: ['custom error', 'is invalid'], full_name: ["can't be blank"])
       end
     end
   end
