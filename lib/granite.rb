@@ -1,6 +1,7 @@
 require 'active_support/dependencies'
 require 'action_controller'
 
+require 'granite/version'
 require 'granite/config'
 require 'granite/context'
 

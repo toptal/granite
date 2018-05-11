@@ -1,6 +1,12 @@
+# frozen_string_literal: true
+
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'granite/version'
+
 Gem::Specification.new do |s|
   s.name        = 'granite'
-  s.version     = '0.7.0'
+  s.version     = Granite::VERSION
   s.homepage    = 'https://github.com/toptal/granite'
   s.authors     = ['Arkadiy Zabazhanov & friends']
   s.summary     = 'Another business actions architecture for Rails apps'
