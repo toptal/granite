@@ -20,6 +20,7 @@ RSpec.describe 'raise_validation_error', aggregate_failures: false do
 
     specify do
       expect { action.perform! }.not_to raise_validation_error
+      expect { action.perform! }.not_to raise_validation_error.with_message('some message')
     end
   end
 
@@ -41,13 +42,19 @@ RSpec.describe 'raise_validation_error', aggregate_failures: false do
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.on_attribute(:raise_error)
-      end.to fail_with('expected to raise validation error on attribute :raise_error, but raised {:base=>[{:error=>:some_error}], :raise_error=>[]}')
+      end.to fail_with('expected to raise validation error on attribute :raise_error, but raised {:base=>[{:error=>:some_error}]}')
     end
 
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.on_attribute(:raise_error).of_type(:some_error)
-      end.to fail_with('expected to raise validation error on attribute :raise_error of type :some_error, but raised {:base=>[{:error=>:some_error}], :raise_error=>[]}')
+      end.to fail_with('expected to raise validation error on attribute :raise_error of type :some_error, but raised {:base=>[{:error=>:some_error}]}')
+    end
+
+    specify do
+      expect do
+        expect { action.perform! }.to raise_validation_error.with_message("Some message that does not match")
+      end.to fail_with('expected to raise validation error on attribute :base with message "Some message that does not match", but raised {:base=>[{:error=>:some_error}]}')
     end
   end
 end
