@@ -22,20 +22,28 @@ RSpec::Matchers.define :raise_validation_error do
     @error_type = error_type
   end
 
+  chain :with_message do |message|
+    @message = message
+  end
+
   match do |block|
     begin
       block.call
       false
     rescue Granite::Action::ValidationError => e
       @details = e.errors.details
-      @details_being_checked = @details[@attribute || :base]
-      @result = @details_being_checked&.any? { |x| x[:error] == @error_type }
+
+      @result =
+        error_on_attribute?(e) &&
+        error_type_matches?(e) &&
+        message_matches?(e)
     end
   end
 
   description do
     expected = "raise validation error on attribute :#{@attribute || :base}"
     expected << " of type #{@error_type.inspect}" if @error_type
+    expected << " with message #{@message.inspect}" if @message
     expected << ", but raised #{@details.inspect}" unless @result
     expected
   end
@@ -49,4 +57,22 @@ RSpec::Matchers.define :raise_validation_error do
   end
 
   supports_block_expectations
+
+  private
+
+  def error_on_attribute?(e)
+    e.errors.include?(@attribute || :base)
+  end
+
+  def error_type_matches?(e)
+    return true unless @error_type
+    details_being_checked = e.errors.details[@attribute || :base]
+    details_being_checked&.any? { |x| x[:error] == @error_type }
+  end
+
+  def message_matches?(e)
+    return true unless @message
+    messages_being_checked = e.errors.messages[@attribute || :base]
+    messages_being_checked&.include?(@message)
+  end
 end
