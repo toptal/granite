@@ -55,7 +55,12 @@ end
 
 <h3 id="testing-validations">Validations</h3>
 
-Validations tests are no different to ActiveRecord models tests
+Validations tests are no different to ActiveRecord models tests.
+However, for convenience we provide `raise_validation_error`:
+
+```ruby
+specify { expect { perform! }.to raise_validation_error.on_attribute(:company).of_type(:not_approved).with_message("Company needs approval") }
+```
 
 <h3 id="testing-perform">Perform</h3>
 
@@ -64,4 +69,3 @@ Run the action using `perform!` to test side-effects:
 ```ruby
 specify { expect { perform! }.to change(User, :count).by(1) }
 ```
-
