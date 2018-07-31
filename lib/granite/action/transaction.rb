@@ -1,39 +1,37 @@
+require 'granite/action/transaction_manager'
+
 module Granite
   class Action
-    class Rollback < defined?(ActiveRecord) ? ActiveRecord::Rollback : StandardError
-    end
-
     module Transaction
       extend ActiveSupport::Concern
 
+      included do
+        define_callbacks :commit
+      end
+
+      module ClassMethods
+        delegate :transaction, to: :'Granite::Action::TransactionManager'
+
+        private
+
+        # Defines a callback which will be triggered right after transaction committed
+        # Uses the same arguments as `ActiveSupport::Callbacks.set_callback` except for the first two
+        #
+        def after_commit(*args, &block)
+          set_callback :commit, :after, *args, &block
+        end
+      end
+
+      def run_callbacks_with_rescue(event)
+        run_callbacks event
+      rescue *_exception_handlers.keys => e
+        handle_exception(e)
+      end
+
       private
 
-      def transactional(&block)
-        if transactional?
-          yield
-        else
-          @_transactional = true
-          result = transaction(&block) || false
-          @_transactional = nil
-          result
-        end
-      end
-
-      def transactional?
-        # Fuck the police!
-        !(!@_transactional)
-      end
-
       def transaction(&block)
-        if defined?(ActiveRecord::Base)
-          ActiveRecord::Base.transaction(&block)
-        else
-          begin
-            yield
-          rescue Granite::Action::Rollback
-            false
-          end
-        end
+        self.class.transaction(trigger_callbacks_for: self, &block)
       end
     end
   end

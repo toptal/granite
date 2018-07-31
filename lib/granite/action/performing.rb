@@ -54,7 +54,7 @@ module Granite
       #   using `:on`)
       # @return [Object] result of execute_perform! method execution or false in case of errors
       def perform(context: nil, **options)
-        transactional do
+        transaction do
           valid?(context) && perform_action(options)
         end
       end
@@ -72,7 +72,7 @@ module Granite
       # @raise [Granite::Action::ValidationError] Action or associated objects are invalid
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def perform!(context: nil, **options)
-        transactional do
+        transaction do
           validate!(context)
           perform_action!(**options)
         end
@@ -88,7 +88,7 @@ module Granite
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def try_perform!(context: nil, **options)
         return unless satisfy_preconditions?
-        transactional do
+        transaction do
           validate!(context)
           perform_action!(**options)
         end
