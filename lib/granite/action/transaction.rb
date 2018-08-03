@@ -26,7 +26,7 @@ module Granite
         if event.to_s == 'commit'
           begin
             super event
-          rescue *_exception_handlers.keys => e
+          rescue *handled_exceptions => e
             handle_exception(e)
           end
         else
