@@ -22,10 +22,16 @@ module Granite
         end
       end
 
-      def run_callbacks_with_rescue(event)
-        run_callbacks event
-      rescue *_exception_handlers.keys => e
-        handle_exception(e)
+      def run_callbacks(event)
+        if event.to_s == 'commit'
+          begin
+            super event
+          rescue *_exception_handlers.keys => e
+            handle_exception(e)
+          end
+        else
+          super event
+        end
       end
 
       private

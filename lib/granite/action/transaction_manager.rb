@@ -67,11 +67,7 @@ module Granite
 
           callback_listeners.reverse.each do |listener|
             begin
-              if listener.respond_to? :run_callbacks_with_rescue
-                listener.run_callbacks_with_rescue :commit
-              else
-                listener.run_callbacks :commit
-              end
+              listener.run_callbacks :commit
             rescue StandardError => e
               collected_errors << e
             end
