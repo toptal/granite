@@ -36,8 +36,11 @@ module Granite
 
       private
 
-      def transaction(&block)
-        self.class.transaction(trigger_callbacks_for: self, &block)
+      def transaction
+        TransactionManager.transaction do
+          TransactionManager.after_commit(self)
+          yield
+        end
       end
     end
   end

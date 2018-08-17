@@ -46,4 +46,26 @@ RSpec.describe Granite::Action::Transaction do
       end
     end
   end
+
+  describe 'transaction' do
+    subject { action.perform! }
+
+    let(:action) { Action.new }
+
+    before do
+      stub_class(:action, Granite::Action) do
+        allow_if { true }
+
+        def execute_perform!(*)
+          true
+        end
+      end
+    end
+
+    it 'opens a transaction and registers self as a callback' do
+      expect(Granite::Action::TransactionManager).to receive(:transaction).ordered.and_call_original
+      expect(Granite::Action::TransactionManager).to receive(:after_commit).ordered.with(action)
+      subject
+    end
+  end
 end
