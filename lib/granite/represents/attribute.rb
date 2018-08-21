@@ -43,7 +43,7 @@ module Granite
         return unless reference.respond_to?(reader)
 
         variable_cache(:value) do
-          normalize(enumerize(reference.public_send(reader)))
+          normalize(enumerize(typecast(defaultize(reference.public_send(reader)))))
         end
       end
 
@@ -59,6 +59,8 @@ module Granite
         return nil unless reference.is_a?(ActiveData::Model)
 
         reference_attribute = reference.attribute(name)
+
+        return nil if reference_attribute.nil?
 
         return Granite::Action::Types::Collection.new(reference_attribute.type) if [
           ActiveData::Model::Attributes::ReferenceMany,

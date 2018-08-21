@@ -23,6 +23,7 @@ require 'granite/dispatcher'
 require 'granite/action'
 require 'granite/projector'
 require 'granite/routing'
+require 'granite/typecasters'
 require 'granite/rails' if defined?(::Rails)
 
 ActiveData.base_concern = Granite::Base
