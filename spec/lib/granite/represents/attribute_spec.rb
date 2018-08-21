@@ -9,12 +9,14 @@ RSpec.describe Granite::Represents::Attribute do
       include ActiveData::Model
 
       attribute :sign_in_count, Integer, default: '1'
+      attribute :created_at, Time
     end
 
     stub_class(:action, Granite::Action) do
       allow_if { true }
 
       represents :sign_in_count, of: :user
+      represents :created_at, default: -> { '2000-10-10' }, of: :user
       represents :related_ids, of: :user
 
       def user
@@ -30,6 +32,18 @@ RSpec.describe Granite::Represents::Attribute do
 
     it 'sets default value_before_type_cast' do
       expect(subject.read_before_type_cast).to eq('1')
+    end
+
+    context 'when represented attribute has default value' do
+      subject { action.attribute(:created_at) }
+
+      it 'sets default value' do
+        expect(subject.read).to eq Time.zone.parse('2000-10-10')
+      end
+
+      it 'sets default value_before_type_cast' do
+        expect(subject.read_before_type_cast).to eq('2000-10-10')
+      end
     end
   end
 
