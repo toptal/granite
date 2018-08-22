@@ -1,3 +1,5 @@
+require 'granite/action/transaction_manager/transactions_stack'
+
 module Granite
   class Action
     class Rollback < defined?(ActiveRecord) ? ActiveRecord::Rollback : StandardError
@@ -9,11 +11,9 @@ module Granite
         # It will open a new transaction or append a block to the current one if it exists
         # @return [Object] result of a block
         def transaction(&block)
-          if in_a_transaction?
-            yield
-          else
-            wrap_in_transaction_with_callbacks(&block)
-          end
+          run_in_transaction(&block) || false
+        ensure
+          finish_root_transaction if transactions_stack.depth.zero?
         end
 
         # Adds a block or listener object to be executed after finishing the current transaction.
@@ -21,54 +21,47 @@ module Granite
         # @param [Object] listener an object which will receive `run_callbacks(:commit)` after transaction commited
         # @param [Proc] block a block whicgh will be called after transaction commited
         def after_commit(listener = nil, &block)
-          fail 'Block or object is required to register after_commit hook!' unless listener || block
-          callback_listeners << (listener || block)
+          callback = listener || block
+
+          fail 'Block or object is required to register after_commit hook!' unless callback
+
+          transactions_stack.add_callback callback
         end
 
         private
 
-        IN_A_TRANSACTION_KEY = :granite_transaction_manager_in_a_transaction
-        CALLBACK_LISTENERS_KEY = :granite_transaction_manager_callback_listeners
+        TRANSACTIONS_STACK_KEY = :granite_transaction_manager_transactions_stack
 
-        def callback_listeners
-          Thread.current[CALLBACK_LISTENERS_KEY] ||= []
+        def transactions_stack
+          Thread.current[TRANSACTIONS_STACK_KEY] ||= TransactionsStack.new
         end
 
-        def in_a_transaction?
-          !!(Thread.current[IN_A_TRANSACTION_KEY])
+        def transactions_stack=(value)
+          Thread.current[TRANSACTIONS_STACK_KEY] = value
         end
 
-        def in_a_transaction=(value)
-          Thread.current[IN_A_TRANSACTION_KEY] = value
-        end
-
-        def wrap_in_transaction_with_callbacks(&block)
-          self.in_a_transaction = true
-
-          result = wrap_in_transaction(&block) || false
-
-          trigger_callbacks if result
-
-          result
-        ensure
-          callback_listeners.clear
-          self.in_a_transaction = nil
-        end
-
-        def wrap_in_transaction(&block)
+        def run_in_transaction(&block)
           if defined?(ActiveRecord::Base)
-            ActiveRecord::Base.transaction(&block)
+            ActiveRecord::Base.transaction(requires_new: true) do
+              transactions_stack.transaction(&block)
+            end
           else
-            yield
+            transactions_stack.transaction(&block)
           end
         end
 
-        def trigger_callbacks
+        def finish_root_transaction
+          trigger_after_commit_callbacks
+        ensure
+          self.transactions_stack = nil
+        end
+
+        def trigger_after_commit_callbacks
           collected_errors = []
 
-          callback_listeners.reverse.each do |listener|
+          transactions_stack.callbacks.reverse_each do |callback|
             begin
-              listener.respond_to?(:run_callbacks) ? listener.run_callbacks(:commit) : listener.call
+              callback.respond_to?(:run_callbacks) ? callback.run_callbacks(:commit) : callback.call
             rescue StandardError => e
               collected_errors << e
             end

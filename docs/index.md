@@ -38,7 +38,7 @@ There are a few ways of executing newly defined business action: using `#perform
 
 ### Transactions
 
-Every action execution is wrapped in a DB transaction based on `ActiveRecord::Base.transaction`.
+Every action execution is wrapped in a DB transaction based on `ActiveRecord::Base.transaction(requires_new: true)`.
 
 ```irb
 [1] pry(main)> Action.new.perform! # the same for `perform` and `try_perform!`
