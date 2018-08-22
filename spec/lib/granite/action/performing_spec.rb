@@ -134,6 +134,47 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { Action.new.perform }.to raise_error NotImplementedError }
     end
 
+    context 'when transaction without ActiveRecord' do
+      let(:action) { Action.new(login: 'Login') }
+
+      before do
+        stub_class(:action, Granite::Action) do
+          allow_if { true }
+
+          attribute :login, String
+
+          validates :login, format: /\A\w+\z/
+
+          private
+
+          def execute_perform!(block:)
+            block.call
+          end
+        end
+        hide_const('ActiveRecord::Base')
+        hide_const('ActiveRecord')
+      end
+
+      context 'without exceptions' do
+        specify { expect(action.perform(block: -> { 121 })).to eq(121) }
+      end
+
+      context 'with Granite::Action::Rollback' do
+        let(:klass) do
+          stub_class(:data) do
+            include ActiveData::Model
+            attribute :name, String
+            validates :name, presence: true
+          end
+        end
+        specify { expect(action.perform(block: -> { klass.new.validate! })).to equal(false) }
+      end
+
+      context 'with exception' do
+        specify { expect { action.perform(block: -> { ActiveRecord::Base }) }.to raise_error(NameError, 'uninitialized constant ActiveRecord') }
+      end
+    end
+
     context 'when execute_perform! returns false' do
       before do
         stub_class(:action, Granite::Action) do
