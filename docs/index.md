@@ -31,23 +31,90 @@ class Action < Granite::Action
 end
 ```
 
-There are two ways of executing newly defined business action: using `#perform` or `#perform!` method:
+There are a few ways of executing newly defined business action: using `#perform`, `#perform!` or `try_perform!` methods:
+- `perform!` - raises exception in case of errors
+- `perform` - returns `false` in case of errors
+- `try_perform!` - similar to `perform!`, but doesn't run action if preconditions are not satisfied
+
+### Transactions
+
+Every action execution is wrapped in a DB transaction based on `ActiveRecord::Base.transaction`.
+
+```irb
+[1] pry(main)> Action.new.perform! # the same for `perform` and `try_perform!`
+   (0.3ms)  BEGIN
+Hello World
+   (0.1ms)  COMMIT
+=> true
+```
+
+You can use `Granite::Action.transaction` explicitly and wrap any logic in transaction:
+
+```ruby
+Granite::Action.transaction do
+  some_other_logic
+  Action.new.perform!
+  AnotherAction.new.perform!
+end
+```
+
+### Callbacks
+
+#### `after_commit`
+
+is triggered after DB transaction committed.
+
+```ruby
+class Action < Granite::Action
+  ...
+
+  after_commit do
+    # any logic that rely on action results to be in the database
+    # like schedule jobs
+    puts 'after_commit triggered'
+  end
+
+  # OR
+  # after_commit :method_to_trigger
+end
+```
 
 ```irb
 [1] pry(main)> Action.new.perform!
    (0.3ms)  BEGIN
 Hello World
    (0.1ms)  COMMIT
-=> true
-[2] pry(main)> Action.new.perform
-   (0.2ms)  BEGIN
-Hello World
-   (0.2ms)  COMMIT
+after_commit triggered
 => true
 ```
 
-As you can see from log, every action execution is wrapped inside a DB transaction.
-The main difference between these methods is: `#perform!` raises exception in case of errors and `#perform` simply returns `false`
+### before and after `execute_perform`
+
+```ruby
+class Action < Granite::Action
+  ...
+
+  set_callback(:execute_perform, :before) do
+    puts 'before execute_perform'
+  end
+
+  set_callback(:execute_perform, :after, :after_execute_perform)
+
+  def after_execute_perform
+    puts 'after execute_perform'
+  end
+end
+```
+
+```irb
+[1] pry(main)> Action.new.perform!
+   (0.3ms)  BEGIN
+before execute_perform
+Hello World
+after execute_perform
+   (0.1ms)  COMMIT
+=> true
+```
 
 ### Performer
 

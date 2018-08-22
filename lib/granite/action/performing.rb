@@ -1,3 +1,4 @@
+require 'granite/action/exceptions_handling'
 require 'granite/action/transaction'
 require 'granite/action/error'
 
@@ -17,28 +18,14 @@ module Granite
     module Performing
       extend ActiveSupport::Concern
 
+      include ExceptionsHandling
       include Transaction
 
       included do
-        class_attribute :_exception_handlers, instance_writer: false
-        self._exception_handlers = {}
-
-        protected :_exception_handlers
-
         define_callbacks :execute_perform
       end
 
       module ClassMethods
-        # Register default handler for exceptions thrown inside execute_perform! method.
-        # @param klass Exception class, could be parent class too [Class]
-        # @param block [Block<Exception>] with default behavior for handling specified
-        #   type exceptions. First block argument is raised exception instance.
-        #
-        # @return [Hash<Class, Proc>] Registered handlers
-        def handle_exception(klass, &block)
-          self._exception_handlers = _exception_handlers.merge(klass => block)
-        end
-
         def perform(*)
           fail 'Perform block declaration was removed! Please declare `private def execute_perform!(*)` method'
         end
@@ -54,7 +41,7 @@ module Granite
       #   using `:on`)
       # @return [Object] result of execute_perform! method execution or false in case of errors
       def perform(context: nil, **options)
-        transactional do
+        transaction do
           valid?(context) && perform_action(options)
         end
       end
@@ -72,7 +59,7 @@ module Granite
       # @raise [Granite::Action::ValidationError] Action or associated objects are invalid
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def perform!(context: nil, **options)
-        transactional do
+        transaction do
           validate!(context)
           perform_action!(**options)
         end
@@ -88,7 +75,7 @@ module Granite
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def try_perform!(context: nil, **options)
         return unless satisfy_preconditions?
-        transactional do
+        transaction do
           validate!(context)
           perform_action!(**options)
         end
@@ -108,7 +95,7 @@ module Granite
         result = run_callbacks(:execute_perform) { execute_perform!(options) }
         @_action_performed = true
         result || true
-      rescue *_exception_handlers.keys => e
+      rescue *handled_exceptions => e
         handle_exception(e)
         raise_validation_error(e) if raise_errors
         raise Rollback
@@ -120,13 +107,6 @@ module Granite
 
       def execute_perform!(**_options)
         fail NotImplementedError, "BA perform body MUST be defined for #{self}"
-      end
-
-      def handle_exception(e)
-        klass = e.class.ancestors.detect do |ancestor|
-          ancestor <= Exception && _exception_handlers[ancestor]
-        end
-        instance_exec(e, &_exception_handlers[klass]) if klass
       end
     end
   end
