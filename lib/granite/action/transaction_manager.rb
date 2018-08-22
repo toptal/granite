@@ -7,17 +7,22 @@ module Granite
       class << self
         # Runs a block in a transaction
         # It will open a new transaction or append a block to the current one if it exists
-        #
-        # @param [Object] trigger_callbacks_for - object which will receive `run_callbacks(:commit)` after transaction commited
         # @return [Object] result of a block
-        def transaction(trigger_callbacks_for: nil, &block)
-          (callback_listeners << trigger_callbacks_for) if trigger_callbacks_for
-
+        def transaction(&block)
           if in_a_transaction?
             yield
           else
             wrap_in_transaction_with_callbacks(&block)
           end
+        end
+
+        # Adds a block or listener object to be executed after finishing the current transaction.
+        # Callbacks are reset after each transaction.
+        # @param [Object] listener an object which will receive `run_callbacks(:commit)` after transaction commited
+        # @param [Proc] block a block whicgh will be called after transaction commited
+        def after_commit(listener = nil, &block)
+          fail 'Block or object is required to register after_commit hook!' unless listener || block
+          callback_listeners << (listener || block)
         end
 
         private
@@ -67,7 +72,7 @@ module Granite
 
           callback_listeners.reverse.each do |listener|
             begin
-              listener.run_callbacks :commit
+              listener.respond_to?(:run_callbacks) ? listener.run_callbacks(:commit) : listener.call
             rescue StandardError => e
               collected_errors << e
             end
