@@ -59,11 +59,7 @@ module Granite
           if defined?(ActiveRecord::Base)
             ActiveRecord::Base.transaction(&block)
           else
-            begin
-              yield
-            rescue Granite::Action::Rollback
-              false
-            end
+            yield
           end
         end
 

@@ -36,20 +36,6 @@ RSpec.describe Granite::Action::TransactionManager do
         end
 
 
-        context 'with Granite::Action::Rollback' do
-          subject do
-            described_class.transaction do
-              fail Granite::Action::Rollback
-            end
-          end
-
-          it 'returns false and does not trigger callbacks' do
-            expect(object_listener).not_to receive(:run_callbacks)
-            expect(block_listener).not_to receive(:do_stuff)
-            expect(subject).to eq false
-          end
-        end
-
         context 'with StandardError' do
           subject do
             described_class.transaction do
@@ -110,15 +96,29 @@ RSpec.describe Granite::Action::TransactionManager do
     end
 
     context 'with ActiveRecord' do
+      include_examples 'handles transaction'
+
+      context 'when transaction fails with Granite::Action::Rollback' do
+        subject do
+          described_class.transaction do
+            fail Granite::Action::Rollback
+          end
+        end
+
+        it 'returns false and does not trigger callbacks' do
+          expect(object_listener).not_to receive(:run_callbacks)
+          expect(block_listener).not_to receive(:do_stuff)
+          expect(subject).to eq false
+        end
+      end
+    end
+
+    context 'without ActiveRecord' do
       before do
         hide_const('ActiveRecord::Base')
         hide_const('ActiveRecord')
       end
 
-      include_examples 'handles transaction'
-    end
-
-    context 'without ActiveRecord' do
       include_examples 'handles transaction'
     end
   end
