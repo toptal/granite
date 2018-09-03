@@ -17,19 +17,14 @@ RSpec.describe Granite::Action::Transaction do
         end
       end
 
-      context 'which is unhandled' do
-        before do
-          class Action
-          end
-        end
-
+      context 'with unhandled error' do
         it 'fails' do
           expect(action).to receive(:execute_perform!)
           expect { subject }.to raise_error(DummyError, 'Dummy exception')
         end
       end
 
-      context 'which is handled by `handle_exception`' do
+      context 'with an error which is handled by `handle_exception`' do
         before do
           class Action
             handle_exception(DummyError) do |e|

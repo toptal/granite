@@ -33,7 +33,7 @@ RSpec.describe Granite::Action::Preconditions do
     end
 
     describe '#errors' do
-      context do
+      context 'with Delphi' do
         let(:action) { Action.new(title: 'Delphi') }
         specify do
           expect { action.valid? }.to change { action.errors.messages }
@@ -41,7 +41,7 @@ RSpec.describe Granite::Action::Preconditions do
         end
       end
 
-      context do
+      context 'with Rubyist' do
         let(:action) { Action.new(title: 'Rubyist') }
         specify do
           expect { action.valid? }.to change { action.errors.messages }
@@ -49,7 +49,7 @@ RSpec.describe Granite::Action::Preconditions do
         end
       end
 
-      context do
+      context 'with Ruby' do
         let(:action) { Action.new(title: 'Ruby') }
         specify do
           expect { action.valid? }.not_to change { action.errors.messages }

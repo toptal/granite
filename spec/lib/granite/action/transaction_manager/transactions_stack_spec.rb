@@ -23,7 +23,7 @@ RSpec.describe Granite::Action::TransactionManager::TransactionsStack do
       expect(subject.callbacks).to eq([callback1])
     end
 
-    context 'and failed with error' do
+    context 'when failed with error' do
       let(:block1) { fail 'I failed' }
 
       it 're-raise error and doesnt store callbacks' do
@@ -51,7 +51,7 @@ RSpec.describe Granite::Action::TransactionManager::TransactionsStack do
         expect(subject.callbacks).to eq([callback1, callback2])
       end
 
-      context 'which failed' do
+      context 'when failed' do
         let(:block2) { fail 'I failed' }
 
         it 're-raise error and doesnt store callbacks' do

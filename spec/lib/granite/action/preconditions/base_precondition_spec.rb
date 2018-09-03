@@ -4,7 +4,7 @@ RSpec.describe Granite::Action::Preconditions::BasePrecondition do
   let(:passed_student_action) { Action.new(subject: passed_student) }
   let(:failed_student_action) { Action.new(subject: failed_student) }
 
-  context do
+  context 'with simple declaration' do
     before do
       stub_class(:action, Granite::Action) do
         subject :student

@@ -3,6 +3,7 @@ require:
 
 AllCops:
   Include:
+    - '**/*.rb'
     - '**/Gemfile'
     - '**/Rakefile'
   Exclude:
@@ -70,9 +71,6 @@ TrailingCommaInArguments:
 Bundler/OrderedGems:
   Enabled: false
 
-FactoryBot/DynamicAttributeDefinedStatically:
-  Enabled: true
-
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
@@ -100,6 +98,9 @@ Metrics/ModuleLength:
     - "**/*_spec.rb"
 
 Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
   Enabled: false
 
 Naming/UncommunicativeMethodParamName:

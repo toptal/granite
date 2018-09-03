@@ -18,8 +18,8 @@ module Granite
 
         # Adds a block or listener object to be executed after finishing the current transaction.
         # Callbacks are reset after each transaction.
-        # @param [Object] listener an object which will receive `run_callbacks(:commit)` after transaction commited
-        # @param [Proc] block a block whicgh will be called after transaction commited
+        # @param [Object] listener an object which will receive `run_callbacks(:commit)` after transaction committed
+        # @param [Proc] block a block which will be called after transaction committed
         def after_commit(listener = nil, &block)
           callback = listener || block
 
@@ -67,11 +67,15 @@ module Granite
             end
           end
 
-          if collected_errors.any?
-            collected_errors[1..-1].each do |error|
-              ActiveData.config.logger.error "Unhandled error in callback: #{error.inspect}\n#{error.backtrace.join("\n")}"
-            end
-            fail collected_errors.first
+          return unless collected_errors.any?
+
+          log_errors(collected_errors[1..-1])
+          fail collected_errors.first
+        end
+
+        def log_errors(errors)
+          errors.each do |error|
+            ActiveData.config.logger.error "Unhandled error in callback: #{error.inspect}\n#{error.backtrace.join("\n")}"
           end
         end
       end

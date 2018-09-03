@@ -1,11 +1,10 @@
 RSpec.describe Granite::Translations do
+  subject(:action) { TestAction.new }
   before do
     stub_class(:test_action, Granite::Action) do
       attribute :id, Integer
     end
   end
-
-  subject(:action) { TestAction.new }
 
   describe '#translate' do
     it { expect(subject.translate('key')).to eq('translation missing: en.key') }

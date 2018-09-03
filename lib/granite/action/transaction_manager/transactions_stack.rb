@@ -15,7 +15,7 @@ module Granite
           result = yield
           finish_current!
           result
-        rescue Exception
+        rescue StandardError, ScriptError
           rollback_current!
           raise
         end

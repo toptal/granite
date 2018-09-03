@@ -42,7 +42,7 @@ module Granite
         if in_transaction
           yield
         else
-          run_in_transaction &block
+          run_in_transaction(&block)
         end
       end
 

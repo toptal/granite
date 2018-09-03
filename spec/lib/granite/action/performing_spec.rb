@@ -93,7 +93,7 @@ RSpec.describe Granite::Action::Performing do
   end
 
   describe '#perform' do
-    context do
+    context 'with login' do
       let(:action) { Action.new(user, login: 'Login') }
 
       specify { expect(action.perform).to eq(42) }
@@ -101,7 +101,7 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.perform }.to change { user.reload.email }.to('Login') }
     end
 
-    context do
+    context 'with nested attributes' do
       let(:action) { Action.new(user, login: 'Login', skills_attributes: [{name: ''}]) }
 
       before do
@@ -113,7 +113,7 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
 
-    context do
+    context 'without login' do
       let(:action) { Action.new(user) }
 
       specify { expect(action.perform).to eq(false) }
@@ -121,7 +121,7 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
 
-    context do
+    context 'with empty login' do
       let(:action) { Action.new(user, login: '') }
 
       specify { expect(action.perform).to eq(false) }
@@ -129,8 +129,9 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
 
-    context do
+    context 'without policies' do
       before { stub_class(:action, Granite::Action) { allow_if { true } } }
+
       specify { expect { Action.new.perform }.to raise_error NotImplementedError }
     end
 
@@ -146,6 +147,7 @@ RSpec.describe Granite::Action::Performing do
           end
         end
       end
+
       let(:action) { Action.new }
       specify { expect(action.perform).to eq(true) }
     end
@@ -192,7 +194,7 @@ RSpec.describe Granite::Action::Performing do
   end
 
   describe '#perform!' do
-    context do
+    context 'with login' do
       let(:action) { Action.new(user, login: 'Login') }
 
       specify { expect(action.perform!).to eq(42) }
@@ -200,7 +202,7 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.perform! }.to change { user.reload.email }.to('Login') }
     end
 
-    context do
+    context 'with nested attributes' do
       let(:action) { Action.new(user, login: 'Login', skills_attributes: [{name: ''}]) }
 
       before do
@@ -215,7 +217,7 @@ RSpec.describe Granite::Action::Performing do
       end
     end
 
-    context do
+    context 'without login' do
       let(:action) { Action.new(user) }
 
       specify do
@@ -226,7 +228,7 @@ RSpec.describe Granite::Action::Performing do
       end
     end
 
-    context do
+    context 'with empty login' do
       let(:action) { Action.new(user, login: '') }
 
       specify do
@@ -237,8 +239,9 @@ RSpec.describe Granite::Action::Performing do
       end
     end
 
-    context do
+    context 'without policies' do
       before { stub_class(:action, Granite::Action) { allow_if { true } } }
+
       specify { expect { Action.new.perform! }.to raise_error NotImplementedError }
     end
 
@@ -254,6 +257,7 @@ RSpec.describe Granite::Action::Performing do
           end
         end
       end
+
       let(:action) { Action.new }
       specify { expect(action.perform!).to eq(true) }
     end
@@ -303,7 +307,7 @@ RSpec.describe Granite::Action::Performing do
   end
 
   describe '#try_perform!' do
-    context do
+    context 'with login' do
       let(:action) { Action.new(user, login: 'Login') }
 
       specify { expect(action.try_perform!).to eq(42) }
@@ -311,7 +315,7 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.try_perform! }.to change { user.reload.email }.to('Login') }
     end
 
-    context do
+    context 'with nested attributes' do
       let(:action) { Action.new(user, login: 'Login', skills_attributes: [{name: ''}]) }
 
       before do
@@ -326,7 +330,7 @@ RSpec.describe Granite::Action::Performing do
       end
     end
 
-    context do
+    context 'without login' do
       let(:action) { Action.new(user) }
 
       specify do
@@ -337,7 +341,7 @@ RSpec.describe Granite::Action::Performing do
       end
     end
 
-    context do
+    context 'with empty login' do
       let(:action) { Action.new(user, login: '') }
 
       specify { expect { action.try_perform! }.not_to raise_error }
@@ -345,8 +349,9 @@ RSpec.describe Granite::Action::Performing do
       specify { expect { action.try_perform! }.not_to change { user.reload.email } }
     end
 
-    context do
+    context 'without policies' do
       before { stub_class(:action, Granite::Action) { allow_if { true } } }
+
       specify { expect { Action.new.try_perform! }.to raise_error NotImplementedError }
     end
 
@@ -362,6 +367,7 @@ RSpec.describe Granite::Action::Performing do
           end
         end
       end
+
       let(:action) { Action.new }
       specify { expect(action.try_perform!).to eq(true) }
     end

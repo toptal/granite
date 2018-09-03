@@ -1,4 +1,5 @@
 RSpec.describe Granite::Projector::Translations do
+  subject(:projector) { TestAction.new.dummy }
   before do
     stub_class(:projector, Granite::Projector) do
       get :new do
@@ -14,8 +15,6 @@ RSpec.describe Granite::Projector::Translations do
       attribute :id, Integer
     end
   end
-
-  subject(:projector) { TestAction.new.dummy }
 
   describe '#translate' do
     it { expect(subject.translate('key')).to eq('<span class="translation_missing" title="translation missing: en.key">Key</span>') }

@@ -15,8 +15,8 @@ RSpec.describe Granite::Action::TransactionManager do
         described_class.after_commit(object_listener)
       end
 
-      let(:block_listener) { double(do_stuff: true) }
-      let(:object_listener) { double(run_callbacks: true) }
+      let(:block_listener) { double(do_stuff: true) } # rubocop:disable RSpec/VerifiedDoubles
+      let(:object_listener) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
 
       it 'returns result of a block and triggers registered callbacks' do
         expect(object_listener).to receive(:run_callbacks).with(:commit).ordered
@@ -24,7 +24,7 @@ RSpec.describe Granite::Action::TransactionManager do
         expect(subject).to eq 123
       end
 
-      context 'and transacton fails' do
+      context 'with failed transaction' do
         let(:block) { fail 'I failed' }
 
         it 're-raise and doesnt run callbacks' do
@@ -43,8 +43,8 @@ RSpec.describe Granite::Action::TransactionManager do
           end
         end
 
-        let(:object_listener_1) { double(run_callbacks: true) }
-        let(:object_listener_2) { double(run_callbacks: true) }
+        let(:object_listener_1) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_2) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
 
         specify 'both transactions reverted and error bubbled' do
           expect(object_listener).not_to receive(:run_callbacks)
@@ -55,7 +55,7 @@ RSpec.describe Granite::Action::TransactionManager do
         end
       end
 
-      context 'and after_commit callback fails' do
+      context 'with failed after_commit callback' do
         let(:add_callbacks) do
           super()
           described_class.after_commit { fail 'callback failed' }
@@ -68,7 +68,7 @@ RSpec.describe Granite::Action::TransactionManager do
         end
       end
 
-      context 'and multiple after_commit callbacks fail' do
+      context 'with multiple after_commit callbacks failures' do
         let(:add_callbacks) do
           super()
           described_class.after_commit { fail 'callback failed second' }
@@ -97,7 +97,7 @@ RSpec.describe Granite::Action::TransactionManager do
         end
       end
 
-      context 'and nested transaction which fails' do
+      context 'with failing nested transaction' do
         let(:block) do
           described_class.after_commit(object_listener_1)
           User.new.save!
@@ -109,8 +109,8 @@ RSpec.describe Granite::Action::TransactionManager do
           456
         end
 
-        let(:object_listener_1) { double(run_callbacks: true) }
-        let(:object_listener_2) { double(run_callbacks: true) }
+        let(:object_listener_1) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_2) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
 
         context 'with Granite::Action::Rollback' do
           let(:error) { Granite::Action::Rollback }

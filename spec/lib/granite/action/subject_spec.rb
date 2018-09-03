@@ -5,6 +5,7 @@ RSpec.describe Granite::Action::Subject do
       attribute :comment, String
     end
   end
+
   let(:student) { Student.create! }
   let(:teacher) { Teacher.create! }
 

@@ -35,7 +35,7 @@ RSpec.describe Granite::Projector::Helpers, type: :granite_projector do
     end
   end
 
-  context do
+  describe 'projectors related' do
     projector { DummyAction.dummy }
 
     context 'without route' do

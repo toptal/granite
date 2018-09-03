@@ -65,7 +65,7 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
     end
   end
 
-  context do
+  describe 'projector related' do
     projector { Action.dummy }
 
     context 'with no subject' do
