@@ -36,11 +36,25 @@ module Granite
 
       private
 
-      def transaction
+      attr_accessor :in_transaction
+
+      def transaction(&block)
+        if in_transaction
+          yield
+        else
+          run_in_transaction(&block)
+        end
+      end
+
+      def run_in_transaction
+        self.in_transaction = true
+
         TransactionManager.transaction do
           TransactionManager.after_commit(self)
           yield
         end
+      ensure
+        self.in_transaction = false
       end
     end
   end

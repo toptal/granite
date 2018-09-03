@@ -9,7 +9,9 @@ RSpec.describe 'raise_validation_error', aggregate_failures: false do
         decline_with(:some_error)
       end
 
-      private def execute_perform!(*)
+      private
+
+      def execute_perform!(*)
         fail StandardError if raise_error
       end
     end

@@ -7,7 +7,7 @@ module Granite
         class_attribute :_exception_handlers, instance_writer: false
         self._exception_handlers = {}
 
-        protected :_exception_handlers
+        protected :_exception_handlers # rubocop:disable Style/AccessModifierDeclarations
       end
 
       module ClassMethods

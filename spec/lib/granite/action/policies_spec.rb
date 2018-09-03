@@ -94,6 +94,7 @@ RSpec.describe Granite::Action::Policies do
         self._policies_strategy = CustomStrategy
       end
     end
+
     let(:action) { Action.new }
 
     it 'delegates to policies_strategy' do
