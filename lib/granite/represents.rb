@@ -14,7 +14,7 @@ module Granite
           add_attribute Granite::Represents::Reflection, field, options, &block
 
           before_validation do
-            attribute(field).sync if __send__ "#{field}_changed?"
+            attribute(field).sync if attribute(field).changed?
             true
           end
         end
