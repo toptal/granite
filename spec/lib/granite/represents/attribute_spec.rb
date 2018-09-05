@@ -44,6 +44,24 @@ RSpec.describe Granite::Represents::Attribute do
       it 'sets default value_before_type_cast' do
         expect(subject.read_before_type_cast).to eq('2000-10-10')
       end
+
+      context 'when model attribute present' do
+        before do
+          stub_class(:action, Granite::Action) do
+            allow_if { true }
+
+            represents :created_at, default: -> { '2000-10-10' }, of: :user
+
+            def user
+              @user ||= DummyUser.new(created_at: '2010-01-01')
+            end
+          end
+        end
+
+        it 'sets attribute value equal to model' do
+          expect(subject.read).to eq Time.zone.parse('2010-01-01')
+        end
+      end
     end
   end
 
@@ -233,6 +251,26 @@ RSpec.describe Granite::Represents::Attribute do
   describe '#typecaster' do
     specify do
       expect(subject.typecaster).to eq ActiveData.typecaster(Integer)
+    end
+  end
+
+  describe 'changed?' do
+    context 'when attribute has not default value' do
+      specify do
+        expect(subject.owner.user).to_not receive(:sign_in_count)
+        expect(subject.owner).to receive(:sign_in_count_changed?)
+        expect(subject).not_to be_changed
+      end
+    end
+
+    context 'when attribute has default value' do
+      subject { action.attribute(:created_at) }
+
+      specify do
+        expect(subject.owner.user).to receive(:created_at)
+        expect(subject.owner).not_to receive(:created_at_changed?)
+        expect(subject).to be_changed
+      end
     end
   end
 end
