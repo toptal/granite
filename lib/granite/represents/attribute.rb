@@ -33,6 +33,14 @@ module Granite
                         end
       end
 
+      def changed?
+        if reflection.options[:default].present?
+          reference.public_send(reader) != read
+        else
+          owner.public_send("#{name}_changed?")
+        end
+      end
+
       private
 
       def reference
