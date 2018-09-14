@@ -31,7 +31,7 @@ module Granite
         end
       end
 
-      # Check preconditions and validations for action and associated objects, then
+      # Run policies, check preconditions and validations for action and associated objects, then
       # in case of valid action run defined procedure. Procedure is wrapped with
       # database transaction. Returns the result of execute_perform! method execution
       # or true if method execution returned false or nil
@@ -41,12 +41,13 @@ module Granite
       #   using `:on`)
       # @return [Object] result of execute_perform! method execution or false in case of errors
       def perform(context: nil, **options)
+        authorize!
         transaction do
           valid?(context) && perform_action(options)
         end
       end
 
-      # Check precondition and validations for action and associated objects, then
+      # Run policies, check precondition and validations for action and associated objects, then
       # raise exception in case of validation errors. In other case run defined procedure.
       # Procedure is wraped with database transaction. After procedure execution check for
       # errors, and raise exception if any. Returns the result of execute_perform! method execution
@@ -59,6 +60,7 @@ module Granite
       # @raise [Granite::Action::ValidationError] Action or associated objects are invalid
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def perform!(context: nil, **options)
+        authorize!
         transaction do
           validate!(context)
           perform_action!(**options)
@@ -74,6 +76,7 @@ module Granite
       # @raise [Granite::Action::ValidationError] Action or associated objects are invalid
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def try_perform!(context: nil, **options)
+        authorize!
         return unless satisfy_preconditions?
         transaction do
           validate!(context)

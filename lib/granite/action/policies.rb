@@ -57,21 +57,6 @@ module Granite
         end
       end
 
-      def try_perform!(*)
-        authorize!
-        super
-      end
-
-      def perform(*)
-        authorize!
-        super
-      end
-
-      def perform!(*)
-        authorize!
-        super
-      end
-
       # Returns true if any of defined policies returns true
       #
       def allowed?
