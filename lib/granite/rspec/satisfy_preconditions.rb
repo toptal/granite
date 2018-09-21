@@ -3,7 +3,7 @@
 # Checks if business action satisfies preconditions in current state.
 #
 # Modifiers:
-# * `with_message(message)` (and `with_messages([list, of, messages])`) --
+# * `with_message(message)` (and `with_messages(list, of, messages)`) --
 #   only for negated matchers, checks messages of preconditions not satisfied;
 # * `with_message_of_kind(:message_kind)` (and `with_messages_of_kinds(:list, :of, :messages)`) --
 #   only for negated matchers, checks messages of preconditions not satisfied;
@@ -17,6 +17,7 @@
 # # assuming subject is business action
 # it { is_expected.to satisfy_preconditions }
 # it { is_expected.not_to satisfy_preconditions.with_message('Tax form has not been signed') }
+# it { is_expected.not_to satisfy_preconditions.with_messages(/^Tax form has not been signed by/', 'Signature required') }
 # it { is_expected.not_to satisfy_preconditions.with_message_of_kind(:relevant_portfolio_items_needed) }
 # it { is_expected.not_to satisfy_preconditions.with_messages_of_kinds(:relevant_portfolio_items_needed, :relevant_education_needed) }
 # ```
@@ -26,8 +27,8 @@ RSpec::Matchers.define :satisfy_preconditions do
     @expected_messages = [message]
   end
 
-  chain(:with_messages) do |messages|
-    @expected_messages = messages
+  chain(:with_messages) do |*messages|
+    @expected_messages = messages.flatten
   end
 
   chain(:with_message_of_kind) do |kind|
@@ -51,11 +52,12 @@ RSpec::Matchers.define :satisfy_preconditions do
     result = !object.satisfy_preconditions?
     if @expected_messages
       errors = object.errors[:base]
-      result &&= if @exactly
-                   errors.to_a.sort == @expected_messages.sort
-                 else
-                   (@expected_messages - errors).empty?
-                 end
+
+      result &&= @expected_messages.all? { |expected| errors.any? { |error| error.match? expected } }
+
+      if @exactly
+        result &&= errors.none? { |error| @expected_messages.none? { |expected| error.match? expected } }
+      end
     elsif @expected_kind_of_messages
       error_kinds = object.errors.details[:base].map(&:values).flatten
       result &&= (@expected_kind_of_messages - error_kinds).empty?
