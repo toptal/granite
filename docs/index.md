@@ -268,6 +268,16 @@ precondition if: -> { subject.active? } do
 end
 ```
 
+Failing one precondition doesn't stop the execution. So if you have multiple conditions defined all of the would be checked. To stop propagation use `next` like this: 
+
+```
+precondition do
+  next decline_with(:failing_first) unless first_condition_is_false?
+  break decline_with(:failing_second) unless first_condition_is_true_but_second_is_false?
+  decline_with(:failing_third) && next if first_two_conditions_are_true_but_last_one_is_false?
+end
+```
+
 #### Validations
 
 You are able to use any of ActiveModel-provided validations.
