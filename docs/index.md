@@ -272,8 +272,8 @@ Failing one precondition doesn't stop the execution. So if you have multiple con
 
 ```
 precondition do
-  decline_with(:failing_first) && next unless first_condition_is_false?
-  decline_with(:failing_second) && next unless first_condition_is_true_but_second_is_false?
+  next decline_with(:failing_first) unless first_condition_is_false?
+  break decline_with(:failing_second) unless first_condition_is_true_but_second_is_false?
   decline_with(:failing_third) && next if first_two_conditions_are_true_but_last_one_is_false?
 end
 ```
