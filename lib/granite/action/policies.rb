@@ -85,6 +85,7 @@ module Granite
       #
       def authorize!
         fail Granite::Action::NotAllowedError, self unless allowed?
+
         self
       end
     end

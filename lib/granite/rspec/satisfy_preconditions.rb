@@ -45,6 +45,7 @@ RSpec::Matchers.define :satisfy_preconditions do
 
   match do |object|
     fail '"with_messages" method chain is not supported for positive matcher' if @expected_messages
+
     object.satisfy_preconditions?
   end
 

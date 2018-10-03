@@ -75,6 +75,7 @@ module Granite
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def try_perform!(context: nil, **options)
         return unless satisfy_preconditions?
+
         transaction do
           validate!(context)
           perform_action!(**options)

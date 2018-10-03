@@ -12,6 +12,7 @@ module Granite
 
       def sync
         return if reference.nil?
+
         reference.public_send(writer, read)
       end
 
@@ -23,6 +24,7 @@ module Granite
 
       def type
         return reflection.options[:type] if reflection.options[:type].present?
+
         active_data_type || type_from_type_for_attribute || super
       end
 
