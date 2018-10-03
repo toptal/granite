@@ -14,6 +14,7 @@ RSpec.describe Granite, type: :request do
     stub_class(:action, Granite::Action) do
       allow_if do
         fail 'No Performer' unless performer
+
         performer.id == 'User'
       end
 
