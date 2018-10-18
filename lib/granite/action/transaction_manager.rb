@@ -51,15 +51,17 @@ module Granite
         end
 
         def finish_root_transaction
-          trigger_after_commit_callbacks
-        ensure
+          callbacks = transactions_stack.callbacks
+
           self.transactions_stack = nil
+
+          trigger_after_commit_callbacks(callbacks)
         end
 
-        def trigger_after_commit_callbacks
+        def trigger_after_commit_callbacks(callbacks)
           collected_errors = []
 
-          transactions_stack.callbacks.reverse_each do |callback|
+          callbacks.reverse_each do |callback|
             begin
               callback.respond_to?(:run_callbacks) ? callback.run_callbacks(:commit) : callback.call
             rescue StandardError => e
