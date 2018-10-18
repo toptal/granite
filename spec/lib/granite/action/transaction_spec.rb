@@ -40,6 +40,37 @@ RSpec.describe Granite::Action::Transaction do
         end
       end
     end
+
+    context 'when actions chained with after_commit' do
+      let(:sub_action) { SubAction.new }
+
+      before do
+        stub_class(:dummy_error, StandardError)
+
+        stub_class(:action, Granite::Action) do
+          allow_if { true }
+
+          after_commit do
+            sub_action.perform!
+          end
+        end
+
+        stub_class(:sub_action, Granite::Action) do
+          allow_if { true }
+
+          after_commit :after_commit_handler
+        end
+
+        allow(action).to receive(:sub_action).and_return(sub_action)
+      end
+
+      it do
+        expect(action).to receive(:execute_perform!).ordered
+        expect(sub_action).to receive(:execute_perform!).ordered
+        expect(sub_action).to receive(:after_commit_handler).ordered
+        subject
+      end
+    end
   end
 
   describe 'transaction' do
