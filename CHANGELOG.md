@@ -4,6 +4,10 @@
 
 * `satisfy_preconditions` matcher supports regular expressions
 
+## Bug fixes
+
+* remove callback loop triggered by executing action in `after_commit` of another action
+
 # Version 0.9.0
 
 ## Breaking Changes
