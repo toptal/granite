@@ -31,7 +31,7 @@ class Action < Granite::Action
 end
 ```
 
-There are a few ways of executing newly defined business action: using `#perform`, `#perform!` or `try_perform!` methods:
+There are a few ways of executing a newly defined business action: using `#perform`, `#perform!` or `try_perform!` methods:
 - `perform!` - raises exception in case of errors
 - `perform` - returns `false` in case of errors
 - `try_perform!` - similar to `perform!`, but doesn't run action if preconditions are not satisfied
@@ -69,8 +69,8 @@ class Action < Granite::Action
   ...
 
   after_commit do
-    # any logic that rely on action results to be in the database
-    # like schedule jobs
+    # any logic that relies on action results being in the database,
+    # such as scheduling jobs
     puts 'after_commit triggered'
   end
 
@@ -118,7 +118,7 @@ after execute_perform
 
 ### Performer
 
-Every BA has a performer which can be assigned via `.as` class method before BA creation.
+Every BA has a performer which can be assigned via a `.as` class method before BA creation.
 
 ```ruby
 MyAction.as(Admin.first).new(params)
@@ -136,7 +136,7 @@ class Action < Granite::Action
   collection :ids, Integer
 
   private def execute_perform!(*)
-    puts "Hello #{name}! We have the following ids: #{ids}'
+    puts "Hello #{name}! We have the following ids: #{ids}"
   end
 end
 ```
@@ -165,8 +165,8 @@ For more information on the associations available and usage examples, see [Acti
 
 ### NestedActions
 
-Some business actions call other actions as part of their own action. For cases like that we should define memoizable method that
-returns instance of subaction.
+Some business actions call other actions as part of their own action. For cases like that we should define a memoizable method that
+returns an instance of subaction.
 
 ```ruby
 memoize def subaction
@@ -175,7 +175,7 @@ end
 ```
 
 Subactions will validate their data and check preconditions when they're performed. This however should not be relied on
-and it's better to check preconditions of subaction when precondtions of main action are checked and validate subaction
+and it's better to check preconditions of subaction when preconditions of main action are checked and validate subaction
 when main action is validated. For this we use:
 
 ```ruby
@@ -186,7 +186,7 @@ validates :subaction, nested: true
 ### Subject
 
 Subject definition does three things: defines `references_one` association, aliases its methods
-to common names (`subject` and `subject_id`) and modifies action initializer, providing ability to pass subject as the first
+to common names (`subject` and `subject_id`), and modifies action initializer, providing ability to pass subject as the first
 argument and restricting subject-less action initialization.
 
 ```ruby
@@ -213,11 +213,11 @@ end
 => #<Action user: #<ReferencesOne #<User id: 1...>, user_id: 1>
 ```
 
-As you can see `#user` is aliased to `#subject` and `#user_id` is aliased to `#id`. Also subject call takes any combination of `references_one` possible options.
+As you can see `#user` is aliased to `#subject` and `#user_id` is aliased to `#id`. Also, a subject call takes any combination of `references_one` possible options.
 
 ### Policies, preconditions, validations
 
-The main question is how to choose suitable construction. Here are simple rules:
+The main question is how to choose a suitable construction. Here are simple rules:
 
 1. If condition is dependent on any of user provided attribute values except subject - it is a validation.
 2. If condition depends on subject or any value found depending on subject - it is a precondition.
@@ -301,9 +301,9 @@ end
 To run a business action without context you can simply send the `perform!` message to the action. It won't require full_name to be present.
 If you want a validation to be executed in this scope you can add context argument to perform call: `perform!(context: :user)`.
 
-### Exceptions handling
+### Exception handling
 
-Granite has built-in mechanism for exceptions handling (similar to `rescue_from` known from `ActionController`). You are able to register handlers for any exception type, like this:
+Granite has built-in mechanism for exception handling (similar to `rescue_from` known from `ActionController`). You are able to register handlers for any exception type, like this:
 
 ```ruby
 class Action < Granite::Action
@@ -317,7 +317,7 @@ class Action < Granite::Action
 end
 ```
 
-Adding errors to action object is important, because each time handled exception is raised,
+Adding errors to action object is important, because each time a handled exception is raised,
 `Granite::Action::ValidationError` is raised.
 Validation exception will have the same backtrace as original error.
 Prefer this way over custom exception handling in private methods.
@@ -357,5 +357,3 @@ You can pass a second argument to generator to specify projector name.
       create  apq/actions/ba/user/create.rb
       create  apq/actions/ba/user/business_action.rb
       create  spec/apq/actions/ba/user/create_spec.rb
-
-
