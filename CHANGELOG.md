@@ -2,6 +2,7 @@
 
 ## Changes
 
+* `allow_if` supports passing method name as a symbol
 * `satisfy_preconditions` matcher supports regular expressions
 
 ## Bug fixes

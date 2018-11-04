@@ -33,23 +33,26 @@ module Granite
       end
 
       module ClassMethods
-        # The simplies policy. Takes block and executes it returning
-        # boolean result. Multiple policies are reduced with ||
+        # The simplest policy. Takes either a symbol or a block and executes it
+        # returning boolean result. Multiple policies are reduced with ||
         #
         #   class Action < Granite::Action
         #     allow_if { performer.is_a?(Recruiter) }
         #     allow_if { performer.is_a?(AdvancedRecruiter) }
+        #     allow_if :staff?
         #   end
         #
-        # The first argument in block is a current action performer,
-        # so it is possible to use a short-cut performer methods:
+        # If symbol is passed, an instance method with the same name is executed.
+        # If block is passed, the first argument of the block is the current action
+        # performer, so it is possible to use a short-cut performer methods:
         #
         #   class Action < Granite::Action
         #     allow_if(&:staff?)
         #   end
         #
-        def allow_if(&block)
-          self._policies += [block]
+        def allow_if(method_name = nil, &block)
+          policy = method_name ? proc { __send__(method_name) } : block
+          self._policies += [policy]
         end
 
         def allow_self

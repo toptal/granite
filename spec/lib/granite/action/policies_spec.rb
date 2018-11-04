@@ -56,6 +56,31 @@ RSpec.describe Granite::Action::Policies do
     end
   end
 
+  context 'with method passed to allow_if' do
+    before do
+      stub_class(:action, Granite::Action) do
+        allow_if :student?
+
+        private
+
+        def student?
+          performer.is_a?(Student)
+        end
+
+        def execute_perform!(*)
+        end
+      end
+    end
+
+    specify { expect(Action.as(Student.new).new.perform).to eq(true) }
+    specify do
+      expect { Action.as(Teacher.new).new.perform }.to raise_error(
+        Granite::Action::NotAllowedError,
+        'Action action is not allowed for Teacher'
+      )
+    end
+  end
+
   describe '#perform!' do
     specify { expect { Action.as(Student.new).new.perform! }.not_to raise_error }
     specify { expect { Action.as(Teacher.new).new.perform! }.to raise_error Granite::Action::NotAllowedError }
