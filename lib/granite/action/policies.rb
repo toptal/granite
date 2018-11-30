@@ -7,9 +7,7 @@ module Granite
   class Action
     class NotAllowedError < Error
       def initialize(action)
-        if action.performer.respond_to?(:id) && action.performer.id.present?
-          performer_id = "##{action.performer.id}"
-        end
+        performer_id = "##{action.performer.id}" if action.performer.respond_to?(:id) && action.performer.id.present?
 
         super("#{action.class} action is not allowed " \
               "for #{action.performer.class}#{performer_id}", action)
@@ -75,9 +73,7 @@ module Granite
       # Returns true if any of defined policies returns true
       #
       def allowed?
-        unless instance_variable_defined?(:@allowed)
-          @allowed = _policies_strategy.allowed?(self)
-        end
+        @allowed = _policies_strategy.allowed?(self) unless instance_variable_defined?(:@allowed)
         @allowed
       end
 

@@ -54,11 +54,9 @@ RSpec::Matchers.define :satisfy_preconditions do
     if @expected_messages
       errors = object.errors[:base]
 
-      result &&= @expected_messages.all? { |expected| errors.any? { |error| error.match? expected } }
+      result &&= @expected_messages.all? { |expected| errors.any? { |error| compare(error, expected) } }
 
-      if @exactly
-        result &&= errors.none? { |error| @expected_messages.none? { |expected| error.match? expected } }
-      end
+      result &&= errors.none? { |error| @expected_messages.none? { |expected| compare(error, expected) } } if @exactly
     elsif @expected_kind_of_messages
       error_kinds = object.errors.details[:base].map(&:values).flatten
       result &&= (@expected_kind_of_messages - error_kinds).empty?
@@ -93,6 +91,14 @@ RSpec::Matchers.define :satisfy_preconditions do
     actual_kind_of_errors = object.errors.details[:base].map(&:keys).flatten
     message += " with error messages of kind #{expected_kind_of_messages}"
     message + " but got following kind of error messages:\n    #{actual_kind_of_errors.inspect}"
+  end
+
+  def compare(error, expected)
+    if expected.is_a? String
+      error == expected
+    else
+      error.match? expected
+    end
   end
 end
 

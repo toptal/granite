@@ -32,9 +32,7 @@ module Granite
       def assign_attributes(attributes)
         attributes = attributes.to_unsafe_hash if attributes.respond_to?(:to_unsafe_hash)
         attributes = attributes.stringify_keys
-        if attributes.key?(model_name.param_key)
-          attributes = attributes.merge(attributes.delete(model_name.param_key))
-        end
+        attributes = attributes.merge(attributes.delete(model_name.param_key)) if attributes.key?(model_name.param_key)
         super(attributes)
       end
     end
@@ -82,9 +80,7 @@ module Granite
     #
     # @return [Boolean] whether action is performable
     def performable?
-      unless instance_variable_defined?(:@performable)
-        @performable = allowed? && satisfy_preconditions?
-      end
+      @performable = allowed? && satisfy_preconditions? unless instance_variable_defined?(:@performable)
       @performable
     end
 

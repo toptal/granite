@@ -16,9 +16,7 @@ module Granite
     def projector
       @projector ||= begin
         action_projector_class = action_class.public_send(projector_name)
-        if respond_to?(:projector_performer, true)
-          action_projector_class = action_projector_class.as(projector_performer)
-        end
+        action_projector_class = action_projector_class.as(projector_performer) if respond_to?(:projector_performer, true)
         action_projector_class.new(projector_params)
       end
     end
