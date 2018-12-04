@@ -40,6 +40,12 @@ RSpec.describe 'satisfy_preconditions', aggregate_failures: false do
 
     specify do
       expect do
+        expect(action).not_to satisfy_preconditions.with_message('failed')
+      end.to fail_with(%(expected #{action} not to satisfy preconditions with error messages ["failed"] but got following error messages:\n    ["Precondition failed"]))
+    end
+
+    specify do
+      expect do
         expect(action).not_to satisfy_preconditions.with_messages(['WRONG TEXT'])
       end.to fail_with(%(expected #{action} not to satisfy preconditions with error messages ["WRONG TEXT"] but got following error messages:\n    ["Precondition failed"]))
     end
