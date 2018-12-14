@@ -1,5 +1,7 @@
 # master (not released yet)
 
+* `satisfy_preconditions` matcher supports composable matchers.
+
 # Version 0.9.1
 
 ## Changes

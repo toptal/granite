@@ -30,6 +30,8 @@ RSpec.describe 'satisfy_preconditions', aggregate_failures: false do
 
     specify { expect(action).not_to satisfy_preconditions.with_message(/failed$/) }
 
+    specify { expect(action).not_to satisfy_preconditions.with_message(a_string_starting_with('P')) }
+
     specify { expect(action).not_to satisfy_preconditions.with_messages('Precondition failed', /failed$/, /^Precondition/) }
 
     specify do
