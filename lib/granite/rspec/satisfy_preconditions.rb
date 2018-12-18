@@ -93,11 +93,13 @@ RSpec::Matchers.define :satisfy_preconditions do
     message + " but got following kind of error messages:\n    #{actual_kind_of_errors.inspect}"
   end
 
-  def compare(error, expected)
-    if expected.is_a? String
-      error == expected
+  def compare(actual, expected)
+    if RSpec::Matchers.is_a_matcher?(expected)
+      expected.matches?(actual)
+    elsif expected.is_a?(String)
+      actual == expected
     else
-      error.match? expected
+      actual.match?(expected)
     end
   end
 end
