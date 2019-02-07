@@ -92,8 +92,10 @@ module Granite
       private
 
       def perform_action(raise_errors: false, **options)
-        apply_association_changes!
-        result = run_callbacks(:execute_perform) { execute_perform!(options) }
+        result = run_callbacks(:execute_perform) do
+          apply_association_changes!
+          execute_perform!(options)
+        end
         @_action_performed = true
         result || true
       rescue *handled_exceptions => e
