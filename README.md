@@ -47,7 +47,7 @@ rspec
 Or, alternatively you can copy and adapt the `spec/support/database.yml` for your environment:
 
 ```
-cp spec/support/database.yml.sample spec/support/database.yml
+cp spec/support/database.yml.example spec/support/database.yml
 [Necessary customization here]
 psql -c 'create database granite;' -U granite
 rspec
