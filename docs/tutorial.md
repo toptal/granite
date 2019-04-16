@@ -363,7 +363,7 @@ RSpec.describe BA::Book::Rent do
   describe 'preconditions' do
     context 'with an available book' do
       let(:available) { true }
-      it { is_expected.to be_satisfy_preconditions }
+      it { is_expected.to satisfy_preconditions }
     end
 
     context 'with an unavailable book' do
@@ -407,7 +407,7 @@ RSpec.describe BA::Book::Rent do
 + describe 'preconditions' do
 +   context 'with an available book' do
 +     let(:available) { true }
-+     it { is_expected.to be_satisfy_preconditions }
++     it { is_expected.to satisfy_preconditions }
 +   end
 +
 +   context 'with an unavailable book' do
@@ -459,11 +459,11 @@ RSpec.describe BA::Book::Return do
   describe 'preconditions' do
     context 'when the user rented the book' do
       before { BA::Book::Rent.as(performer).new(book).perform! }
-      it { is_expected.to be_satisfy_preconditions }
+      it { is_expected.to satisfy_preconditions }
     end
 
     context 'when preconditions fail' do
-      it { is_expected.not_to be_satisfy_preconditions }
+      it { is_expected.not_to satisfy_preconditions }
     end
   end
 end
@@ -511,11 +511,11 @@ RSpec.describe BA::Book::Return do
   describe 'preconditions' do
     context 'when the user rented the book' do
       before { BA::Book::Rent.as(performer).new(book).perform! }
-      it { is_expected.to be_satisfy_preconditions }
+      it { is_expected.to satisfy_preconditions }
     end
 
     context 'when preconditions fail' do
-      it { is_expected.not_to be_satisfy_preconditions }
+      it { is_expected.not_to satisfy_preconditions }
     end
   end
 
