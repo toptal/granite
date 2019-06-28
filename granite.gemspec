@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'memoist', '~> 0.16'
 
   s.add_development_dependency 'activerecord', '~> 5.0'
-  s.add_development_dependency 'capybara', '~> 2.18'
+  s.add_development_dependency 'capybara', '~> 3.25'
   s.add_development_dependency 'fuubar', '~> 2.0'
   s.add_development_dependency 'pg', '< 1'
   s.add_development_dependency 'pry-byebug'
