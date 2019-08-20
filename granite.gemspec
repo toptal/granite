@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'actionpack', '~> 5.1'
   s.add_runtime_dependency 'active_data', '~> 1.1.3'
-  s.add_runtime_dependency 'activesupport', '~>5.1'
+  s.add_runtime_dependency 'activesupport', '>=5.1', '<7.0'
   s.add_runtime_dependency 'memoist', '~> 0.16'
 
   s.add_development_dependency 'activerecord', '~> 5.0'
