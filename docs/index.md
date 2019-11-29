@@ -357,3 +357,12 @@ You can pass a second argument to generator to specify projector name.
       create  apq/actions/ba/user/create.rb
       create  apq/actions/ba/user/business_action.rb
       create  spec/apq/actions/ba/user/create_spec.rb
+
+### RuboCop
+
+You can use Granite specific cops by requiring it in your `.rubocop.yml`
+
+      require:
+        - granite/rubocop
+
+Check out [/lib/granite/rubocop/cop](lib/granite/rubocop/cop) to see what are the options.
