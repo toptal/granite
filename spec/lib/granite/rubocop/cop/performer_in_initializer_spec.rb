@@ -56,16 +56,16 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
   context 'when checking specs using `described_class`' do
     context 'with subject and performer' do
       code = <<-CODE
-      describe BA::Subject::Action do
-        let(:user)   { create(:user) }
-        let(:action) { described_class.new(performer: user, other: 'param') }
-      end
+        describe BA::Subject::Action do
+          let(:user)   { create(:user) }
+          let(:action) { described_class.new(performer: user, other: 'param') }
+        end
       CODE
       corrected = <<-CORRECTED
-      describe BA::Subject::Action do
-        let(:user)   { create(:user) }
-        let(:action) { described_class.as(user).new(other: 'param') }
-      end
+        describe BA::Subject::Action do
+          let(:user)   { create(:user) }
+          let(:action) { described_class.as(user).new(other: 'param') }
+        end
       CORRECTED
       it_behaves_like 'code with offense', code, corrected
     end
