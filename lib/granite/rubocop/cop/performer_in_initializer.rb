@@ -6,14 +6,14 @@ module RuboCop
 
       # Checks if performer is being passed to the BA initializer.
       #
-      # Instead of initializing, use `.as(performer)` or `.as_system`
+      # Instead of initializing, use `.as(performer)`
       #
       # @example
       #   # bad
-      #   BA::Subject::Action.new(performer: Role.system, other: 'arg')
+      #   BA::Subject::Action.new(performer: current_role, other: 'arg')
       #
       #   # good
-      #   BA::Subject::Action.as_system.new(other: 'arg')
+      #   BA::Subject::Action.as(current_role).new(other: 'arg')
       #
       #   # bad
       #   BA::Subject::Action.new(subject, performer: subject.author, other: 'arg')
@@ -21,7 +21,7 @@ module RuboCop
       #   # good
       #   BA::Subject::Action.as(subject.author).new(subject, other: 'arg')
       class PerformerInInitializer < ::RuboCop::Cop::Cop
-        MSG = 'Use `.as(performer)` or `.as_system` instead of passing performer to the initializer'.freeze
+        MSG = 'Use `.as(performer)` instead of passing performer to the initializer'.freeze
 
         def on_send(node)
           return unless business_action?(node) || testing_ba?(node)
@@ -33,11 +33,7 @@ module RuboCop
           return if has_method_calls_before_new?(node)
 
           node = described_class_initialized?(node).parent if testing_ba?(node)
-          if has_performer_as_role?(node)
-            autocorrect_performer_as_role_system(node)
-          else
-            autocorrect_performer_as_expression(node)
-          end
+          autocorrect_performer_as_expression(node)
         end
 
         private
@@ -47,7 +43,6 @@ module RuboCop
         def_node_matcher :describe_block?, '(block (send _ :describe $...) ...)'
         def_node_search :has_performer_key_in_params?, '(sym :performer)'
         def_node_search :has_as_expression?, ' (send  _  :as _) '
-        def_node_search :has_performer_as_role?, '(pair #has_performer_key_in_params? (send _ :system))'
         def_node_search :has_performer_as_role, '(pair #has_performer_key_in_params? (send _ :system))'
         def_node_search :has_performer_as_expression, '(pair #has_performer_key_in_params? $_)'
         def_node_matcher :has_method_calls_before_new?, '(send (send ...) :new ...)'
@@ -86,12 +81,6 @@ module RuboCop
 
         def initializer?(node)
           node.type == :send && node.method_name == :new
-        end
-
-        def autocorrect_performer_as_role_system(node)
-          params, performer_param_pair = params_and_performer_pair_role(node)
-          performer_injection = 'as_system.'
-          autocorrect_performer(node, performer_injection, params, performer_param_pair)
         end
 
         def autocorrect_performer_as_expression(node)

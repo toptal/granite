@@ -39,35 +39,21 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
 
   context 'when is not a real Business Action' do
     it_behaves_like 'code without offense',
-                    'NotBusinessAction.new(performer: Role.system)'
+                    'NotBusinessAction.new(performer: current_role)'
 
     it_behaves_like 'code without offense',
-                    'NotBA::Subject::Action.new(performer: Role.system)'
+                    'NotBA::Subject::Action.new(performer: current_role)'
 
     it_behaves_like 'code without offense',
                     '5.inspect'
   end
 
   context 'when already using the new syntax' do
-    code = 'BA::TshirtOrder::Create.as(attributes.delete(:performer)).new(attributes)'
+    code = 'BA::Subject::Action.as(attributes.delete(:performer)).new(attributes)'
     it_behaves_like 'code without offense', code
   end
 
   context 'when checking specs using `described_class`' do
-    context 'with role system' do
-      code = <<-CODE
-      describe BA::Subject::Action do
-        subject { described_class.new(performer: Role.system) }
-      end
-      CODE
-      corrected = <<-CORRECTED
-      describe BA::Subject::Action do
-        subject { described_class.as_system.new() }
-      end
-      CORRECTED
-      it_behaves_like 'code with offense', code, corrected
-    end
-
     context 'with subject and performer' do
       code = <<-CODE
       describe BA::Subject::Action do
@@ -86,7 +72,7 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
 
     context 'when describe block exists' do
       code = <<-CODE
-        RSpec.describe BA::Talent::Walkthrough::Step do
+        RSpec.describe BA::Subject::CustomAction do
           describe do
           end
         end
@@ -97,15 +83,15 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
 
     context 'when params merged with another hash' do
       context 'when performer is on the left side of the merge' do
-        code = 'BA::Talent::SaveApplication.new(talent, {performer: Role.system}.merge(prohibited_location_attributes)).perform!'
-        corrected = 'BA::Talent::SaveApplication.as_system.new(talent, {}.merge(prohibited_location_attributes)).perform!'
+        code = 'BA::Subject::Action.new(subject, {performer: current_role}.merge(prohibited_location_attributes)).perform!'
+        corrected = 'BA::Subject::Action.as(current_role).new(subject, {}.merge(prohibited_location_attributes)).perform!'
 
         it_behaves_like 'code with offense', code, corrected
       end
 
       context 'when performer is on the right side of the merge' do
-        code = 'let!(:job) { BA::Job::CreateClaimable.new(job_attribute.merge(performer: company)).perform! }'
-        corrected = 'let!(:job) { BA::Job::CreateClaimable.as(company).new(job_attribute.merge({})).perform! }'
+        code = 'let!(:job) { BA::Subject::Action.new(subject_attribute.merge(performer: performer)).perform! }'
+        corrected = 'let!(:job) { BA::Subject::Action.as(performer).new(subject_attribute.merge({})).perform! }'
 
         it_behaves_like 'code with offense', code, corrected
       end
@@ -113,14 +99,14 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
 
     context 'when using `Rspec.describe` notation' do
       code = <<-CODE
-        RSpec.describe BA::Talent::Reactivate do
-          subject(:action) { described_class.new(performer: Role.system) }
+        RSpec.describe BA::Subject::Action do
+          subject(:action) { described_class.new(performer: current_role) }
         end
       CODE
 
       corrected = <<-CODE
-        RSpec.describe BA::Talent::Reactivate do
-          subject(:action) { described_class.as_system.new() }
+        RSpec.describe BA::Subject::Action do
+          subject(:action) { described_class.as(current_role).new() }
         end
       CODE
 
@@ -134,22 +120,6 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
   end
 
   context 'when performer is passed to the initializer' do
-    context 'when performer is given as Role.system' do
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.new(performer: Role.system)',
-                      'BA::Subject::Action.as_system.new()'
-
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.new(performer: Role.system, other_param: param)',
-                      'BA::Subject::Action.as_system.new(other_param: param)'
-    end
-
-    context 'when performer is given as ::Role.system' do
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.new(performer: ::Role.system, other_param: param)',
-                      'BA::Subject::Action.as_system.new(other_param: param)'
-    end
-
     context 'when performer is given as {expression}' do
       context 'when performer is a method chain' do
         it_behaves_like 'code with offense',
@@ -159,8 +129,8 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
 
       context 'when performer is a single method call or a variable' do
         it_behaves_like 'code with offense',
-                        'BA::Invoice::AllocateMemorandums.new(document, performer: performer).perform!',
-                        'BA::Invoice::AllocateMemorandums.as(performer).new(document).perform!'
+                        'BA::Subject::Action.new(document, performer: performer).perform!',
+                        'BA::Subject::Action.as(performer).new(document).perform!'
       end
     end
 
@@ -170,36 +140,22 @@ RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
                       'BA::Subject::Action.as(object.message).new(subject)'
 
       it_behaves_like 'code with offense',
-                      'BA::Subject::Action.new(subject, performer: ::Role.system).perform!',
-                      'BA::Subject::Action.as_system.new(subject).perform!'
+                      'BA::Subject::Action.new(subject, performer: ::Object.new).perform!',
+                      'BA::Subject::Action.as(::Object.new).new(subject).perform!'
     end
 
     context 'when there are other method calls before new' do
       it_behaves_like 'code with offense',
-                      'BA::Email::SendToRole.modal.new(performer: performer)'
+                      'BA::Subject::Action.modal.new(performer: performer)'
 
       it_behaves_like 'code with offense',
-                      'BA::Email::SendToRole.for(step_type).new(performer: performer)'
+                      'BA::Subject::Action.for(step_type).new(performer: performer)'
 
       it_behaves_like 'code with offense',
-                      'BA::Email::SendToRole.modal.new(subject.company, performer: action.performer)'
+                      'BA::Subject::Action.modal.new(subject.company, performer: action.performer)'
     end
 
     context 'when multi-line initializer' do
-      context 'with system performer' do
-        code = <<-CODE
-          BA::Subject::Action.new(subject,
-              performer: Role.system,
-              other_param: param)
-        CODE
-        corrected = <<-CORRECTED
-          BA::Subject::Action.as_system.new(subject,
-              other_param: param)
-        CORRECTED
-
-        it_behaves_like 'code with offense', code, corrected
-      end
-
       context 'with other performer' do
         code = <<-CODE
           BA::Subject::Action.new(subject,
