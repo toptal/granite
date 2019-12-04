@@ -1,205 +1,233 @@
 require 'rubocop/rspec/support'
 require 'granite/rubocop/cop/performer_in_initializer'
 
+RSpec.configure do |config|
+  config.include RuboCop::RSpec::ExpectOffense
+end
+
 RSpec.describe RuboCop::Cop::Granite::PerformerInInitializer do
   subject(:cop) { described_class.new }
 
-  let(:message) { described_class::MSG }
-
-  before do
-    inspect_source(source)
-  end
-
-  shared_examples 'code without offense' do |code|
-    let(:source) { code }
-
-    it 'does not register an offense' do
-      expect(cop.offenses).to be_empty
-    end
-  end
-
-  shared_examples 'code with offense' do |code, corrected = nil|
-    let(:source) { code }
-
-    it 'registers an offense' do
-      expect(cop.offenses.size).to eq(1)
-      expect(cop.messages).to eq([message])
-    end
-
-    if corrected
-      it 'auto-corrects' do
-        expect(autocorrect_source(code)).to eq(corrected)
-      end
-    else
-      it 'does not auto-correct' do
-        expect(autocorrect_source(code)).to eq(code)
-      end
-    end
-  end
-
   context 'when is not a real Business Action' do
-    it_behaves_like 'code without offense',
-                    'NotBusinessAction.new(performer: current_role)'
+    it { expect_no_offenses 'NotBusinessAction.new(performer: current_role)' }
 
-    it_behaves_like 'code without offense',
-                    'NotBA::Subject::Action.new(performer: current_role)'
+    it { expect_no_offenses 'NotBA::Subject::Action.new(performer: current_role)' }
 
-    it_behaves_like 'code without offense',
-                    '5.inspect'
+    it { expect_no_offenses '5.inspect' }
   end
 
   context 'when already using the new syntax' do
-    code = 'BA::Subject::Action.as(attributes.delete(:performer)).new(attributes)'
-    it_behaves_like 'code without offense', code
+    it { expect_no_offenses 'BA::Subject::Action.as(attributes.delete(:performer)).new(attributes)' }
   end
 
   context 'when checking specs using `described_class`' do
     context 'with subject and performer' do
-      code = <<-CODE
-        describe BA::Subject::Action do
-          let(:user)   { create(:user) }
-          let(:action) { described_class.new(performer: user, other: 'param') }
-        end
-      CODE
-      corrected = <<-CORRECTED
-        describe BA::Subject::Action do
-          let(:user)   { create(:user) }
-          let(:action) { described_class.as(user).new(other: 'param') }
-        end
-      CORRECTED
-      it_behaves_like 'code with offense', code, corrected
+      it do
+        expect_offense <<-RUBY
+          describe BA::Subject::Action do
+            let(:user)   { create(:user) }
+            let(:action) { described_class.new(performer: user, other: 'param') }
+                           ^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+          end
+        RUBY
+
+        expect_correction <<-RUBY
+          describe BA::Subject::Action do
+            let(:user)   { create(:user) }
+            let(:action) { described_class.as(user).new(other: 'param') }
+          end
+        RUBY
+      end
     end
 
     context 'when describe block exists' do
-      code = <<-CODE
-        RSpec.describe BA::Subject::CustomAction do
-          describe do
+      it do
+        expect_no_offenses <<-RUBY
+          RSpec.describe BA::Subject::CustomAction do
+            describe do
+            end
           end
-        end
-      CODE
-
-      it_behaves_like 'code without offense', code
+        RUBY
+      end
     end
 
     context 'when params merged with another hash' do
       context 'when performer is on the left side of the merge' do
-        code = 'BA::Subject::Action.new(subject, {performer: current_role}.merge(prohibited_location_attributes)).perform!'
-        corrected = 'BA::Subject::Action.as(current_role).new(subject, {}.merge(prohibited_location_attributes)).perform!'
+        it do
+          expect_offense <<-RUBY
+            BA::Subject::Action.new(subject, {performer: current_role}.merge(prohibited_location_attributes)).perform!
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+          RUBY
 
-        it_behaves_like 'code with offense', code, corrected
+          expect_correction <<-RUBY
+            BA::Subject::Action.as(current_role).new(subject, {}.merge(prohibited_location_attributes)).perform!
+          RUBY
+        end
       end
 
       context 'when performer is on the right side of the merge' do
-        code = 'let!(:job) { BA::Subject::Action.new(subject_attribute.merge(performer: performer)).perform! }'
-        corrected = 'let!(:job) { BA::Subject::Action.as(performer).new(subject_attribute.merge({})).perform! }'
+        it do
+          expect_offense <<-RUBY
+            let!(:job) { BA::Subject::Action.new(subject_attribute.merge(performer: performer)).perform! }
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+          RUBY
 
-        it_behaves_like 'code with offense', code, corrected
+          expect_correction <<-RUBY
+            let!(:job) { BA::Subject::Action.as(performer).new(subject_attribute.merge({})).perform! }
+          RUBY
+        end
       end
     end
 
     context 'when using `Rspec.describe` notation' do
-      code = <<-CODE
-        RSpec.describe BA::Subject::Action do
-          subject(:action) { described_class.new(performer: current_role) }
-        end
-      CODE
+      it do
+        expect_offense <<-RUBY
+          RSpec.describe BA::Subject::Action do
+            subject(:action) { described_class.new(performer: current_role) }
+                               ^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+          end
+        RUBY
 
-      corrected = <<-CODE
-        RSpec.describe BA::Subject::Action do
-          subject(:action) { described_class.as(current_role).new() }
-        end
-      CODE
-
-      it_behaves_like 'code with offense', code, corrected
+        expect_correction <<-RUBY
+          RSpec.describe BA::Subject::Action do
+            subject(:action) { described_class.as(current_role).new() }
+          end
+        RUBY
+      end
     end
   end
 
   context 'when performer is not passed to the initializer' do
-    it_behaves_like 'code without offense',
-                    'BA::Subject::Action.as_system.new(other: parameter)'
+    it { expect_no_offenses 'BA::Subject::Action.as_system.new(other: parameter)' }
   end
 
   context 'when performer is passed to the initializer' do
     context 'when performer is given as {expression}' do
       context 'when performer is a method chain' do
-        it_behaves_like 'code with offense',
-                        'BA::Subject::Action.new(other: parameter, performer: subject.author)',
-                        'BA::Subject::Action.as(subject.author).new(other: parameter)'
+        it do
+          expect_offense <<-RUBY
+            BA::Subject::Action.new(other: parameter, performer: subject.author)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+          RUBY
+
+          expect_correction <<-RUBY
+            BA::Subject::Action.as(subject.author).new(other: parameter)
+          RUBY
+        end
       end
 
       context 'when performer is a single method call or a variable' do
-        it_behaves_like 'code with offense',
-                        'BA::Subject::Action.new(document, performer: performer).perform!',
-                        'BA::Subject::Action.as(performer).new(document).perform!'
+        it do
+          expect_offense <<-RUBY
+            BA::Subject::Action.new(document, performer: performer).perform!
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+          RUBY
+
+          expect_correction <<-RUBY
+            BA::Subject::Action.as(performer).new(document).perform!
+          RUBY
+        end
       end
     end
 
     context 'when subject is the first parameter and performer is the second parameter' do
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.new(subject, performer: object.message)',
-                      'BA::Subject::Action.as(object.message).new(subject)'
+      it do
+        expect_offense <<-RUBY
+          BA::Subject::Action.new(subject, performer: object.message)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+        RUBY
 
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.new(subject, performer: ::Object.new).perform!',
-                      'BA::Subject::Action.as(::Object.new).new(subject).perform!'
+        expect_correction <<-RUBY
+          BA::Subject::Action.as(object.message).new(subject)
+        RUBY
+      end
+
+      it do
+        expect_offense <<-RUBY
+          BA::Subject::Action.new(subject, performer: ::Object.new).perform!
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+        RUBY
+
+        expect_correction <<-RUBY
+          BA::Subject::Action.as(::Object.new).new(subject).perform!
+        RUBY
+      end
     end
 
     context 'when there are other method calls before new' do
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.modal.new(performer: performer)'
+      it do
+        expect_offense <<-RUBY
+          BA::Subject::Action.modal.new(performer: performer)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+        RUBY
+      end
 
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.for(step_type).new(performer: performer)'
+      it do
+        expect_offense <<-RUBY
+          BA::Subject::Action.for(step_type).new(performer: performer)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+        RUBY
+      end
 
-      it_behaves_like 'code with offense',
-                      'BA::Subject::Action.modal.new(subject.company, performer: action.performer)'
+      it do
+        expect_offense <<-RUBY
+          BA::Subject::Action.modal.new(subject.company, performer: action.performer)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
+        RUBY
+      end
     end
 
     context 'when multi-line initializer' do
       context 'with other performer' do
-        code = <<-CODE
-          BA::Subject::Action.new(subject,
+        it do
+          expect_offense <<-RUBY
+            BA::Subject::Action.new(subject,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
               performer: performer,
               other_param: param)
-        CODE
-        corrected = <<-CORRECTED
-          BA::Subject::Action.as(performer).new(subject,
-              other_param: param)
-        CORRECTED
+          RUBY
 
-        it_behaves_like 'code with offense', code, corrected
+          expect_correction <<-RUBY
+            BA::Subject::Action.as(performer).new(subject,
+              other_param: param)
+          RUBY
+        end
       end
 
       context 'with other performer' do
-        code = <<-CODE
-          BA::Subject::Action.new(subject,
+        it do
+          expect_offense <<-RUBY
+            BA::Subject::Action.new(subject,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
               performer: performer,
               other_param: param)
-        CODE
-        corrected = <<-CORRECTED
-          BA::Subject::Action.as(performer).new(subject,
-              other_param: param)
-        CORRECTED
+          RUBY
 
-        it_behaves_like 'code with offense', code, corrected
+          expect_correction <<-RUBY
+            BA::Subject::Action.as(performer).new(subject,
+              other_param: param)
+          RUBY
+        end
       end
 
       context 'with multiple params' do
-        code = <<-CODE
-          BA::Subject::Action.new(subject,
+        it do
+          expect_offense <<-RUBY
+            BA::Subject::Action.new(subject,
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ Use `.as(performer)` instead of passing performer to the initializer
               performer: performer,
               first: param,
               second: param
-          )
-        CODE
-        corrected = <<-CORRECTED
-          BA::Subject::Action.as(performer).new(subject,
+            )
+          RUBY
+
+          expect_correction <<-RUBY
+            BA::Subject::Action.as(performer).new(subject,
               first: param,
               second: param
-          )
-        CORRECTED
-
-        it_behaves_like 'code with offense', code, corrected
+            )
+          RUBY
+        end
       end
     end
   end
