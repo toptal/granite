@@ -78,11 +78,19 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
       describe '##{action}_url' do
         specify { expect(projector.confirm_url(foo: 'string')).to eq('http://test.host/students/action/confirm?foo=string') }
         specify { expect(projector.perform_url(anchor: 'ok')).to eq('http://test.host/students/action/perform#ok') }
+
+        context 'with option keys provides as strings' do
+          specify { expect(projector.perform_url('anchor' => 'ok')).to eq('http://test.host/students/action/perform#ok') }
+        end
       end
 
       describe '##{action}_path' do
         specify { expect(projector.confirm_path).to eq('/students/action/confirm') }
         specify { expect(projector.perform_path(bar: 'string')).to eq('/students/action/perform?bar=string') }
+
+        context 'with option keys provides as strings' do
+          specify { expect(projector.perform_path('bar' => 'string')).to eq('/students/action/perform?bar=string') }
+        end
       end
     end
 
@@ -101,11 +109,19 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
       describe '##{action}_url' do
         specify { expect(projector.confirm_url(foo: 'string')).to eq('http://test.host/students/42/action/confirm?foo=string') }
         specify { expect(projector.perform_url(anchor: 'ok')).to eq('http://test.host/students/42/action/perform#ok') }
+
+        context 'with option keys provides as strings' do
+          specify { expect(projector.perform_url('anchor' => 'ok')).to eq('http://test.host/students/42/action/perform#ok') }
+        end
       end
 
       describe '##{action}_path' do
         specify { expect(projector.confirm_path).to eq('/students/42/action/confirm') }
         specify { expect(projector.perform_path(bar: 'string')).to eq('/students/42/action/perform?bar=string') }
+
+        context 'with option keys provides as strings' do
+          specify { expect(projector.perform_path('bar' => 'string')).to eq('/students/42/action/perform?bar=string') }
+        end
       end
     end
   end
