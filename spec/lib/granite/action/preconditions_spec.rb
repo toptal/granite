@@ -21,6 +21,7 @@ RSpec.describe Granite::Action::Preconditions do
       subject { action.failed_preconditions }
       let(:action) { Action.new(title: 'Delphi') }
       it { is_expected.to eq [] }
+
       specify do
         action.satisfy_preconditions?
         expect(subject).to eq [:wrong_title]

@@ -12,6 +12,7 @@ RSpec.describe Granite::Action::Policies do
 
   describe '#perform' do
     specify { expect(Action.as(Student.new).new.perform).to eq(true) }
+
     specify do
       expect { Action.as(Teacher.new).new.perform }.to raise_error(
         Granite::Action::NotAllowedError,

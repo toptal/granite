@@ -5,6 +5,7 @@ RSpec.describe Granite::Context do
     let(:view_context) { Object.new }
 
     specify { expect(config.with_view_context(view_context) { 'result' }).to eq('result') }
+
     specify do
       expect(config.view_context).to be_nil
       config.with_view_context(view_context) do
@@ -14,7 +15,7 @@ RSpec.describe Granite::Context do
             expect(config.view_context).to be_nil
             fail
           end
-        rescue # rubocop:disable Lint/HandleExceptions
+        rescue
         end
         expect(config.view_context).to eq(view_context)
       end

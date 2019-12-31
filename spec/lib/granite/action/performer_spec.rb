@@ -16,6 +16,7 @@ RSpec.describe Granite::Action::Performer do
   describe '#performer' do
     specify { expect(Action.new.performer).to be_nil }
     specify { expect(Action.as(performer1).new.performer).to eq(performer1) }
+
     specify 'proxy works for deeper initialization' do
       expect(Action.as(performer1).batch(2).map(&:performer)).to eq([performer1, performer1])
     end

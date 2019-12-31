@@ -68,6 +68,7 @@ RSpec.describe Granite::Action::Performing do
         .to change { action.errors.messages }.to(base: ['Dummy exception'])
         .and not_change { user.reload.email }
     end
+
     specify { expect(action.perform(some_value: 'value')).to eq(false) }
 
     specify do
@@ -76,6 +77,7 @@ RSpec.describe Granite::Action::Performing do
         .and change { action.errors.messages }.to(base: ['Dummy exception'])
         .and not_change { user.reload.email }
     end
+
     specify { expect { action.perform!(some_value: 'value') }.to raise_error(Granite::Action::ValidationError) { |error| expect(error.backtrace[0]).to include('spec/lib/granite/action/performing_spec.rb') } }
   end
 
@@ -388,6 +390,7 @@ RSpec.describe Granite::Action::Performing do
       let(:action) { Action.new(user, login: 'Login') }
 
       specify { expect { action.try_perform! }.to change { action.variable }.to(1) }
+
       specify do
         expect do
           action.try_perform!
