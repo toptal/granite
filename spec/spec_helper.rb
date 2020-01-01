@@ -47,4 +47,4 @@ RSpec.configure do |config|
   config.include RSpec::Matchers::FailMatchers, file_path: %r{spec/lib/granite/rspec/}
 end
 
-Dir['./spec/support/**/*.rb'].each { |f| require f }
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }

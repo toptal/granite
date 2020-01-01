@@ -1,4 +1,7 @@
+inherit_from: .rubocop_todo.yml
+
 require:
+  - rubocop-rails
   - rubocop-rspec
 
 AllCops:
@@ -12,37 +15,37 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.4
 
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Enabled: false
 
-ClassLength:
+Metrics/ClassLength:
   Enabled: false
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
-EmptyLinesAroundClassBody:
+Layout/EmptyLinesAroundClassBody:
   Enabled: false
 
-EmptyLinesAroundModuleBody:
+Layout/EmptyLinesAroundModuleBody:
   Enabled: false
 
-EmptyLinesAroundArguments:
+Layout/EmptyLinesAroundArguments:
   Enabled: false
 
-LineLength:
+Layout/LineLength:
   Enabled: false
 
-MethodLength:
+Metrics/MethodLength:
   Enabled: false
 
-MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   EnforcedStyle: indented
 
-PercentLiteralDelimiters:
+Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%r': '{}'
     '%i': '[]'
@@ -50,22 +53,22 @@ PercentLiteralDelimiters:
     '%W': '[]'
     '%Q': '{}'
 
-PredicateName:
+Naming/PredicateName:
   Enabled: false
 
 Rails:
   Enabled: true
 
-SignalException:
+Style/SignalException:
   EnforcedStyle: semantic
 
-SpaceBeforeFirstArg:
+Layout/SpaceBeforeFirstArg:
   Enabled: false
 
-SpaceInsideHashLiteralBraces:
+Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
 
-TrailingCommaInArguments:
+Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: no_comma
 
 Bundler/OrderedGems:
@@ -103,7 +106,7 @@ Naming/HeredocDelimiterNaming:
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: true
   AllowedNames:
     - as # used in keywords arguments
@@ -301,5 +304,5 @@ Style/TrailingCommaInArrayLiteral:
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: no_comma
 
-Style/UnneededPercentQ:
+Style/RedundantPercentQ:
   Enabled: true

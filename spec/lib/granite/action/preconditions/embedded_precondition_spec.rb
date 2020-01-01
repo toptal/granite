@@ -19,6 +19,7 @@ RSpec.describe Granite::Action::Preconditions::EmbeddedPrecondition do
 
   describe '#satisfy_preconditions?' do
     specify { expect(Action.new(subject: passed_student)).to satisfy_preconditions }
+
     specify do
       expect(Action.new(subject: failed_student))
         .not_to satisfy_preconditions.with_message('embedded_not_passed')
