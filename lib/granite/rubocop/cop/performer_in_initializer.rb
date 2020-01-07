@@ -66,15 +66,13 @@ module RuboCop
         end
 
         def described_class_is_ba?(node)
-          parent = node.parent
-          while parent
-            describing_class = describe_block?(parent)
+          node.each_ancestor do |ancestor|
+            describing_class = describe_block?(ancestor)
             if describing_class
               return false if describing_class.empty?
 
               return under_ba_namespace?(describing_class.first)
             end
-            parent = parent.parent
           end
           false
         end
