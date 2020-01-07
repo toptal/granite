@@ -2,5 +2,7 @@
 
 # A setup script for development environment of Granite
 
-cp spec/support/database.yml.example spec/support/database.yml
+if [ ! -f spec/support/database.yml ]; then
+  cp spec/support/database.yml.example spec/support/database.yml
+fi
 psql -c 'create database granite;' -U granite
