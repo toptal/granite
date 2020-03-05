@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/toptal/granite'
   s.authors     = ['Arkadiy Zabazhanov & friends']
   s.summary     = 'Another business actions architecture for Rails apps'
-  s.files       = `git ls-files`.split("\n").grep(/\A(app|lib|LICENSE)/)
+  s.files       = `git ls-files`.split("\n").grep(/\A(app|lib|config|LICENSE)/)
   s.license     = 'MIT'
 
   s.add_runtime_dependency 'actionpack', '>= 5.1', '< 6.1'

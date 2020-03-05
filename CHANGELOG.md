@@ -1,5 +1,23 @@
 # master (not released yet)
 
+# Version 0.9.6
+
+* fix gemspec to include `config` directory
+* update readme
+
+# Version 0.9.5
+
+* add rubocop config that can be included in projects using Granite
+
+# Version 0.9.4
+
+* fix documentation
+* add Rails 6 support
+* fix path helper to work with string arguments
+
+# Version 0.9.3
+
+* move `apply_association_changes!` to perform block
 
 # Version 0.9.2
 

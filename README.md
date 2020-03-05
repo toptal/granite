@@ -53,6 +53,23 @@ psql -c 'create database granite;' -U granite
 rspec
 ```
 
+### Using Granite's Rubocop config
+
+Add this to your Rubocop config file:
+
+```
+require:
+  - rubocop-granite
+```
+
+This will add config for `Lint/UselessAccessModifier` to treat `projector` as separate context. It is equivalent to:
+
+```
+Lint/UselessAccessModifier:
+  ContextCreatingMethods:
+    - projector
+```
+
 ## License
 
 Granite is released under the [MIT License](https://opensource.org/licenses/MIT).
