@@ -11,6 +11,7 @@ require 'granite/action/preconditions'
 require 'granite/action/policies'
 require 'granite/action/projectors'
 require 'granite/action/subject'
+require 'granite/action/documentation'
 
 module Granite
   class Action
@@ -44,6 +45,7 @@ module Granite
     include Preconditions
     include Policies
     include Projectors
+    include Documentation
     prepend AssignAttributes
 
     handle_exception ActiveRecord::RecordInvalid do |e|
