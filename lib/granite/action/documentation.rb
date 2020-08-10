@@ -9,7 +9,7 @@ module Granite
       end
 
       module ClassMethods
-        # Use domain and description methods to provide information about what Action does and it's domain:
+        # Use domain and description methods to provide information about what Action does and its domain:
         #
         # class Action < Granite::Action
         #   domain 'library'
