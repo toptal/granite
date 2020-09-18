@@ -101,4 +101,25 @@ RSpec.describe Granite::Action::Preconditions do
       specify { expect(Action.new(title: nil)).to satisfy_preconditions }
     end
   end
+
+  context 'with object' do
+    before do
+      stub_class(:test_precondition, Granite::Action::Precondition) do
+        def call(*)
+          decline_with(:wrong_title) if title != 'Ruby'
+        end
+      end
+
+      stub_class(:action, Granite::Action) do
+        attribute :title, String
+
+        precondition TestPrecondition
+      end
+    end
+
+    describe '#satisfy_preconditions?' do
+      specify { expect(Action.new(title: 'Delphi')).not_to satisfy_preconditions }
+      specify { expect(Action.new(title: 'Ruby')).to satisfy_preconditions }
+    end
+  end
 end
