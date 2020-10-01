@@ -2,11 +2,14 @@ language: ruby
 sudo: false
 services:
   - postgresql
-rvm:
-  - 2.4.2
-branches:
-  only:
-    - master
+
+matrix:
+  include:
+    rvm:
+      - 2.4.10
+      - 2.5.8
+      - 2.6.6
+
 before_script:
   - psql -c 'create database granite_ci_test;' -U postgres
   - cp spec/support/database.yml.travis spec/support/database.yml
