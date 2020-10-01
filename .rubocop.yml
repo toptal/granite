@@ -15,6 +15,14 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.4
 
+Naming/FileName:
+  Exclude:
+    - 'lib/rubocop-granite.rb'
+
+Rails/Output:
+  Exclude:
+    - 'lib/rubocop/**/*'
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
