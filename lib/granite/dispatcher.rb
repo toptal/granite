@@ -25,7 +25,7 @@ class Granite::Dispatcher
   end
 
   def controller(params, *_args)
-    projector(params.slice(:granite_action, :granite_projector).symbolize_keys)&.controller_class
+    projector(**params.slice(:granite_action, :granite_projector).symbolize_keys)&.controller_class
   end
 
   def prepare_params!(params, *_args)

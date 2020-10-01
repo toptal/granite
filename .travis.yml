@@ -9,6 +9,7 @@ matrix:
       - 2.4.10
       - 2.5.8
       - 2.6.6
+      - 2.7.1
 
 before_script:
   - psql -c 'create database granite_ci_test;' -U postgres
