@@ -4,7 +4,7 @@ RSpec.describe Granite, type: :request do
   before do
     stub_class(:projector, Granite::Projector) do
       get :confirm do
-        render plain: 'OK'
+        render plain: t('.key')
       end
 
       post :perform do
@@ -53,7 +53,7 @@ RSpec.describe Granite, type: :request do
 
           expect(request.env['action_dispatch.exception'].to_s).to eq('')
           expect(response).to be_successful
-          expect(response.body).to eq 'OK'
+          expect(response.body).to eq 'Just example key'
         end
       end
 

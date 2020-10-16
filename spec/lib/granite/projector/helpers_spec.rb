@@ -7,12 +7,15 @@ RSpec.describe Granite::Projector::Helpers, type: :granite_projector do
 
       post :perform, as: '' do
       end
-
-      get :result do
-      end
     end
+
     stub_class(:dummy_action, Granite::Action) do
-      projector :dummy, class_name: 'Projector'
+      projector :dummy, class_name: 'Projector' do
+        get :result do
+        end
+      end
+
+      allow_if { true }
     end
   end
 
@@ -29,9 +32,19 @@ RSpec.describe Granite::Projector::Helpers, type: :granite_projector do
   describe '#translate' do
     projector { DummyAction.dummy }
 
+    draw_routes do
+      resources :students, only: [] do
+        granite 'dummy_action#dummy', on: :collection
+      end
+    end
+
     specify do
-      expect(controller.translate(:key)).to eq 'translation missing: en.key'
-      expect(controller.view_context.translate(:key)).to eq '<span class="translation_missing" title="translation missing: en.key">Key</span>'
+      expect(controller.translate('.key')).to eq 'Another example key'
+      get projector.confirm_path
+      expect(response.body).to eq("Confirm key\n")
+      get projector.result_path
+      expect(response.body).to eq("Result key\n")
+      expect(controller.view_context.translate(:no_such_key)).to eq '<span class="translation_missing" title="translation missing: en.no_such_key">No Such Key</span>'
     end
   end
 
