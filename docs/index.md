@@ -268,6 +268,28 @@ precondition if: -> { subject.active? } do
 end
 ```
 
+##### Preconditions as objects
+
+`precondition` method also accepts a class that inherits from `Granite::Action::Precondition`.
+Defining precondition this way supports the same options (`:if`, `:unless`), just like defining precondition as a block.
+You can also pass additional parameters to precondition object, this improves reusability of precondition object.
+
+
+```ruby
+class AgeCheck < Granite::Action::Precondition
+  description 'Must be old enough'
+
+  def call(**)
+    decline_with(:too_young) if subject.age < 30
+  end
+end
+```
+
+This precondition can be used like this:
+```ruby
+precondition AgeCheck, if: -> { subject.active? }
+```
+
 #### Validations
 
 You are able to use any of ActiveModel-provided validations.

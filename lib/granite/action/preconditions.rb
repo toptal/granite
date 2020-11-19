@@ -1,5 +1,6 @@
 require 'granite/action/preconditions/base_precondition'
 require 'granite/action/preconditions/embedded_precondition'
+require 'granite/action/preconditions/object_precondition'
 
 module Granite
   class Action
@@ -13,6 +14,10 @@ module Granite
       extend ActiveSupport::Concern
 
       class PreconditionsCollection
+        include Enumerable
+
+        delegate :each, to: :@preconditions
+
         def initialize(*preconditions)
           @preconditions = preconditions.flatten
         end
@@ -43,8 +48,10 @@ module Granite
           options = args.extract_options!
           if block
             add_precondition(BasePrecondition, options, &block)
+          elsif args.first.is_a?(Class)
+            add_precondition(ObjectPrecondition, *args, options)
           else
-            common_options = options.extract!(:if, :unless)
+            common_options = options.extract!(:if, :unless, :desc, :description)
             args.each do |type|
               precondition common_options.merge(type => {})
             end
