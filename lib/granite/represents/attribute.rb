@@ -11,9 +11,7 @@ module Granite
       end
 
       def sync
-        return if reference.nil?
-
-        reference.public_send(writer, read)
+        reference.public_send(writer, read) if reference.respond_to?(writer)
       end
 
       def typecast(value)

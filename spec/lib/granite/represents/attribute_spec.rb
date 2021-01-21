@@ -71,7 +71,7 @@ RSpec.describe Granite::Represents::Attribute do
       expect { subject.sync }.to change { action.user.sign_in_count }.from(1).to(2)
     end
 
-    context 'when represents attribute of nil' do
+    context 'when represented object does not respond to attribute name' do
       before do
         stub_class(:action, Granite::Action) do
           allow_if { true }
@@ -80,6 +80,7 @@ RSpec.describe Granite::Represents::Attribute do
           represents :related_ids, of: :user
 
           def user
+            Object.new
           end
         end
       end
