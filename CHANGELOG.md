@@ -1,5 +1,9 @@
 # master (not released yet)
 
+# Version 0.9.7
+
+* fix `represents` to skip not defined attributes on the reference
+
 # Version 0.9.6
 
 * fix gemspec to include `config` directory
