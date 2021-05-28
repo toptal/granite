@@ -4,6 +4,7 @@ require 'action_controller'
 require 'granite/version'
 require 'granite/config'
 require 'granite/context'
+require 'granite/util'
 
 module Granite
   def self.config

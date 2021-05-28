@@ -9,10 +9,7 @@ module Granite
         end
 
         def execute!(context)
-          return if @options[:if] && !context.instance_exec(&@options[:if])
-          return if @options[:unless] && context.instance_exec(&@options[:unless])
-
-          _execute(context)
+          _execute(context) if context.conditions_satisfied?(@options)
         end
 
         private
