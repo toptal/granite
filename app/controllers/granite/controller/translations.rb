@@ -1,10 +1,8 @@
 module Granite
-  class Projector
+  class Controller
     module Translations
-      include ActionView::Helpers::TranslationHelper
-
       def i18n_scopes
-        Granite::Translations.combine_paths(action_class.i18n_scopes, [:"#{projector_name}"])
+        Granite::Translations.combine_paths(projector.i18n_scopes, [*action_name, nil])
       end
 
       def translate(*args, **options)

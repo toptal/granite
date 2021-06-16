@@ -19,7 +19,6 @@ module Granite
     include ActiveModel::Validations::Callbacks
 
     include Granite::Util
-    include Granite::Translations
     include Granite::Represents
   end
 end

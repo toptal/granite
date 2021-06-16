@@ -1,9 +1,9 @@
-require 'granite/projector/translations/helper'
 require 'action_controller'
 
 module Granite
   class Controller < Granite.base_controller_class
-    include Granite::Projector::Translations::Helper
+    include Controller::Translations
+    helper Controller::Translations
 
     singleton_class.__send__(:attr_accessor, :projector_class)
     singleton_class.delegate :projector_path, :projector_name, :action_class, to: :projector_class

@@ -12,6 +12,7 @@ require 'granite/action/preconditions'
 require 'granite/action/policies'
 require 'granite/action/projectors'
 require 'granite/action/subject'
+require 'granite/action/translations'
 
 module Granite
   class Action
@@ -39,6 +40,7 @@ module Granite
     end
 
     include Base
+    include Translations
     include Performing
     include Subject
     include Performer
@@ -63,10 +65,6 @@ module Granite
       errors.messages.deep_merge!(e.action.errors.messages) do |_, this, other|
         (this + other).uniq
       end
-    end
-
-    def self.i18n_scope
-      :granite_action
     end
 
     # Almost the same as Dirty `#changed?` method, but
