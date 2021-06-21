@@ -51,15 +51,7 @@ module Granite
           elsif args.first.is_a?(Class)
             add_precondition(ObjectPrecondition, *args, options)
           else
-            common_options = options.extract!(:if, :unless, :desc, :description)
-            args.each do |type|
-              precondition common_options.merge(type => {})
-            end
-            options.each do |key, value|
-              value = Array.wrap(value)
-              precondition_options = value.extract_options!
-              add_precondition(klass(key), *value, precondition_options.merge!(common_options))
-            end
+            add_preconditions_hash(*args, **options)
           end
         end
 
@@ -70,6 +62,18 @@ module Granite
           Granite.precondition_namespaces.reduce(nil) do |memo, ns|
             memo || "#{ns.to_s.camelize}::#{key}Precondition".safe_constantize
           end || fail(NameError, "No precondition class for #{key}Precondition")
+        end
+
+        def add_preconditions_hash(*args, **options)
+          common_options = options.extract!(:if, :unless, :desc, :description)
+          args.each do |type|
+            precondition common_options.merge(type => {})
+          end
+          options.each do |key, value|
+            value = Array.wrap(value)
+            precondition_options = value.extract_options!
+            add_precondition(klass(key), *value, precondition_options.merge!(common_options))
+          end
         end
 
         def add_precondition(klass, *args, &block)

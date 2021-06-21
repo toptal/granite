@@ -19,7 +19,7 @@ RSpec.describe Granite::PerformerProxy::Proxy do
       let(:klass) { class_double('DummyClass', func: 'value') }
 
       specify do
-        expect(klass).to receive(:with_proxy_performer).with(performer) { yield if block_given? }
+        expect(klass).to receive(:with_proxy_performer).with(performer).and_yield
         subject.func('value')
       end
     end
