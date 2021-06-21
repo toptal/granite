@@ -1,4 +1,6 @@
-I18n.backend.store_translations(:en, YAML.safe_load(<<-YML))
+I18n.backend.store_translations(:en, YAML.safe_load(<<-YAML))
+  dummy:
+    other_key: 'dummy projector other key'
   granite_action:
     errors:
       messages:
@@ -9,4 +11,10 @@ I18n.backend.store_translations(:en, YAML.safe_load(<<-YML))
             base:
               message: 'Base error message'
               wrong_title: 'Wrong title'
-YML
+    dummy_action:
+      key: 'dummy action key'
+      dummy:
+        key: 'dummy action dummy projector key'
+        result:
+          key: 'dummy action dummy projector result key'
+YAML

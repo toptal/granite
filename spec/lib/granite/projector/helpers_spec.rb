@@ -26,15 +26,6 @@ RSpec.describe Granite::Projector::Helpers, type: :granite_projector do
     specify { expect(Granite.with_view_context(view_context) { projector.view_context }).to eq(view_context) }
   end
 
-  describe '#translate' do
-    projector { DummyAction.dummy }
-
-    specify do
-      expect(controller.translate(:key)).to eq 'translation missing: en.key'
-      expect(controller.view_context.translate(:key)).to eq '<span class="translation_missing" title="translation missing: en.key">Key</span>'
-    end
-  end
-
   describe 'projectors related' do
     projector { DummyAction.dummy }
 

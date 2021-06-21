@@ -1,48 +1,24 @@
-RSpec.describe Granite::Projector::Translations do
-  subject(:projector) { TestAction.new.dummy }
+RSpec.describe Granite::Projector::Translations, type: :granite_projector do
   before do
-    stub_class(:projector, Granite::Projector) do
-      get :new do
-      end
-
-      post :create do
-      end
+    stub_class(:dummy_projector, Granite::Projector)
+    stub_class(:dummy_action, Granite::Action) do
+      projector :dummy
     end
+  end
 
-    stub_class(:test_action, Granite::Action) do
-      projector :dummy, class_name: 'Projector'
+  projector { DummyAction.dummy }
 
-      attribute :id, Integer
+  describe '#i18n_scopes' do
+    it do
+      expect(projector.i18n_scopes).to eq %w[granite_action.dummy_action.dummy granite_action.granite/action.dummy dummy]
     end
   end
 
   describe '#translate' do
-    it { expect(subject.translate('key')).to eq('<span class="translation_missing" title="translation missing: en.key">Key</span>') }
-    it { expect(subject.translate('.key')).to eq('<span class="translation_missing" title="translation missing: en.dummy.key">Key</span>') }
-  end
-
-  describe '.scope_translation_args_by_projector' do
-    subject { projector.class }
-
-    it 'prepends translation key with action ancestor lookup scopes' do
-      expect(subject.scope_translation_args_by_projector(['key']))
-        .to eq([:key,
-                {default: []}])
-    end
-
-    it 'expands translation key if it is relative' do
-      expect(subject.scope_translation_args_by_projector(['.key']))
-        .to eq([:"granite_action.test_action.dummy.key",
-                {default: %i[granite_action.granite/action.dummy.key dummy.key]}])
-    end
-
-    it 'injects projector action name into keys if present' do
-      expect(subject.scope_translation_args_by_projector(['.key'], action_name: :new))
-        .to eq([:"granite_action.test_action.dummy.new.key",
-                {default: %i[granite_action.test_action.dummy.key
-                             granite_action.granite/action.dummy.new.key
-                             granite_action.granite/action.dummy.key
-                             dummy.new.key dummy.key]}])
+    it do
+      expect(projector.translate('.key')).to eq 'dummy action dummy projector key'
+      expect(projector.translate('.other_key')).to eq 'dummy projector other key'
+      expect(projector.translate(:no_such_key)).to eq '<span class="translation_missing" title="translation missing: en.no_such_key">No Such Key</span>'
     end
   end
 end

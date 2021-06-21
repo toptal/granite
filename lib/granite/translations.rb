@@ -1,19 +1,14 @@
 module Granite
-  module Translations
-    extend ActiveSupport::Concern
+  class Translations
+    class << self
+      def combine_paths(paths1, paths2)
+        paths1.flat_map do |path1|
+          paths2.map { |path2| [*path1, *path2].join('.') }
+        end
+      end
 
-    def translate(*args)
-      I18n.translate(*self.class.scope_translation_args(args))
-    end
-    alias t translate
-
-    module ClassMethods
-      def scope_translation_args(args)
-        options = args.extract_options!
-
-        lookups = expand_relative_key(args.first).map(&:to_sym)
-        lookups += [options[:default]]
-        lookups = lookups.flatten.compact
+      def scope_translation_args(scopes, key, *, **options)
+        lookups = expand_relative_key(scopes, key) + Array(options[:default])
 
         key = lookups.shift
         options[:default] = lookups
@@ -23,14 +18,10 @@ module Granite
 
       private
 
-      def expand_relative_key(key)
+      def expand_relative_key(scopes, key)
         return [key] unless key.is_a?(String) && key.start_with?('.')
 
-        base_key = key.sub(/^\./, '')
-
-        lookup_ancestors.map do |klass|
-          :"#{klass.i18n_scope}.#{klass.model_name.i18n_key}.#{base_key}"
-        end.flatten + [base_key]
+        combine_paths(scopes, [key.sub(/^\./, '')]).map(&:to_sym)
       end
     end
   end
