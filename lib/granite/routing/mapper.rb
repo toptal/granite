@@ -5,8 +5,8 @@ module Granite
   module Routing
     module Mapper
       def granite(projector_path, **options)
-        route = Route.new(projector_path, options.extract!(:path, :as, :projector_prefix))
-        Declarer.declare(self, route, options)
+        route = Route.new(projector_path, **options.extract!(:path, :as, :projector_prefix))
+        Declarer.declare(self, route, **options)
       end
     end
   end
