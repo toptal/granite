@@ -25,7 +25,7 @@ class Granite::Dispatcher
   end
 
   def controller(params, *_args)
-    projector(params.slice(:granite_action, :granite_projector).symbolize_keys)&.controller_class
+    projector(*params.values_at(:granite_action, :granite_projector))&.controller_class
   end
 
   def prepare_params!(params, *_args)
@@ -39,19 +39,19 @@ class Granite::Dispatcher
       controller(req.params),
       action_name(
         req.request_method_symbol,
-        req.params.slice(:granite_action, :granite_projector, :projector_action).symbolize_keys
+        *req.params.values_at(:granite_action, :granite_projector, :projector_action)
       )
     ]
   end
 
-  memoize def action_name(request_method_symbol, granite_action:, granite_projector:, projector_action: '')
-    projector = projector(granite_action: granite_action, granite_projector: granite_projector)
+  memoize def action_name(request_method_symbol, granite_action, granite_projector, projector_action = '')
+    projector = projector(granite_action, granite_projector)
     return unless projector
 
     projector.action_for(request_method_symbol, projector_action)
   end
 
-  memoize def projector(granite_action:, granite_projector:)
+  memoize def projector(granite_action, granite_projector)
     action = business_action(granite_action)
 
     action.public_send(granite_projector) if action.respond_to?(granite_projector)

@@ -94,7 +94,7 @@ module Granite
       def perform_action(raise_errors: false, **options)
         result = run_callbacks(:execute_perform) do
           apply_association_changes!
-          execute_perform!(options)
+          execute_perform!(**options)
         end
         @_action_performed = true
         result || true

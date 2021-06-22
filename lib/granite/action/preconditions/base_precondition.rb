@@ -9,7 +9,7 @@ module Granite
         end
 
         def execute!(context)
-          _execute(context) if context.conditions_satisfied?(@options)
+          _execute(context) if context.conditions_satisfied?(**@options)
         end
 
         private

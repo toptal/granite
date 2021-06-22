@@ -23,11 +23,11 @@ module Granite
             controller_class.__send__(:define_method, name, &block)
             class_eval <<-METHOD, __FILE__, __LINE__ + 1
               def #{name}_url(options = {})
-                action_url(:#{name}, options.symbolize_keys)
+                action_url(:#{name}, **options.symbolize_keys)
               end
 
               def #{name}_path(options = {})
-                action_path(:#{name}, options.symbolize_keys)
+                action_path(:#{name}, **options.symbolize_keys)
               end
             METHOD
           else

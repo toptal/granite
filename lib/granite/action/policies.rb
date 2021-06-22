@@ -55,17 +55,17 @@ module Granite
         end
       end
 
-      def try_perform!(*)
+      def try_perform!(*, **)
         authorize!
         super
       end
 
-      def perform(*)
+      def perform(*, **)
         authorize!
         super
       end
 
-      def perform!(*)
+      def perform!(*, **)
         authorize!
         super
       end
