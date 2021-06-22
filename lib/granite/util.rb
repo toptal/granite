@@ -26,7 +26,7 @@ module Granite
     # @option options :if method name or callable
     # @option options :unless method name or callable
     # @return [Boolean] whether conditions are satisfied
-    def conditions_satisfied?(options)
+    def conditions_satisfied?(**options)
       fail ArgumentError, 'You cannot specify both if and unless' if options.key?(:if) && options.key?(:unless)
 
       if options.key?(:if)

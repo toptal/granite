@@ -6,7 +6,8 @@ module Granite
       end
 
       def translate(*args, **options)
-        super(*Granite::Translations.scope_translation_args(i18n_scopes, *args, **options))
+        key, options = Granite::Translations.scope_translation_args(i18n_scopes, *args, **options)
+        super(key, **options)
       end
 
       alias t translate

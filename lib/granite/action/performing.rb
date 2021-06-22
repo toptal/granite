@@ -42,7 +42,7 @@ module Granite
       # @return [Object] result of execute_perform! method execution or false in case of errors
       def perform(context: nil, **options)
         transaction do
-          valid?(context) && perform_action(options)
+          valid?(context) && perform_action(**options)
         end
       end
 
