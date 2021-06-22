@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = 'granite'
   s.version     = Granite::VERSION
   s.homepage    = 'https://github.com/toptal/granite'
-  s.authors     = ['Arkadiy Zabazhanov & friends']
+  s.authors     = ['Toptal Engineering']
   s.summary     = 'Another business actions architecture for Rails apps'
   s.files       = `git ls-files`.split("\n").grep(/\A(app|lib|config|LICENSE)/)
   s.license     = 'MIT'
