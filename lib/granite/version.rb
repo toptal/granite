@@ -1,3 +1,3 @@
 module Granite
-  VERSION = '0.9.9'.freeze
+  VERSION = '0.10.0'.freeze
 end
