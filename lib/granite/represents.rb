@@ -13,10 +13,7 @@ module Granite
         fields.each do |field|
           add_attribute Granite::Represents::Reflection, field, options, &block
 
-          before_validation do
-            attribute(field).sync if attribute(field).changed?
-            true
-          end
+          assign_data { attribute(field).sync if attribute(field).changed? }
         end
       end
     end

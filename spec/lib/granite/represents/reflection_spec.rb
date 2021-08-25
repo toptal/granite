@@ -21,9 +21,7 @@ RSpec.describe Granite::Represents::Reflection do
       let(:instance) { Target.new }
 
       before do
-        stub_class(:target, Object) do
-          include Granite::Base
-
+        stub_class(:target, Granite::Action) do
           references_one :author, class_name: 'DummyUser'
           attribute :field, Object
           represents :field, of: :author
@@ -45,9 +43,7 @@ RSpec.describe Granite::Represents::Reflection do
       let(:instance) { Target.new }
 
       before do
-        stub_class(:target, Object) do
-          include Granite::Base
-
+        stub_class(:target, Granite::Action) do
           references_one :author, default: {}, class_name: 'DummyUser'
           attribute :field, Object
           represents :field, of: :author
