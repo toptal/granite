@@ -1,4 +1,4 @@
-RSpec.describe Granite::Action::AssignData do
+RSpec.describe Granite::AssignData do
   subject(:action) { DummyAction.new(user) }
   let!(:user) { User.create! }
 

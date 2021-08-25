@@ -5,8 +5,11 @@ require 'active_data/model/associations'
 
 require 'granite/translations'
 require 'granite/represents'
+require 'granite/assign_data'
 
 module Granite
+  # Base included in Granite::Action, but also used by ActiveData when building data objects (e.g. when using
+  # embeds_many)
   module Base
     extend ActiveSupport::Concern
 
@@ -20,5 +23,6 @@ module Granite
 
     include Granite::Util
     include Granite::Represents
+    include Granite::AssignData
   end
 end

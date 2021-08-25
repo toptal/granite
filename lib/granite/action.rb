@@ -13,7 +13,6 @@ require 'granite/action/policies'
 require 'granite/action/projectors'
 require 'granite/action/subject'
 require 'granite/action/translations'
-require 'granite/action/assign_data'
 
 module Granite
   class Action
@@ -45,7 +44,6 @@ module Granite
     include Performing
     include Subject
     include Performer
-    include AssignData
     include Preconditions
     include Policies
     include Projectors
