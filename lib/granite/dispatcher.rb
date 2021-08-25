@@ -44,11 +44,11 @@ class Granite::Dispatcher
     ]
   end
 
-  memoize def action_name(request_method_symbol, granite_action, granite_projector, projector_action = '')
+  memoize def action_name(request_method_symbol, granite_action, granite_projector, projector_action)
     projector = projector(granite_action, granite_projector)
     return unless projector
 
-    projector.action_for(request_method_symbol, projector_action)
+    projector.action_for(request_method_symbol, projector_action.to_s)
   end
 
   memoize def projector(granite_action, granite_projector)
