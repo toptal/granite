@@ -1,5 +1,7 @@
 module Granite
   module AssignData
+    DataAssignment = Struct.new(:method, :options)
+
     extend ActiveSupport::Concern
 
     included do
@@ -8,8 +10,14 @@ module Granite
     end
 
     module ClassMethods
-      def assign_data(*methods, &block)
-        self.data_assignments += [*methods, *block]
+      # Defines a callback to call when assigning data from business action to model.
+      # @param methods [Array<Symbol>] list of methods to call
+      # @param block [Proc] a block to call
+      # @option options [Symbol, Proc, Object] :if call methods/block if this condition evaluates to true
+      # @option options [Symbol, Proc, Object] :unless call method/block unless this condition evaluates to true
+      def assign_data(*methods, **options, &block)
+        self.data_assignments += methods.map { |method| DataAssignment.new(method, options) }
+        self.data_assignments += [DataAssignment.new(block, options)] if block
       end
     end
 
@@ -20,7 +28,7 @@ module Granite
     end
 
     def assign_data
-      data_assignments.each(&method(:evaluate))
+      data_assignments.each { |assignment| evaluate(assignment.method) if conditions_satisfied?(**assignment.options) }
     end
   end
 end
