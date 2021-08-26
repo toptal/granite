@@ -78,6 +78,17 @@ RSpec.describe Granite::Dispatcher do
 
       expect(controller_action).to have_received(:call).with(env)
     end
+
+    context 'when projector action is nil' do
+      let(:params) { super().except(:projector_action) }
+      let(:request_method) { :post }
+
+      it 'finds the controller action by name in the specified projector' do
+        subject.serve(req)
+
+        expect(controller_class).to have_received(:action).with(:perform)
+      end
+    end
   end
 
   describe '#controller' do
