@@ -22,7 +22,7 @@ module Granite
     include ActiveModel::Validations::Callbacks
 
     include Granite::Util
-    include Granite::Represents
     include Granite::AssignData
+    include Granite::Represents
   end
 end

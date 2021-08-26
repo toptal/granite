@@ -7,6 +7,9 @@ module Granite
     included do
       class_attribute :data_assignments
       self.data_assignments = []
+
+      alias_method :only_run_validations!, :run_validations!
+      protected :only_run_validations! # rubocop:disable Style/AccessModifierDeclarations
     end
 
     module ClassMethods
@@ -24,7 +27,8 @@ module Granite
     private
 
     def run_validations!
-      assign_data && super
+      assign_data
+      super
     end
 
     def assign_data
