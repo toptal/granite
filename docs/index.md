@@ -147,7 +147,30 @@ The attributes behave pretty much as they do with `ActiveData` objects, except f
 
 #### Represents
 
-In `ActiveData` objects, when a model attribute is exposed through `represents` and the AD object changes, the exposed attribute is updated right away, and Granite Actions update the represented attribute `before_validation`.
+In `ActiveData` objects, when a model attribute is exposed through `represents` and the AD object changes, the exposed attribute is updated right away, and Granite Actions update the represented attribute using `assign_data`.
+
+#### Assign_data
+
+`assign_data` can be used to set blocks & methods that are called before BA is validated. In practice it can be used like this:
+
+```ruby
+class CreateBook < Granite::Action
+  attribute :name, String
+  attribute :year, Integer
+  represents :author, of: :book
+  
+  assign_data :set_name
+  assign_data do
+    book.year = year
+  end
+  
+  private def assign_name
+    book.name = name
+  end
+end
+```
+
+In this example before BA is validated granite will call `assign_data` callbacks and will set book's author, name & year (in that order).
 
 ### Associations
 
