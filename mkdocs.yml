@@ -11,8 +11,9 @@ theme:
     accent: pink
 markdown_extensions:
   - admonition
-  - codehilite:
-      guess_lang: false
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
   - toc:
       permalink: true
 copyright: 'Copyright &copy; 2013 - 2018 Toptal'
