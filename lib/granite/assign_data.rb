@@ -24,15 +24,17 @@ module Granite
       end
     end
 
+    protected
+
+    def assign_data
+      data_assignments.each { |assignment| evaluate(assignment.method) if conditions_satisfied?(**assignment.options) }
+    end
+
     private
 
     def run_validations!
       assign_data
       super
-    end
-
-    def assign_data
-      data_assignments.each { |assignment| evaluate(assignment.method) if conditions_satisfied?(**assignment.options) }
     end
   end
 end
