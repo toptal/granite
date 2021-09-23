@@ -10,6 +10,7 @@ RSpec.describe Granite::Represents::Attribute do
 
       attribute :sign_in_count, Integer, default: '1'
       attribute :created_at, Time
+      attribute :has_signed_in, Boolean
     end
 
     stub_class(:action, Granite::Action) do
@@ -17,6 +18,7 @@ RSpec.describe Granite::Represents::Attribute do
 
       represents :sign_in_count, of: :user
       represents :created_at, default: -> { '2000-10-10' }, of: :user
+      represents :has_signed_in, default: false, of: :user
       represents :related_ids, of: :user
 
       def user
@@ -270,6 +272,16 @@ RSpec.describe Granite::Represents::Attribute do
       specify do
         expect(subject.owner.user).to receive(:created_at)
         expect(subject.owner).not_to receive(:created_at_changed?)
+        expect(subject).to be_changed
+      end
+    end
+
+    context 'when attribute has false as default value' do
+      subject { action.attribute(:has_signed_in) }
+
+      specify do
+        expect(subject.owner.user).to receive(:has_signed_in)
+        expect(subject.owner).not_to receive(:has_signed_in_changed?)
         expect(subject).to be_changed
       end
     end

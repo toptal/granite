@@ -34,7 +34,7 @@ module Granite
       end
 
       def changed?
-        if reflection.options[:default].present?
+        if reflection.options.key?(:default)
           reference.public_send(reader) != read
         else
           owner.public_send("#{name}_changed?")
