@@ -43,13 +43,13 @@ RSpec.describe 'raise_validation_error', aggregate_failures: false do
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.on_attribute(:raise_error)
-      end.to fail_with('expected to raise validation error on attribute :raise_error, but raised {:base=>[{:error=>:some_error}], :raise_error=>[]}')
+      end.to fail_with(include 'expected to raise validation error on attribute :raise_error, but raised {:base=>[{:error=>:some_error}]')
     end
 
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.on_attribute(:raise_error).of_type(:some_error)
-      end.to fail_with('expected to raise validation error on attribute :raise_error of type :some_error, but raised {:base=>[{:error=>:some_error}], :raise_error=>[]}')
+      end.to fail_with(include 'expected to raise validation error on attribute :raise_error of type :some_error, but raised {:base=>[{:error=>:some_error}]')
     end
   end
 end

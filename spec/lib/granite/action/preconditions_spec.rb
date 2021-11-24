@@ -38,7 +38,7 @@ RSpec.describe Granite::Action::Preconditions do
         let(:action) { Action.new(title: 'Delphi') }
         specify do
           expect { action.valid? }.to change { action.errors.messages }
-            .to(base: match_array(['Wrong title']))
+            .to(base: ['Wrong title'])
         end
       end
 

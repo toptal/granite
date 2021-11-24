@@ -50,20 +50,30 @@ module Granite
     prepend AssignAttributes
 
     handle_exception ActiveRecord::RecordInvalid do |e|
-      errors.messages.deep_merge!(e.record.errors.messages) do |_, this, other|
-        (this + other).uniq
-      end
+      merge_errors(e.record.errors)
     end
 
     handle_exception ActiveData::ValidationError do |e|
-      errors.messages.deep_merge!(e.model.errors.messages) do |_, this, other|
-        (this + other).uniq
-      end
+      merge_errors(e.model.errors)
     end
 
     handle_exception Granite::Action::ValidationError do |e|
-      errors.messages.deep_merge!(e.action.errors.messages) do |_, this, other|
-        (this + other).uniq
+      merge_errors(e.action.errors)
+    end
+
+    if ActiveModel.version < Gem::Version.new('6.1.0')
+      def merge_errors(other_errors)
+        errors.messages.deep_merge!(other_errors.messages) do |_, this, other|
+          (this + other).uniq
+        end
+      end
+    else
+      def merge_errors(other_errors)
+        other_errors.each do |error|
+          next if errors.added?(error.attribute, error.type, error.options)
+
+          errors.import(error, attribute: error.attribute)
+        end
       end
     end
 
