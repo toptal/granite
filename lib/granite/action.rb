@@ -70,9 +70,7 @@ module Granite
     else
       def merge_errors(other_errors)
         other_errors.each do |error|
-          next if errors.added?(error.attribute, error.type, error.options)
-
-          errors.import(error, attribute: error.attribute)
+          errors.import(error) unless errors.added?(error.attribute, error)
         end
       end
     end
