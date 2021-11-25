@@ -14,7 +14,8 @@ RSpec.describe Granite::Action do
 
         attribute :comment, String
 
-        private attr_reader :my_dep, :another_dep
+        attr_reader :my_dep, :another_dep
+        private :my_dep, :another_dep
 
         def initialize(*args, my_dep: Hash[a: 1], another_dep: "Foo", **kwargs, &block)
           @my_dep = my_dep
