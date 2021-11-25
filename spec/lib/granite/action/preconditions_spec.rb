@@ -106,7 +106,13 @@ RSpec.describe Granite::Action::Preconditions do
     before do
       stub_class(:test_precondition, Granite::Action::Precondition) do
         def call(*)
-          decline_with(:wrong_title) if title != 'Ruby'
+          decline_with(:wrong_title) if invalid_title?(title)
+        end
+
+        private
+
+        def invalid_title?(title)
+          title != 'Ruby'
         end
       end
 
