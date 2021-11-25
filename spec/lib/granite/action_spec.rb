@@ -7,6 +7,54 @@ RSpec.describe Granite::Action do
     end
   end
 
+  describe 'Dependency Injection' do
+    before do
+      stub_class(:action, Granite::Action) do
+        allow_if { true }
+
+        attribute :comment, String
+
+        private attr_reader :my_dep, :another_dep
+
+        def initialize(*args, my_dep: Hash[a: 1], another_dep: "Foo", **kwargs, &block)
+          @my_dep = my_dep
+          @another_dep = another_dep
+          super(*args, **kwargs, &block)
+        end
+      end
+
+      stub_class(:another_action, Granite::Action) do
+        allow_if { true }
+      end
+    end
+
+    it 'creates private getter' do
+      action = Action.new(comment: 'blah blah blah')
+      expect { action.my_dep }.to raise_error(NoMethodError, /private method `my_dep' called/)
+    end
+
+    it 'uses default value' do
+      action = Action.new(comment: 'blah blah blah')
+      expect(action.__send__(:my_dep)).to be_kind_of(Hash)
+      expect(action.__send__(:another_dep)).to be_kind_of(String)
+    end
+
+    it 'uses custom value' do
+      action = Action.new(comment: 'blah blah blah', my_dep: Array(1))
+      expect(action.__send__(:my_dep)).to be_kind_of(Array)
+    end
+
+    it 'protects from mass assigment of attributes' do
+      expect(ActiveData.config.logger).to receive(:info).with(/Ignoring undefined `foo` attribute value/)
+      Action.new(foo: 'bar')
+    end
+
+    it 'does not assign dependencies to other actions' do
+      another = AnotherAction.new
+      expect { another.__send__(:my_dep) }.to raise_error(NoMethodError, /undefined method `my_dep'/)
+    end
+  end
+
   describe '.i18n_scope' do
     specify { expect(Action.i18n_scope).to eq :granite_action }
   end
