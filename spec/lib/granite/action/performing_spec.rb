@@ -127,7 +127,7 @@ RSpec.describe Granite::Action::Performing do
       let(:action) { Action.new(user, login: '') }
 
       specify { expect(action.perform).to eq(false) }
-      specify { expect { action.perform }.to change { action.errors.messages }.to(base: [match('Base error message')]) }
+      specify { expect { action.perform }.to change { action.errors.messages }.to(base: ['Base error message']) }
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
 
@@ -236,7 +236,7 @@ RSpec.describe Granite::Action::Performing do
       specify do
         expect { action.perform! }
           .to raise_error(Granite::Action::ValidationError)
-          .and change { action.errors.messages }.to(base: [match('Base error message')])
+          .and change { action.errors.messages }.to(base: ['Base error message'])
           .and not_change { user.reload.email }
       end
     end
@@ -347,7 +347,7 @@ RSpec.describe Granite::Action::Performing do
       let(:action) { Action.new(user, login: '') }
 
       specify { expect { action.try_perform! }.not_to raise_error }
-      specify { expect { action.try_perform! }.to change { action.errors.messages }.to(base: [match('Base error message')]) }
+      specify { expect { action.try_perform! }.to change { action.errors.messages }.to(base: ['Base error message']) }
       specify { expect { action.try_perform! }.not_to change { user.reload.email } }
     end
 
