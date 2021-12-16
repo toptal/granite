@@ -14,12 +14,18 @@ on:
     branches: [ master ]
 
 jobs:
-  test:
-
+  rspec:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.4', '2.5', '2.6', '2.7', '3.0']
+        include:
+          - { ruby: '2.4', rails: '5.1' }
+          - { ruby: '2.5', rails: '5.2' }
+          - { ruby: '2.6', rails: '6.0' }
+          - { ruby: '2.7', rails: '6.1' }
+          - { ruby: '3.0', rails: '7.0' }
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/rails.${{ matrix.rails }}.gemfile
 
     services:
       postgres:
@@ -45,12 +51,20 @@ jobs:
       # uses: ruby/setup-ruby@v1
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: ${{ matrix.ruby-version }}
+        ruby-version: ${{ matrix.ruby }}
+        bundler-cache: true
     - name: Run tests
       env:
         DATABASE_URL: "postgres://granite:granite@localhost:5432/granite"
         RAILS_ENV: test
-      run: |
-        bundle install
-        bundle exec rake
-        bundle exec rubocop
+      run: bundle exec rake
+
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
+        bundler-cache: true
+    - run: bundle exec rubocop
