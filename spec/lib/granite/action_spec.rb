@@ -24,7 +24,7 @@ RSpec.describe Granite::Action do
         private
 
         def execute_perform!(*)
-          errors.messages[:email] = ['custom error']
+          errors.add(:email, 'custom error')
           DummyUser.new(attributes).validate!
         end
       end
@@ -69,7 +69,7 @@ RSpec.describe Granite::Action do
           private
 
           def execute_perform!(*)
-            errors.messages[:email] = ['custom error']
+            errors.add(:email, 'custom error')
             DummyUser.new(attributes).validate!
           end
         end
@@ -94,7 +94,7 @@ RSpec.describe Granite::Action do
           private
 
           def execute_perform!(*)
-            errors.messages[:email] = ['custom error']
+            errors.add(:email, 'custom error')
             NestedAction.new(attributes).perform!
           end
         end
