@@ -1,5 +1,34 @@
 # master (not released yet)
 
+# Version 0.12.0
+
+* Support for Rails 6.1 (via https://github.com/toptal/active_data fork)
+* Support for Rails 7.0
+* Fix `represents` with `default: false` not seeing any changes in model
+
+# Version 0.11.1
+
+* Make `assign_data` protected so that it can be called from other actions.
+
+# Version 0.11.0
+
+* [Breaking] Implemented `assign_data`, which replaces `before_validation` as a way to set data for models before validations.
+* Converted `represents` to use `assign_data`
+* Fix dispatcher not working correctly with blank routes (e.g. `post :perform, as: ''`)
+
+# Version 0.10.0
+
+* Fix Ruby 2.7 and 3.0 compatibility issues
+
+# Version 0.9.9
+
+* Simplify translations code when expanding relative keys (`.key`)
+* Fix one Ruby 3 incompatibility
+
+# Version 0.9.8
+
+* Extract `Granite::Util` which allows evaluating conditions
+
 # Version 0.9.7
 
 * fix `represents` to skip not defined attributes on the reference
