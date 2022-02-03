@@ -15,7 +15,7 @@ module Granite
       end
 
       def typecast(value)
-        return value if value.class == type
+        return value if value.class == type # rubocop:disable Style/ClassEqualityComparison
 
         typecaster.call(value, self) unless value.nil?
       end
@@ -28,9 +28,9 @@ module Granite
 
       def typecaster
         @typecaster ||= begin
-                          type_class = type.instance_of?(Class) ? type : type.class
-                          @typecaster = ActiveData.typecaster(type_class.ancestors.grep(Class))
-                        end
+          type_class = type.instance_of?(Class) ? type : type.class
+          @typecaster = ActiveData.typecaster(type_class.ancestors.grep(Class))
+        end
       end
 
       def changed?

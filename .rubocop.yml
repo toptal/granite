@@ -13,7 +13,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'log/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
 
 Naming/FileName:
   Exclude:
@@ -229,6 +229,9 @@ RSpec/MessageSpies:
 RSpec/MultipleDescribes:
   Enabled: true
 
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 
@@ -261,9 +264,6 @@ RSpec/SubjectStub:
 
 RSpec/VerifiedDoubles:
   Enabled: true
-
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
 
 Style/CommentedKeyword:
   Enabled: false

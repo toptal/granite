@@ -26,7 +26,7 @@ RSpec.describe Granite::Action::Transaction do
 
       context 'with an error which is handled by `handle_exception`' do
         before do
-          class Action
+          Action.class_eval do
             handle_exception(DummyError) do |e|
               handle_dummy_error(e)
             end

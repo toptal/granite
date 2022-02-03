@@ -28,7 +28,7 @@ RSpec.describe Granite::Projector do
     specify { expect(stub_class('directory/some_projector', described_class).projector_path).to eq('directory/some') }
   end
 
-  describe '.projector_path' do
+  describe '.projector_name' do
     specify { expect(stub_class(:some_projector, described_class).projector_name).to eq('some') }
     specify { expect(stub_class('directory/some_projector', described_class).projector_name).to eq('some') }
   end

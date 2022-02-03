@@ -23,14 +23,12 @@ RSpec::Matchers.define :raise_validation_error do
   end
 
   match do |block|
-    begin
-      block.call
-      false
-    rescue Granite::Action::ValidationError => e
-      @details = e.errors.details
-      @details_being_checked = @details[@attribute || :base]
-      @result = @details_being_checked&.any? { |x| x[:error] == @error_type }
-    end
+    block.call
+    false
+  rescue Granite::Action::ValidationError => e
+    @details = e.errors.details
+    @details_being_checked = @details[@attribute || :base]
+    @result = @details_being_checked&.any? { |x| x[:error] == @error_type }
   end
 
   description do

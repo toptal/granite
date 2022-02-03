@@ -47,7 +47,7 @@ RSpec.describe Granite, type: :request do
         let(:performer) { OpenStruct.new(id: 'User') }
 
         it 'is allowed' do
-          expect_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
+          allow_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
 
           get '/students/action/confirm'
 
@@ -61,7 +61,7 @@ RSpec.describe Granite, type: :request do
         let(:performer) { OpenStruct.new(id: 'Guest') }
 
         it 'is not allowed' do
-          expect_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
+          allow_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
 
           get '/students/action/confirm'
 

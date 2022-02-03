@@ -16,7 +16,7 @@ RSpec.describe Granite::Config do
       context 'with invalid value' do
         before { config.base_controller = 'NonExistingController' }
 
-        specify { expect { subject }.to raise_error NameError, 'uninitialized constant NonExistingController' }
+        specify { expect { subject }.to raise_error NameError, /uninitialized constant NonExistingController/ }
       end
 
       context 'with live reload' do

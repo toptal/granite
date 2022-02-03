@@ -22,7 +22,7 @@ RSpec.describe Granite::Action::Subject do
     specify { expect(Action.new(student, comment: 'Comment').student).to eq(student) }
     specify { expect(Action.new(student, comment: 'Comment', subject: nil).student).to eq(student) }
 
-    specify { expect { Action.new(student.id, comment: 'Comment') } .to raise_error Granite::Action::SubjectTypeMismatchError }
+    specify { expect { Action.new(student.id, comment: 'Comment') }.to raise_error Granite::Action::SubjectTypeMismatchError }
     specify { expect { Action.new(student.id, comment: 'Comment', subject: nil) }.to raise_error Granite::Action::SubjectTypeMismatchError }
 
     specify { expect { Action.new(teacher, comment: 'Comment') }.to raise_error Granite::Action::SubjectTypeMismatchError }
