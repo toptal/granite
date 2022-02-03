@@ -369,7 +369,7 @@ Prefer this way over custom exception handling in private methods.
 
 ### Dependency Injection
 
-Granite uses action initializer for attributes.
+Granite assigns attributes in Action's `#initialize` method based on parameters that are passed to the initializer.
 However, we can still manually inject dependencies.
 
 ```ruby
