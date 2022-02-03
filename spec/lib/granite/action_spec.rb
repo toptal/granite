@@ -29,17 +29,6 @@ RSpec.describe Granite::Action do
       end
     end
 
-    it 'creates private getter' do
-      action = Action.new(comment: 'blah blah blah')
-      expect { action.my_dep }.to raise_error(NoMethodError, /private method `my_dep' called/)
-    end
-
-    it 'uses default value' do
-      action = Action.new(comment: 'blah blah blah')
-      expect(action.__send__(:my_dep)).to be_kind_of(Hash)
-      expect(action.__send__(:another_dep)).to be_kind_of(String)
-    end
-
     it 'uses custom value' do
       action = Action.new(comment: 'blah blah blah', my_dep: Array(1))
       expect(action.__send__(:my_dep)).to be_kind_of(Array)
