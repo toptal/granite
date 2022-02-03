@@ -370,7 +370,7 @@ Prefer this way over custom exception handling in private methods.
 ### Dependency Injection
 
 Granite assigns attributes in Action's `#initialize` method based on parameters that are passed to the initializer.
-However, we can still manually inject dependencies.
+However, you can still use custom initializers for Granite actions when you don't want to use attributes, for example when using Dependency Injection:
 
 ```ruby
 class Action < Granite::Action
