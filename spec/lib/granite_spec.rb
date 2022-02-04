@@ -44,7 +44,7 @@ RSpec.describe Granite, type: :request do
 
     context 'with project_performer' do
       context 'when user' do
-        let(:performer) { OpenStruct.new(id: 'User') }
+        let(:performer) { instance_double('performer', id: 'User') }
 
         it 'is allowed' do
           allow_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
@@ -58,7 +58,7 @@ RSpec.describe Granite, type: :request do
       end
 
       context 'when guest' do
-        let(:performer) { OpenStruct.new(id: 'Guest') }
+        let(:performer) { instance_double('performer', id: 'Guest') }
 
         it 'is not allowed' do
           allow_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
@@ -67,7 +67,7 @@ RSpec.describe Granite, type: :request do
 
           expect(request.env['action_dispatch.exception'].to_s).to eq('')
           expect(response.status).to eq 403
-          expect(response.body).to eq 'Action action is not allowed for OpenStruct#Guest'
+          expect(response.body).to match(/Action action is not allowed for (.*)Guest/)
         end
       end
     end

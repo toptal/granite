@@ -22,13 +22,13 @@ module Granite
             self.controller_actions = controller_actions.merge(name.to_sym => options)
             controller_class.__send__(:define_method, name, &block)
             class_eval <<-METHOD, __FILE__, __LINE__ + 1
-              def #{name}_url(options = {})
-                action_url(:#{name}, **options.symbolize_keys)
-              end
-
-              def #{name}_path(options = {})
-                action_path(:#{name}, **options.symbolize_keys)
-              end
+              def #{name}_url(options = {})                     # def foo_url(options = {}
+                action_url(:#{name}, **options.symbolize_keys)  #   action_url(:foo, **options.symbolize_keys)
+              end                                               # end
+                                                                #
+              def #{name}_path(options = {})                    # def foo_path(options = {})
+                action_path(:#{name}, **options.symbolize_keys) #   action_path(:foo, **options.symbolize_keys)
+              end                                               # end
             METHOD
           else
             controller_actions[name.to_sym]

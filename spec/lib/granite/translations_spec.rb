@@ -29,9 +29,9 @@ RSpec.describe Granite::Translations do
       expect(scope('key', default: 'Default')).to eq(['key', {default: ['Default']}])
 
       expect(scope('.key'))
-        .to eq([:"granite_action.test_action.key", {default: %i[granite_action.granite/action.key key]}])
+        .to eq([:'granite_action.test_action.key', {default: %i[granite_action.granite/action.key key]}])
       expect(scope('.key', default: ['Default']))
-        .to eq([:"granite_action.test_action.key", {default: [:'granite_action.granite/action.key', :key, 'Default']}])
+        .to eq([:'granite_action.test_action.key', {default: [:'granite_action.granite/action.key', :key, 'Default']}])
     end
   end
 end

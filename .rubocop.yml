@@ -14,6 +14,7 @@ AllCops:
     - 'log/**/*'
   DisplayCopNames: true
   TargetRubyVersion: 2.5
+  NewCops: enable
 
 Naming/FileName:
   Exclude:
@@ -87,6 +88,10 @@ Layout/EmptyLineAfterMagicComment:
 
 Lint/AmbiguousBlockAssociation:
   Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - "spec/**/*.rb"
 
 Lint/InterpolationCheck:
   Enabled: false

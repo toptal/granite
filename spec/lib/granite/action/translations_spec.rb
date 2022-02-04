@@ -14,7 +14,7 @@ RSpec.describe Granite::Action::Translations do
   describe '.i18n_scopes' do
     subject { DummyAction.i18n_scopes }
 
-    it { is_expected.to eq([:"granite_action.dummy_action", :"granite_action.granite/action", nil]) }
+    it { is_expected.to eq([:'granite_action.dummy_action', :'granite_action.granite/action', nil]) }
   end
 
   describe '.translate' do
