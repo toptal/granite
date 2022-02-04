@@ -1,6 +1,6 @@
 module Granite
   module AssignData
-    DataAssignment = Struct.new(:method, :options)
+    DataAssignment = Struct.new(:method, :options) # rubocop:disable Lint/StructNewOverride
 
     extend ActiveSupport::Concern
 
@@ -9,7 +9,7 @@ module Granite
       self.data_assignments = []
 
       alias_method :only_run_validations!, :run_validations!
-      protected :only_run_validations! # rubocop:disable Style/AccessModifierDeclarations
+      protected :only_run_validations!
     end
 
     module ClassMethods

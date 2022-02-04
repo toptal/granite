@@ -2,7 +2,7 @@ require 'rails/all'
 
 class ApplicationController < ActionController::Base
   rescue_from 'Granite::Action::NotAllowedError' do |exception|
-    render plain: exception.to_s, status: 403
+    render plain: exception.to_s, status: :forbidden
   end
 end
 

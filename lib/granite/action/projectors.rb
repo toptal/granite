@@ -85,13 +85,13 @@ module Granite
           _projectors.store(name, options, &block)
 
           class_eval <<-METHOD, __FILE__, __LINE__ + 1
-            def self.#{name}
-              _projectors.fetch(:#{name})
-            end
-
-            def #{name}
-              @#{name} ||= self.class._projectors.fetch(:#{name}).new(self)
-            end
+            def self.#{name}                                                # def self.foo
+              _projectors.fetch(:#{name})                                   #   _projectors.fetch(:foo)
+            end                                                             # end
+                                                                            #
+            def #{name}                                                     # def foo
+              @#{name} ||= self.class._projectors.fetch(:#{name}).new(self) #   @foo ||= self.class._projectors.fetch(:foo).new(self)
+            end                                                             # end
           METHOD
         end
       end

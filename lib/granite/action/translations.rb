@@ -17,7 +17,7 @@ module Granite
 
       def translate(*args, **options)
         key, options = Granite::Translations.scope_translation_args(self.class.i18n_scopes, *args, **options)
-        I18n.translate(key, **options)
+        I18n.t(key, **options)
       end
       alias t translate
     end

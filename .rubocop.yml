@@ -13,7 +13,8 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'log/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
+  NewCops: enable
 
 Naming/FileName:
   Exclude:
@@ -87,6 +88,10 @@ Layout/EmptyLineAfterMagicComment:
 
 Lint/AmbiguousBlockAssociation:
   Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - "spec/**/*.rb"
 
 Lint/InterpolationCheck:
   Enabled: false
@@ -229,6 +234,9 @@ RSpec/MessageSpies:
 RSpec/MultipleDescribes:
   Enabled: true
 
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 
@@ -261,9 +269,6 @@ RSpec/SubjectStub:
 
 RSpec/VerifiedDoubles:
   Enabled: true
-
-Style/BracesAroundHashParameters:
-  EnforcedStyle: context_dependent
 
 Style/CommentedKeyword:
   Enabled: false

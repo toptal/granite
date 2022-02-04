@@ -36,21 +36,21 @@ RSpec.describe Granite::Action::TransactionManager do
 
       context 'with nested transaction which fails' do
         let(:block) do
-          described_class.after_commit(object_listener_1)
+          described_class.after_commit(object_listener_one)
           described_class.transaction do
-            described_class.after_commit(object_listener_2)
+            described_class.after_commit(object_listener_two)
             fail 'I failed'
           end
         end
 
-        let(:object_listener_1) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
-        let(:object_listener_2) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_one) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_two) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
 
         specify 'both transactions reverted and error bubbled' do
           expect(object_listener).not_to receive(:run_callbacks)
           expect(block_listener).not_to receive(:do_stuff)
-          expect(object_listener_1).not_to receive(:run_callbacks)
-          expect(object_listener_2).not_to receive(:run_callbacks)
+          expect(object_listener_one).not_to receive(:run_callbacks)
+          expect(object_listener_two).not_to receive(:run_callbacks)
           expect { subject }.to raise_error(RuntimeError, 'I failed')
         end
       end
@@ -99,18 +99,18 @@ RSpec.describe Granite::Action::TransactionManager do
 
       context 'with failing nested transaction' do
         let(:block) do
-          described_class.after_commit(object_listener_1)
+          described_class.after_commit(object_listener_one)
           User.new.save!
           described_class.transaction do
-            described_class.after_commit(object_listener_2)
+            described_class.after_commit(object_listener_two)
             Role.new.save!
             fail error
           end
           456
         end
 
-        let(:object_listener_1) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
-        let(:object_listener_2) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_one) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_two) { double(run_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
 
         context 'with Granite::Action::Rollback' do
           let(:error) { Granite::Action::Rollback }
@@ -118,8 +118,8 @@ RSpec.describe Granite::Action::TransactionManager do
           specify 'only first transaction commited' do
             expect(object_listener).to receive(:run_callbacks)
             expect(block_listener).to receive(:do_stuff)
-            expect(object_listener_1).to receive(:run_callbacks)
-            expect(object_listener_2).not_to receive(:run_callbacks)
+            expect(object_listener_one).to receive(:run_callbacks)
+            expect(object_listener_two).not_to receive(:run_callbacks)
             expect do
               expect(subject).to eq 456
             end.to change { User.count }.by(1).and not_change { Role.count }

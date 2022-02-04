@@ -62,11 +62,9 @@ module Granite
           collected_errors = []
 
           callbacks.reverse_each do |callback|
-            begin
-              callback.respond_to?(:run_callbacks) ? callback.run_callbacks(:commit) : callback.call
-            rescue StandardError => e
-              collected_errors << e
-            end
+            callback.respond_to?(:run_callbacks) ? callback.run_callbacks(:commit) : callback.call
+          rescue StandardError => e
+            collected_errors << e
           end
 
           return unless collected_errors.any?
