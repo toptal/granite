@@ -17,7 +17,7 @@ RSpec.describe Granite::Action do
         attr_reader :my_dep, :another_dep
         private :my_dep, :another_dep
 
-        def initialize(*args, my_dep: Hash[a: 1], another_dep: 'Foo', **kwargs, &block)
+        def initialize(*args, my_dep: {a: 1}, another_dep: 'Foo', **kwargs, &block)
           @my_dep = my_dep
           @another_dep = another_dep
           super(*args, **kwargs, &block)
