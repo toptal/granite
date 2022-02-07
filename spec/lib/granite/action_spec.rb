@@ -7,44 +7,6 @@ RSpec.describe Granite::Action do
     end
   end
 
-  describe 'Dependency Injection' do
-    before do
-      stub_class(:action, Granite::Action) do
-        allow_if { true }
-
-        attribute :comment, String
-
-        attr_reader :my_dep, :another_dep
-        private :my_dep, :another_dep
-
-        def initialize(*args, my_dep: {a: 1}, another_dep: 'Foo', **kwargs, &block)
-          @my_dep = my_dep
-          @another_dep = another_dep
-          super(*args, **kwargs, &block)
-        end
-      end
-
-      stub_class(:another_action, Granite::Action) do
-        allow_if { true }
-      end
-    end
-
-    it 'uses custom value' do
-      action = Action.new(comment: 'blah blah blah', my_dep: Array(1))
-      expect(action.__send__(:my_dep)).to be_kind_of(Array)
-    end
-
-    it 'protects from mass assigment of attributes' do
-      expect(ActiveData.config.logger).to receive(:info).with(/Ignoring undefined `foo` attribute value/)
-      Action.new(foo: 'bar')
-    end
-
-    it 'does not assign dependencies to other actions' do
-      another = AnotherAction.new
-      expect { another.__send__(:my_dep) }.to raise_error(NoMethodError, /undefined method `my_dep'/)
-    end
-  end
-
   describe '.i18n_scope' do
     specify { expect(Action.i18n_scope).to eq :granite_action }
   end
