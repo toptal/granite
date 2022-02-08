@@ -367,6 +367,27 @@ Adding errors to action object is important, because each time a handled excepti
 Validation exception will have the same backtrace as original error.
 Prefer this way over custom exception handling in private methods.
 
+### Dependency Injection
+
+Granite assigns attributes in Action's `#initialize` method based on parameters that are passed to the initializer.
+However, you can still use custom initializers for Granite actions when you don't want to use attributes, for example when using Dependency Injection:
+
+```ruby
+class Action < Granite::Action
+  attribute :name, String
+
+  private attr_reader :my_dep
+
+  def initialize(*args, my_dep: Foo.new, **kwargs, &block)
+    @my_dep = my_dep
+    super(*args, **kwargs, &block)
+  end
+end
+
+Action.new(name: "Jane")                  # uses default value for `my_dep'
+Action.new(name: "Jane", my_dep: Bar.new) # uses custom value for `my_dep'
+```
+
 ### I18n
 
 There are special I18n rules working in action. If I18n identifier is prefixed with `.` (`t('.foobar')`) - then translations lookup happens in following order:
