@@ -98,8 +98,8 @@ module Granite
       end
 
       # Adds passed error message and options to `errors` object
-      def decline_with(*args)
-        errors.add(:base, *args)
+      def decline_with(*args, **kwargs)
+        errors.add(:base, *args, **kwargs)
         failed_preconditions << args.first
       end
 
