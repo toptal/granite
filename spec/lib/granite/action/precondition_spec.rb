@@ -24,7 +24,7 @@ RSpec.describe Granite::Action::Precondition do
     specify do
       expect(action).to receive(:title).and_call_original
 
-      expect(precondition.call(expected_title: 'Ruby')).to eq(true)
+      expect(precondition.call(expected_title: 'Ruby')).to be(true)
     end
   end
 end

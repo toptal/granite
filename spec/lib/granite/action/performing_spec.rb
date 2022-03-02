@@ -64,12 +64,12 @@ RSpec.describe Granite::Action::Performing do
     let(:action) { Action.new(user: user, login: 'Login') }
 
     specify do
-      expect { expect(action.perform).to eq(false) }
+      expect { expect(action.perform).to be(false) }
         .to change { action.errors.messages }.to(base: ['Dummy exception'])
         .and not_change { user.reload.email }
     end
 
-    specify { expect(action.perform(some_value: 'value')).to eq(false) }
+    specify { expect(action.perform(some_value: 'value')).to be(false) }
 
     specify do
       expect { action.perform! }
@@ -110,7 +110,7 @@ RSpec.describe Granite::Action::Performing do
         allow(ActiveData.config.logger).to receive(:info)
       end
 
-      specify { expect(action.perform).to eq(false) }
+      specify { expect(action.perform).to be(false) }
       specify { expect { action.perform }.to change { action.errors.messages }.to('skills.0.name': ["can't be blank"]) }
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
@@ -118,7 +118,7 @@ RSpec.describe Granite::Action::Performing do
     context 'without login' do
       let(:action) { Action.new(user) }
 
-      specify { expect(action.perform).to eq(false) }
+      specify { expect(action.perform).to be(false) }
       specify { expect { action.perform }.to change { action.errors.messages }.to(email: ["can't be blank"]) }
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
@@ -126,7 +126,7 @@ RSpec.describe Granite::Action::Performing do
     context 'with empty login' do
       let(:action) { Action.new(user, login: '') }
 
-      specify { expect(action.perform).to eq(false) }
+      specify { expect(action.perform).to be(false) }
       specify { expect { action.perform }.to change { action.errors.messages }.to(base: ['Base error message']) }
       specify { expect { action.perform }.not_to change { user.reload.email } }
     end
@@ -151,7 +151,7 @@ RSpec.describe Granite::Action::Performing do
       end
 
       let(:action) { Action.new }
-      specify { expect(action.perform).to eq(true) }
+      specify { expect(action.perform).to be(true) }
     end
 
     describe 'validation contexts' do
@@ -169,7 +169,7 @@ RSpec.describe Granite::Action::Performing do
         context 'with invalid data for the :user context' do
           let(:action) { Action.new(user, login: 'Foo Bar') }
 
-          specify { is_expected.to eq(false) }
+          specify { is_expected.to be(false) }
           specify { expect { subject }.to change { action.errors.messages }.to(login: ['is invalid']) }
           specify { expect { subject }.not_to change { user.reload.email } }
         end
@@ -261,7 +261,7 @@ RSpec.describe Granite::Action::Performing do
       end
 
       let(:action) { Action.new }
-      specify { expect(action.perform!).to eq(true) }
+      specify { expect(action.perform!).to be(true) }
     end
 
     describe 'validation contexts' do
@@ -371,7 +371,7 @@ RSpec.describe Granite::Action::Performing do
       end
 
       let(:action) { Action.new }
-      specify { expect(action.try_perform!).to eq(true) }
+      specify { expect(action.try_perform!).to be(true) }
     end
 
     context 'when transaction is called only once' do

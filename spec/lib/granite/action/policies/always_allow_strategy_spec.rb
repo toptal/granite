@@ -3,6 +3,6 @@ RSpec.describe Granite::Action::Policies::AlwaysAllowStrategy do
     subject { described_class.allowed?(action) }
     let(:action) { instance_double('Granite::Action') }
 
-    it { is_expected.to eq true }
+    it { is_expected.to be(true) }
   end
 end

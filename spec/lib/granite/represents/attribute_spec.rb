@@ -104,7 +104,7 @@ RSpec.describe Granite::Represents::Attribute do
     end
 
     it 'ignores nil' do
-      expect(subject.typecast(nil)).to eq nil
+      expect(subject.typecast(nil)).to be_nil
     end
   end
 
