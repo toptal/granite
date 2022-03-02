@@ -3,9 +3,11 @@ RSpec.describe Granite::Action::Preconditions do
     before do
       stub_class(:action, Granite::Action) do
         attribute :title, String
+        attribute :author, String
 
         precondition do
           decline_with(:wrong_title) if title !~ /Ruby/
+          decline_with(:wrong_author, author_name: author) if author && author != 'George Orwell'
         end
         # Just to check that validations are not run if preconditions are not satisfied
         validates :title, inclusion: {in: ['Ruby']}
@@ -54,6 +56,15 @@ RSpec.describe Granite::Action::Preconditions do
         let(:action) { Action.new(title: 'Ruby') }
         specify do
           expect { action.valid? }.not_to change { action.errors.messages }
+        end
+      end
+
+      context 'with wrong Author' do
+        let(:action) { Action.new(title: 'Ruby', author: 'Vladimir Sorokin') }
+
+        specify do
+          expect { action.valid? }.to change { action.errors.messages }
+            .to(base: ['George Orwell is the only acceptable author, Vladimir Sorokin is not'])
         end
       end
     end
