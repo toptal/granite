@@ -19,7 +19,7 @@ RSpec.describe Granite::Routing::Cache do
     end
 
     it 'returns nil if no route found' do
-      expect(subject[:foo, :bar]).to eq nil
+      expect(subject[:foo, :bar]).to be_nil
     end
   end
 end

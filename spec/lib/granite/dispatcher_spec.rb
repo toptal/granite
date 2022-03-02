@@ -29,19 +29,19 @@ RSpec.describe Granite::Dispatcher do
     let(:request_method) { :get }
 
     context 'when BA projector has appropriate action defined' do
-      it { is_expected.to eq true }
+      it { is_expected.to be(true) }
     end
 
     context 'when request has different request method' do
       let(:request_method) { :post }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be(false) }
     end
 
     context 'when request has different action' do
       let(:params) { super().merge(projector_action: 'undefined') }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be(false) }
     end
 
     context 'when request has invalid granite params' do
@@ -51,7 +51,7 @@ RSpec.describe Granite::Dispatcher do
 
       let(:params) { {granite_action: 'action_without_projectors', granite_projector: 'dummy', projector_action: 'confirm'} }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be(false) }
     end
   end
 
@@ -100,7 +100,7 @@ RSpec.describe Granite::Dispatcher do
 
     context 'when projector does not exist' do
       let(:params) { super().merge(granite_projector: 'invalid') }
-      it { is_expected.to eq nil }
+      it { is_expected.to be_nil }
     end
   end
 

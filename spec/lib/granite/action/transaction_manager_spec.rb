@@ -93,7 +93,7 @@ RSpec.describe Granite::Action::TransactionManager do
         it 'returns false and does not trigger callbacks' do
           expect(object_listener).not_to receive(:run_callbacks)
           expect(block_listener).not_to receive(:do_stuff)
-          expect(subject).to eq(false)
+          expect(subject).to be(false)
         end
       end
 

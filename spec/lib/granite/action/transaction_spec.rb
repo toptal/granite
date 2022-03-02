@@ -126,7 +126,7 @@ RSpec.describe Granite::Action::Transaction do
 
       it 'commits changes of the first action only' do
         expect do
-          expect(Action1.new.perform!).to eq true
+          expect(Action1.new.perform!).to be(true)
         end.to change { User.count }.by(2).and not_change { Role.count }
       end
     end

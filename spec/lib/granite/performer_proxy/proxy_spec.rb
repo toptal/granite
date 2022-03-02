@@ -27,14 +27,14 @@ RSpec.describe Granite::PerformerProxy::Proxy do
 
   describe '#respond_to_missing?' do
     specify 'when class does not respond to a method' do
-      expect(subject.__send__(:respond_to_missing?, :func)).to eq false
+      expect(subject.__send__(:respond_to_missing?, :func)).to be(false)
     end
 
     context 'when klass responds to a method' do
       let(:klass) { class_double('DummyClass', func: 'value') }
 
       specify do
-        expect(subject.__send__(:respond_to_missing?, :func)).to eq true
+        expect(subject.__send__(:respond_to_missing?, :func)).to be(true)
       end
     end
   end

@@ -49,7 +49,7 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
 
   describe '.action_for' do
     specify { expect(Projector.action_for(:get, 'confirm')).to eq :confirm }
-    specify { expect(Projector.action_for(:get, 'perform')).to eq nil }
+    specify { expect(Projector.action_for(:get, 'perform')).to be_nil }
     specify { expect(Projector.action_for(:get, '')).to eq :custom }
     specify { expect(Projector.action_for(:post, '')).to eq :custom_post }
 
@@ -60,7 +60,7 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
         end
       end
 
-      specify { expect(Projector.action_for(:get, 'confirm')).to eq nil }
+      specify { expect(Projector.action_for(:get, 'confirm')).to be_nil }
       specify { expect(Projector.action_for(:get, 'test')).to eq :confirm }
     end
   end
