@@ -1,5 +1,9 @@
 # master (not released yet)
 
+# Version 0.12.1
+
+* Fix parameterized precondition error messages not working in Ruby 3.
+
 # Version 0.12.0
 
 * Support for Rails 6.1 (via https://github.com/toptal/active_data fork)
