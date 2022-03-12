@@ -30,16 +30,10 @@ module Granite::ProjectorHelpers
 
     private
 
-    def setup_controller
-      singleton_class.class_eval do
-        def controller_class
-        end
-      end
-
-      before do
-        @controller = yield.controller_class.new
-        @controller.class.instance_variable_set(:@controller_path, yield.projector_path)
-        @controller.request = @request
+    def setup_controller(&block)
+      define_method :setup_controller_request_and_response do
+        @controller ||= instance_eval(&block).controller_class.new
+        super()
       end
     end
 

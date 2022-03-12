@@ -1,5 +1,8 @@
 # master (not released yet)
 
+* Improve how projector specs initialize controller to be more rails like and fix several issues.
+  * [BREAKING] As a result abstract actions/projectors will have to be initialized using `prepend_before` in projector specs.
+
 # Version 0.12.1
 
 * Fix parameterized precondition error messages not working in Ruby 3.
@@ -16,7 +19,7 @@
 
 # Version 0.11.0
 
-* [Breaking] Implemented `assign_data`, which replaces `before_validation` as a way to set data for models before validations.
+* [BREAKING] Implemented `assign_data`, which replaces `before_validation` as a way to set data for models before validations.
 * Converted `represents` to use `assign_data`
 * Fix dispatcher not working correctly with blank routes (e.g. `post :perform, as: ''`)
 

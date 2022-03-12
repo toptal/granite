@@ -1,5 +1,5 @@
 RSpec.describe Granite::Projector::Translations, type: :granite_projector do
-  before do
+  prepend_before do
     stub_class(:dummy_projector, Granite::Projector)
     stub_class(:dummy_action, Granite::Action) do
       projector :dummy

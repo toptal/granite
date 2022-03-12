@@ -1,5 +1,5 @@
 RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector do
-  before do
+  prepend_before do
     stub_class(:projector, Granite::Projector) do
       get :confirm do
       end
