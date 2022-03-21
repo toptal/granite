@@ -28,7 +28,27 @@ describe 'projectors', type: :granite_projector do
   subject { action.modal }
   projector { described_class.modal }
 
-  its(:perform_success_response) { is_expected.to eq(my_success: 'yes') }
+  it { expect(projector.perform_success_response).to eq(my_success: 'yes') }
+end
+```
+
+Test projectors on abstract actions:
+
+```ruby
+describe SimpleProjector do
+  let(:dummy_action_class) do
+    Class.new BaseAction do
+      projector :simple
+    end
+  end
+  
+  prepend_before do
+    stub_const('DummyAction', dummy_action_class)
+  end
+  
+  projector { DummyAction.simple }
+  
+  it { expect(projector.some_method).to eq('some_result') }
 end
 ```
 
