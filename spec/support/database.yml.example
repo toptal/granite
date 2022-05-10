@@ -2,4 +2,5 @@ development:
   adapter: postgresql
   database: granite
   username: granite
-  password:
+  password: granite
+  host: localhost
