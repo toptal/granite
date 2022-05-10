@@ -23,7 +23,7 @@ RSpec.describe Granite::Dispatcher do
 
   describe '#constraints' do
     subject { dispatcher.constraints.all? { |c| c.call(req) } }
-    let(:req) { instance_double('ActionDispatch::Request', env: env, params: params, request_method_symbol: request_method) }
+    let(:req) { instance_double(ActionDispatch::Request, env: env, params: params, request_method_symbol: request_method) }
     let(:env) { {} }
     let(:params) { super().merge(projector_action: 'confirm') }
     let(:request_method) { :get }
@@ -61,7 +61,7 @@ RSpec.describe Granite::Dispatcher do
     let(:env) { {} }
     let(:params) { super().merge(projector_action: 'confirm') }
     let(:request_method) { :get }
-    let(:req) { instance_double('ActionDispatch::Request', env: env, params: params, request_method_symbol: request_method) }
+    let(:req) { instance_double(ActionDispatch::Request, env: env, params: params, request_method_symbol: request_method) }
 
     before do
       allow(controller_class).to receive(:action) { controller_action }

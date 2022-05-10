@@ -44,7 +44,7 @@ RSpec.describe Granite, type: :request do
 
     context 'with project_performer' do
       context 'when user' do
-        let(:performer) { instance_double('performer', id: 'User') }
+        let(:performer) { instance_double(User, id: 'User') }
 
         it 'is allowed' do
           allow_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)
@@ -58,7 +58,7 @@ RSpec.describe Granite, type: :request do
       end
 
       context 'when guest' do
-        let(:performer) { instance_double('performer', id: 'Guest') }
+        let(:performer) { instance_double(User, id: 'Guest') }
 
         it 'is not allowed' do
           allow_any_instance_of(ApplicationController).to receive(:projector_performer).and_return(performer)

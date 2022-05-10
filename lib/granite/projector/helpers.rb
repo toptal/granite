@@ -35,8 +35,7 @@ Do you have #{projector.action_class.name.underscore}##{projector.projector_name
 
       def required_params
         corresponding_route.required_parts
-          .map { |name| [name, action.public_send(name)] }
-          .to_h
+          .to_h { |name| [name, action.public_send(name)] }
       end
 
       def corresponding_route

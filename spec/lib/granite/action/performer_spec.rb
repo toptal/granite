@@ -1,6 +1,6 @@
 RSpec.describe Granite::Action::Performer do
-  let(:performer1) { instance_double('Performer', id: 5) }
-  let(:performer2) { instance_double('Performer', id: 10) }
+  let(:performer1) { instance_double(User, id: 5) }
+  let(:performer2) { instance_double(User, id: 10) }
 
   before do
     stub_class(:projector, Granite::Projector)

@@ -13,7 +13,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'log/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
   NewCops: enable
 
 Naming/FileName:
