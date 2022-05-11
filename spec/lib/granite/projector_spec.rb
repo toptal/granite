@@ -8,7 +8,7 @@ RSpec.describe Granite::Projector do
   end
 
   describe '.as' do
-    let(:student) { instance_double('Student') }
+    let(:student) { instance_double(Student) }
     specify { expect(Projector.as(student).new.action.performer).to eq(student) }
   end
 

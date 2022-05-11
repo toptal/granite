@@ -69,7 +69,7 @@ module Granite
 
           return unless collected_errors.any?
 
-          log_errors(collected_errors[1..-1])
+          log_errors(collected_errors[1..])
           fail collected_errors.first
         end
 

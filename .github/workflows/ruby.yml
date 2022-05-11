@@ -19,7 +19,6 @@ jobs:
     strategy:
       matrix:
         include:
-          - { ruby: '2.5', rails: '5.2' }
           - { ruby: '2.6', rails: '6.0' }
           - { ruby: '2.7', rails: '6.1' }
           - { ruby: '3.0', rails: '7.0' }

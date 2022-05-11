@@ -1,7 +1,7 @@
 RSpec.describe Granite::Action::Policies::AnyStrategy do
   describe '.allowed?' do
     subject { described_class.allowed?(action) }
-    let(:action) { instance_double('Granite::Action', _policies: policies, performer: nil) }
+    let(:action) { instance_double(Granite::Action, _policies: policies, performer: nil) }
     let(:policies) { [] }
 
     context 'when action has no policies defined' do

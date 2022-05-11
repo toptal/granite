@@ -4,9 +4,17 @@ require 'granite/performer_proxy'
 
 RSpec.describe Granite::PerformerProxy do
   subject { klass.new }
-  let(:klass) { class_double('DummyClass', hash: 'hash').tap { |k| k.include Granite::PerformerProxy } }
-  let(:performer) { instance_double('Performer') }
-  let(:proxy) { instance_double('Granite::PerformerProxy::Proxy') }
+  let(:klass) do
+    Class.new do
+      include Granite::PerformerProxy
+
+      def self.hash
+        'hash'
+      end
+    end
+  end
+  let(:performer) { instance_double(User) }
+  let(:proxy) { instance_double(Granite::PerformerProxy::Proxy) }
 
   describe '.as' do
     before do
@@ -33,6 +41,10 @@ RSpec.describe Granite::PerformerProxy do
   describe '.proxy_performer' do
     before do
       Thread.current[:granite_proxy_performer_hash] = performer
+    end
+
+    after do
+      Thread.current[:granite_proxy_performer_hash] = nil
     end
 
     specify do

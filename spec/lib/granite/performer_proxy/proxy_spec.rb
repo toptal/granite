@@ -5,8 +5,8 @@ require 'granite/performer_proxy/proxy'
 RSpec.describe Granite::PerformerProxy::Proxy do
   subject { described_class.new(klass, performer) }
 
-  let(:klass) { class_double('DummyClass', to_s: 'DummyClass') }
-  let(:performer) { instance_double('Performer', to_s: '#Performer') }
+  let(:klass) { stub_class('DummyClass') }
+  let(:performer) { instance_double(User, to_s: '#Performer') }
 
   its(:inspect) { is_expected.to eq('<DummyClassPerformerProxy #Performer>') }
 
@@ -16,7 +16,9 @@ RSpec.describe Granite::PerformerProxy::Proxy do
     end
 
     context 'when klass responds to a method' do
-      let(:klass) { class_double('DummyClass', func: 'value') }
+      before do
+        klass.define_singleton_method(:func) { |_| 'value' }
+      end
 
       specify do
         expect(klass).to receive(:with_proxy_performer).with(performer).and_yield
@@ -31,7 +33,9 @@ RSpec.describe Granite::PerformerProxy::Proxy do
     end
 
     context 'when klass responds to a method' do
-      let(:klass) { class_double('DummyClass', func: 'value') }
+      before do
+        klass.define_singleton_method(:func) { 'value' }
+      end
 
       specify do
         expect(subject.__send__(:respond_to_missing?, :func)).to be(true)
