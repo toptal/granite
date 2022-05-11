@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  postgresql:
+    image: 'postgres:12.4'
+    environment:
+      POSTGRES_USER: granite
+      POSTGRES_PASSWORD: granite
+    volumes:
+      - granite_dbdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+volumes:
+  granite_dbdata:

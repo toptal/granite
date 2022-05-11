@@ -3,4 +3,3 @@
 # A setup script for development environment of Granite
 
 cp spec/support/database.yml.example spec/support/database.yml
-psql -c 'create database granite;' -U granite
