@@ -38,7 +38,7 @@ RSpec.describe Granite, type: :request do
         get '/students/action/confirm'
 
         expect(request.env['action_dispatch.exception'].to_s).to eq('No Performer')
-        expect(response.status).to eq 500
+        expect(response).to have_http_status :internal_server_error
       end
     end
 
@@ -66,7 +66,7 @@ RSpec.describe Granite, type: :request do
           get '/students/action/confirm'
 
           expect(request.env['action_dispatch.exception'].to_s).to eq('')
-          expect(response.status).to eq 403
+          expect(response).to have_http_status :forbidden
           expect(response.body).to match(/Action action is not allowed for (.*)Guest/)
         end
       end
