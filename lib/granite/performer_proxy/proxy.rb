@@ -4,6 +4,8 @@ module Granite
     # performer-enabled context.
     #
     class Proxy
+      extend Granite::Ruby3Compatibility
+
       def initialize(klass, performer)
         @klass = klass
         @performer = performer
@@ -13,7 +15,7 @@ module Granite
         "<#{@klass}PerformerProxy #{@performer}>"
       end
 
-      def method_missing(method, *args, &block)
+      ruby2_keywords def method_missing(method, *args, &block)
         if @klass.respond_to?(method)
           @klass.with_proxy_performer(@performer) do
             @klass.public_send(method, *args, &block)
