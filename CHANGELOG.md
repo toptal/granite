@@ -1,5 +1,8 @@
 # master (not released yet)
 
+# Version 0.13.0
+
+* Fix Ruby 3 Warnings
 * Improve how projector specs initialize controller to be more rails like and fix several issues.
   * [BREAKING] As a result abstract actions/projectors will have to be initialized using `prepend_before` in projector specs.
 
