@@ -158,15 +158,29 @@ class CreateBook < Granite::Action
   attribute :name, String
   attribute :year, Integer
   represents :author, of: :book
-  
+
   assign_data :set_name
   assign_data do
     book.year = year
   end
-  
+
   private def assign_name
     book.name = name
   end
+end
+```
+
+#### Enums
+
+When using `represents` with `enum` type in Rails, sometimes the real value type cannot be recognized automatically. You need to specify the real value type:
+
+```ruby
+class Book < ApplicationRecord
+  enum status: [draft: 'draft', published: 'published']
+end
+
+class CreateBook < Granite::Action
+  represents :status, type: String, of: :book
 end
 ```
 
