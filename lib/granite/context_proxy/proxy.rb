@@ -1,23 +1,22 @@
 module Granite
-  module PerformerProxy
-    # Proxy helps to wrap the following method call with
-    # performer-enabled context.
+  module ContextProxy
+    # Proxy which wraps the following method calls with BA context.
     #
     class Proxy
       extend Granite::Ruby3Compatibility
 
-      def initialize(klass, performer)
+      def initialize(klass, context)
         @klass = klass
-        @performer = performer
+        @context = context
       end
 
       def inspect
-        "<#{@klass}PerformerProxy #{@performer}>"
+        "<#{@klass}ContextProxy #{@context}>"
       end
 
       ruby2_keywords def method_missing(method, *args, &block)
         if @klass.respond_to?(method)
-          @klass.with_proxy_performer(@performer) do
+          @klass.with_context(@context) do
             @klass.public_send(method, *args, &block)
           end
         else

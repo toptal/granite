@@ -1,4 +1,4 @@
-require 'granite/performer_proxy'
+require 'granite/context_proxy'
 
 module Granite
   class Action
@@ -8,13 +8,17 @@ module Granite
       extend ActiveSupport::Concern
 
       included do
-        include PerformerProxy
-        attr_reader :performer
+        include ContextProxy
+        attr_reader :ctx
       end
 
       def initialize(*args)
-        @performer = self.class.proxy_performer
+        @ctx = self.class.proxy_context || {}
         super
+      end
+
+      def performer
+        ctx[:performer]
       end
 
       delegate :id, to: :performer, prefix: true, allow_nil: true

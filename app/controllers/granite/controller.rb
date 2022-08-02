@@ -14,11 +14,12 @@ module Granite
     before_action :authorize_action!
 
     def projector
-      @projector ||= begin
-        action_projector_class = action_class.public_send(projector_name)
-        action_projector_class = action_projector_class.as(projector_performer) if respond_to?(:projector_performer, true)
-        action_projector_class.new(projector_params)
-      end
+      @projector ||=
+        begin
+          projector_class = action_class.public_send(projector_name)
+          projector_class = projector_class.using(projector_context) if respond_to?(:projector_context, true)
+          projector_class.new(projector_params)
+        end
     end
     helper_method :projector
 

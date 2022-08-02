@@ -116,15 +116,24 @@ after execute_perform
 => true
 ```
 
-### Performer
+### Context & performer
 
-Every BA has a performer which can be assigned via a `.as` class method before BA creation.
+Every BA has a context which is a hash that can be assigned via `.using` class method before BA 
+initialization. Context is usually used to pass performer of the action which is so common that there
+are methods defined to access & set performer
+`performer` specifically.
 
 ```ruby
-MyAction.as(Admin.first).new(params)
-```
+action = MyAction.using(performer: Admin.first).new(params)
+action.context #=> {performer: Admin.first}
+action.performer #=> Admin.first
 
-Performer can be any Ruby object. By default performer is `nil`.
+action = MyAction.as(Admin.first).new(params)
+action.context #=> {performer: Admin.first}
+action.performer #=> Admin.first
+```
+ 
+Context can be any Ruby object that implements `[]` method. By default context is `{}`.
 
 ### Attributes
 
