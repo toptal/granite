@@ -9,7 +9,7 @@ RSpec.describe Granite::Projector do
 
   describe '.using' do
     let(:context) { {performer: instance_double(Student)} }
-    specify { expect(Projector.using(context).new.action.ctx).to eq(context) }
+    specify { expect(Projector.using(context).new.action.ctx).to have_attributes(**context) }
   end
 
   describe '.controller_class' do

@@ -125,15 +125,33 @@ are methods defined to access & set performer
 
 ```ruby
 action = MyAction.using(performer: Admin.first).new(params)
-action.context #=> {performer: Admin.first}
+action.ctx #=> #<Granite::ContextProxy::Data performer: Admin.first>
 action.performer #=> Admin.first
 
 action = MyAction.as(Admin.first).new(params)
-action.context #=> {performer: Admin.first}
+action.ctx #=> #<Granite::ContextProxy::Data performer: Admin.first>
 action.performer #=> Admin.first
 ```
  
-Context can be any Ruby object that implements `[]` method. By default context is `{}`.
+If you need more attributes in context of your application, you should override `BaseAction.using` 
+method.
+
+```ruby
+class BaseAction::ContextData < Granite::ContextProxy::Data
+  def initialize(performer: nil, custom: false)
+    super(performer: performer)
+    @custom = custom
+  end
+end
+
+class BaseAction
+  def self.using(data)
+    Granite::ContextProxy::Proxy.new(self, BaseAction::ContextData.wrap(data))
+  end
+end
+
+BaseAction.using(performer: performer, custom: true)
+```
 
 ### Attributes
 

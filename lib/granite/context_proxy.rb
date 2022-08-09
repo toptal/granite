@@ -1,3 +1,4 @@
+require 'granite/context_proxy/data'
 require 'granite/context_proxy/proxy'
 
 module Granite
@@ -7,8 +8,8 @@ module Granite
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def using(context)
-        Proxy.new(self, context)
+      def using(data)
+        Proxy.new(self, Data.wrap(data))
       end
 
       def as(performer)

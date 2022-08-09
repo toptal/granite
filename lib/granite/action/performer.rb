@@ -13,14 +13,11 @@ module Granite
       end
 
       def initialize(*args)
-        @ctx = self.class.proxy_context || {}
+        @ctx = self.class.proxy_context
         super
       end
 
-      def performer
-        ctx[:performer]
-      end
-
+      delegate :performer, to: :ctx, allow_nil: true
       delegate :id, to: :performer, prefix: true, allow_nil: true
     end
   end

@@ -13,13 +13,14 @@ RSpec.describe Granite::ContextProxy do
       end
     end
   end
-  let(:performer) { instance_double(User) }
+  let(:performer) { performers.first }
+  let(:performers) { 10.times.map { instance_double(User) } }
   let(:context) { {performer: performer} }
   let(:proxy) { instance_double(Granite::ContextProxy::Proxy) }
 
   describe '.using' do
     before do
-      allow(Granite::ContextProxy::Proxy).to receive(:new).with(klass, context) { proxy }
+      allow(Granite::ContextProxy::Proxy).to receive(:new).with(klass, have_attributes(**context)) { proxy }
     end
 
     specify do
@@ -29,7 +30,7 @@ RSpec.describe Granite::ContextProxy do
 
   describe '.as' do
     before do
-      allow(Granite::ContextProxy::Proxy).to receive(:new).with(klass, {performer: performer}) { proxy }
+      allow(Granite::ContextProxy::Proxy).to receive(:new).with(klass, have_attributes(**context)) { proxy }
     end
 
     specify do
@@ -42,10 +43,34 @@ RSpec.describe Granite::ContextProxy do
       expect { |b| klass.with_context(context, &b) }.to yield_with_no_args
     end
 
-    specify do
+    it 'sets proxy_content inside block' do
       klass.with_context(context) do
-        expect(Thread.current[:granite_proxy_performer_hash]).to eq context
+        expect(klass.proxy_context).to eq context
       end
+      expect(klass.proxy_context).to be_nil
+    end
+
+    it 'correctly works with nested contexts' do
+      klass.with_context(context) do
+        expect(klass.proxy_context).to eq context
+        klass.with_context(performer: performers.second) do
+          expect(klass.proxy_context).to eq(performer: performers.second)
+        end
+        expect(klass.proxy_context).to eq context
+      end
+    end
+
+    it 'keeps context in thread safe way' do
+      thread_performers = []
+      threads = 10.times.map do |i|
+        Thread.new do
+          klass.with_context(performer: performers[i]) do
+            thread_performers << klass.proxy_context[:performer]
+          end
+        end
+      end
+      threads.each(&:join)
+      expect(thread_performers).to match_array(performers)
     end
   end
 
