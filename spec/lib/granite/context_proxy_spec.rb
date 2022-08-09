@@ -76,11 +76,11 @@ RSpec.describe Granite::ContextProxy do
 
   describe '.proxy_context' do
     before do
-      Thread.current[:granite_proxy_performer_hash] = context
+      Thread.current[:granite_proxy_context] = context
     end
 
     after do
-      Thread.current[:granite_proxy_performer_hash] = nil
+      Thread.current[:granite_proxy_context] = nil
     end
 
     specify do

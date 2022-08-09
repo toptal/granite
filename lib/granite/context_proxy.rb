@@ -8,6 +8,8 @@ module Granite
     extend ActiveSupport::Concern
 
     module ClassMethods
+      PROXY_CONTEXT_KEY = :granite_proxy_context
+
       def using(data)
         Proxy.new(self, Data.wrap(data))
       end
@@ -17,22 +19,15 @@ module Granite
       end
 
       def with_context(context)
-        key = proxy_context_key
-        old_context = Thread.current[key]
-        Thread.current[key] = context
+        old_context = proxy_context
+        Thread.current[PROXY_CONTEXT_KEY] = context
         yield
       ensure
-        Thread.current[key] = old_context
+        Thread.current[PROXY_CONTEXT_KEY] = old_context
       end
 
       def proxy_context
-        Thread.current[proxy_context_key]
-      end
-
-      private
-
-      def proxy_context_key
-        :"granite_proxy_performer_#{hash}"
+        Thread.current[PROXY_CONTEXT_KEY]
       end
     end
   end
