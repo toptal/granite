@@ -85,3 +85,12 @@ Run the action using `perform!` to test side-effects:
 specify { expect { perform! }.to change(User, :count).by(1) }
 ```
 
+<h3 id="testing-composition">Testing action is performed from another Action</h3>
+
+Run the action using `perform!` to test side-effects:
+
+```ruby
+it { expect { perform! }.to perform_action(MyAction) }
+it { expect { perform! }.to perform_action(MyAction).as(performer).with(user: user).using(:try_perform!) }
+```
+

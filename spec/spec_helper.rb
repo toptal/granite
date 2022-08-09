@@ -45,6 +45,10 @@ RSpec.configure do |config|
   end
 
   config.include RSpec::Matchers::FailMatchers, file_path: %r{spec/lib/granite/rspec/}
+
+  config.expect_with :rspec do |c|
+    c.max_formatted_output_length = nil
+  end
 end
 
 Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
