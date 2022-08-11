@@ -134,21 +134,24 @@ action.performer #=> Admin.first
 ```
  
 If you need more attributes in context of your application, you should override `BaseAction.using` 
-method.
+and `BaseProjector.using` methods.
 
 ```ruby
-class BaseAction::ContextData < Granite::ContextProxy::Data
-  def initialize(performer: nil, custom: false)
-    super(performer: performer)
-    @custom = custom
+module GraniteContext
+  class Data < Granite::ContextProxy::Data
+    def initialize(performer: nil, custom: false)
+      super(performer: performer)
+      @custom = custom
+    end
   end
-end
 
-class BaseAction
-  def self.using(data)
+  def using(data)
     Granite::ContextProxy::Proxy.new(self, BaseAction::ContextData.wrap(data))
   end
 end
+
+BaseAction.extend GraniteContext
+BaseProjector.extend GraniteContext
 
 BaseAction.using(performer: performer, custom: true)
 ```
