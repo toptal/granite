@@ -14,17 +14,17 @@ RSpec.describe Granite::ContextProxy do
     end
   end
   let(:performer) { performers.first }
-  let(:performers) { 2.times.map { instance_double(User) } }
+  let(:performers) { 10.times.map { |i| instance_double(User, "Performer #{i}") } }
   let(:context) { {performer: performer} }
   let(:proxy) { instance_double(Granite::ContextProxy::Proxy) }
 
-  describe '.using' do
+  describe '.with' do
     before do
       allow(Granite::ContextProxy::Proxy).to receive(:new).with(klass, have_attributes(**context)) { proxy }
     end
 
     specify do
-      expect(klass.using(context)).to eq proxy
+      expect(klass.with(context)).to eq proxy
     end
   end
 
@@ -58,21 +58,6 @@ RSpec.describe Granite::ContextProxy do
         end
         expect(klass.proxy_context).to eq context
       end
-    end
-
-    it 'keeps context in thread safe way' do
-      thread_performers = []
-      threads = 2.times.map do |i|
-        Thread.new do
-          klass.with_context(performer: performers[i]) do
-            Thread.stop
-            thread_performers << klass.proxy_context[:performer]
-          end
-        end
-      end
-      sleep 0.01 until threads.all?(&:stop?)
-      threads.each { |thread| thread.run.join }
-      expect(thread_performers).to eq(performers)
     end
   end
 

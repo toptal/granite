@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
   # Regular controller definition
   # ...
   def create
-    BA::Movies::Create.using(performer: current_user).new(some_params).perform!
+    BA::Movies::Create.with(performer: current_user).new(some_params).perform!
   end
   # ...
 end
