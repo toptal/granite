@@ -1,14 +1,14 @@
 # spec: unit
 
-require 'granite/performer_proxy/proxy'
+require 'granite/context_proxy/proxy'
 
-RSpec.describe Granite::PerformerProxy::Proxy do
-  subject { described_class.new(klass, performer) }
+RSpec.describe Granite::ContextProxy::Proxy do
+  subject { described_class.new(klass, context) }
 
   let(:klass) { stub_class('DummyClass') }
-  let(:performer) { instance_double(User, to_s: '#Performer') }
+  let(:context) { {performer: '#Performer'} }
 
-  its(:inspect) { is_expected.to eq('<DummyClassPerformerProxy #Performer>') }
+  its(:inspect) { is_expected.to eq('<DummyClassContextProxy {:performer=>"#Performer"}>') }
 
   describe '#method_missing' do
     specify 'when klass does not respond to a method' do
@@ -21,7 +21,7 @@ RSpec.describe Granite::PerformerProxy::Proxy do
       end
 
       specify do
-        expect(klass).to receive(:with_proxy_performer).with(performer).and_yield
+        expect(klass).to receive(:with_context).with(context).and_yield
         subject.func('value')
       end
     end

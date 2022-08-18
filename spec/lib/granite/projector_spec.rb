@@ -7,9 +7,9 @@ RSpec.describe Granite::Projector do
     stub_class(:descendant, Projector)
   end
 
-  describe '.as' do
-    let(:student) { instance_double(Student) }
-    specify { expect(Projector.as(student).new.action.performer).to eq(student) }
+  describe '.using' do
+    let(:context) { {performer: instance_double(Student)} }
+    specify { expect(Projector.using(context).new.action.ctx).to have_attributes(**context) }
   end
 
   describe '.controller_class' do

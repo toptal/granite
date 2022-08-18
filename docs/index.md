@@ -116,15 +116,45 @@ after execute_perform
 => true
 ```
 
-### Performer
+### Context & performer
 
-Every BA has a performer which can be assigned via a `.as` class method before BA creation.
+Every BA has a context which is a hash that can be assigned via `.using` class method before BA 
+initialization. Context is usually used to pass performer of the action which is so common that there
+are methods defined to access & set performer
+`performer` specifically.
 
 ```ruby
-MyAction.as(Admin.first).new(params)
-```
+action = MyAction.using(performer: Admin.first).new(params)
+action.ctx #=> #<Granite::ContextProxy::Data performer: Admin.first>
+action.performer #=> Admin.first
 
-Performer can be any Ruby object. By default performer is `nil`.
+action = MyAction.as(Admin.first).new(params)
+action.ctx #=> #<Granite::ContextProxy::Data performer: Admin.first>
+action.performer #=> Admin.first
+```
+ 
+If you need more attributes in context of your application, you should override `BaseAction.using` 
+and `BaseProjector.using` methods.
+
+```ruby
+module GraniteContext
+  class Data < Granite::ContextProxy::Data
+    def initialize(performer: nil, custom: false)
+      super(performer: performer)
+      @custom = custom
+    end
+  end
+
+  def using(data)
+    Granite::ContextProxy::Proxy.new(self, BaseAction::ContextData.wrap(data))
+  end
+end
+
+BaseAction.extend GraniteContext
+BaseProjector.extend GraniteContext
+
+BaseAction.using(performer: performer, custom: true)
+```
 
 ### Attributes
 

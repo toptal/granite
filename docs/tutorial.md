@@ -679,7 +679,7 @@ class InlineProjector < Granite::Projector
       redirect_to projector.success_redirect, notice: t('.notice')
     else
       messages = projector.action.errors.full_messages.to_sentence
-      redirect_to projector.failure_redirect, alert:  t('.error', messages)
+      redirect_to projector.failure_redirect, alert: t('.error', messages)
     end
   end
 
@@ -692,14 +692,14 @@ class InlineProjector < Granite::Projector
   end
 
   def build_action(*args)
-    action_class.as(self.class.proxy_performer || h.current_user).new(*args)
+    action_class.using(self.class.proxy_context || {performer: h.current_user}).new(*args)
   end
 end
 ```
 
 We also need to say who is the performer of the action.
 The `build_action` method in the projector is implemented to override the
-current performer in action with the `current_role`.
+current performer in action with the `current_user`.
 
 !!! info
     Note that `h` is an alias for `view_context` and you can access anything

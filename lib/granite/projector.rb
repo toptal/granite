@@ -2,11 +2,11 @@ require 'granite/projector/controller_actions'
 require 'granite/projector/error'
 require 'granite/projector/helpers'
 require 'granite/projector/translations'
-require 'granite/performer_proxy'
+require 'granite/context_proxy'
 
 module Granite
   class Projector
-    include PerformerProxy
+    include ContextProxy
     include ControllerActions
     include Helpers
     include Translations
@@ -42,7 +42,7 @@ module Granite
     private
 
     def build_action(*args)
-      action_class.as(self.class.proxy_performer).new(*args)
+      action_class.using(self.class.proxy_context).new(*args)
     end
   end
 end

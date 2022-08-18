@@ -13,6 +13,17 @@ RSpec.describe Granite::Action::Performer do
     end
   end
 
+  describe '#ctx' do
+    specify { expect(Action.new.ctx).to be_nil }
+    specify { expect(Action.using(performer: :value).new.ctx).to have_attributes(performer: :value) }
+    specify { expect(Action.as(performer1).new.ctx).to have_attributes(performer: performer1) }
+
+    specify 'proxy works for deeper initialization' do
+      expect(Action.using(performer: :value).batch(2).map(&:ctx))
+        .to contain_exactly(have_attributes(performer: :value), have_attributes(performer: :value))
+    end
+  end
+
   describe '#performer' do
     specify { expect(Action.new.performer).to be_nil }
     specify { expect(Action.as(performer1).new.performer).to eq(performer1) }
