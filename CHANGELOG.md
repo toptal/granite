@@ -1,5 +1,12 @@
 # master (not released yet)
 
+# Version 0.14.0
+
+* Introduce instrumentation and RSpec matcher to check if action was performed:
+  https://toptal.github.io/granite/testing/#testing-composition
+* Introduce `Action.with` as a more powerful replacement for `Action.as`, that allows passing more than
+  just performer: https://toptal.github.io/granite/#context-performer
+
 # Version 0.13.0
 
 * Fix Ruby 3 Warnings

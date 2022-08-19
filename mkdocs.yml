@@ -17,7 +17,7 @@ markdown_extensions:
   - toc:
       permalink: true
 copyright: 'Copyright &copy; 2013 - 2018 Toptal'
-pages:
+nav:
   - Home: index.md
   - Projectors: projectors.md
   - Testing: testing.md

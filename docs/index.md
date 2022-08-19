@@ -120,8 +120,7 @@ after execute_perform
 
 Every BA has a context which is a hash that can be assigned via `.with` class method before BA 
 initialization. Context is usually used to pass performer of the action which is so common that there
-are methods defined to access & set performer
-`performer` specifically.
+are methods defined to access & set `performer` specifically.
 
 ```ruby
 action = MyAction.with(performer: Admin.first).new(params)
@@ -146,7 +145,7 @@ module GraniteContext
   end
 
   def with(data)
-    Granite::ContextProxy::Proxy.new(self, BaseAction::ContextData.wrap(data))
+    Granite::ContextProxy::Proxy.new(self, GraniteContext::Data.wrap(data))
   end
 end
 
