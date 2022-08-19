@@ -692,7 +692,7 @@ class InlineProjector < Granite::Projector
   end
 
   def build_action(*args)
-    action_class.using(self.class.proxy_context || {performer: h.current_user}).new(*args)
+    action_class.with(self.class.proxy_context || {performer: h.current_user}).new(*args)
   end
 end
 ```

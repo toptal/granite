@@ -42,7 +42,7 @@ module Granite
     private
 
     def build_action(*args)
-      action_class.using(self.class.proxy_context).new(*args)
+      action_class.with(self.class.proxy_context).new(*args)
     end
   end
 end

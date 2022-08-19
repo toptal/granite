@@ -17,7 +17,7 @@ module Granite
       @projector ||=
         begin
           projector_class = action_class.public_send(projector_name)
-          projector_class = projector_class.using(projector_context) if respond_to?(:projector_context, true)
+          projector_class = projector_class.with(projector_context) if respond_to?(:projector_context, true)
           projector_class.new(projector_params)
         end
     end

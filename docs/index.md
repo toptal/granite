@@ -118,13 +118,13 @@ after execute_perform
 
 ### Context & performer
 
-Every BA has a context which is a hash that can be assigned via `.using` class method before BA 
+Every BA has a context which is a hash that can be assigned via `.with` class method before BA 
 initialization. Context is usually used to pass performer of the action which is so common that there
 are methods defined to access & set performer
 `performer` specifically.
 
 ```ruby
-action = MyAction.using(performer: Admin.first).new(params)
+action = MyAction.with(performer: Admin.first).new(params)
 action.ctx #=> #<Granite::ContextProxy::Data performer: Admin.first>
 action.performer #=> Admin.first
 
@@ -133,8 +133,8 @@ action.ctx #=> #<Granite::ContextProxy::Data performer: Admin.first>
 action.performer #=> Admin.first
 ```
  
-If you need more attributes in context of your application, you should override `BaseAction.using` 
-and `BaseProjector.using` methods.
+If you need more attributes in context of your application, you should override `BaseAction.with` 
+and `BaseProjector.with` methods.
 
 ```ruby
 module GraniteContext
@@ -145,7 +145,7 @@ module GraniteContext
     end
   end
 
-  def using(data)
+  def with(data)
     Granite::ContextProxy::Proxy.new(self, BaseAction::ContextData.wrap(data))
   end
 end
@@ -153,7 +153,7 @@ end
 BaseAction.extend GraniteContext
 BaseProjector.extend GraniteContext
 
-BaseAction.using(performer: performer, custom: true)
+BaseAction.with(performer: performer, custom: true)
 ```
 
 ### Attributes

@@ -1,6 +1,6 @@
 module Granite
   module ContextProxy
-    # Contains all the arbitrary data that is passed to BA with `using`
+    # Contains all the arbitrary data that is passed to BA with `with`
     class Data
       attr_reader :performer
 

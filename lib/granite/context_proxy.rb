@@ -10,12 +10,12 @@ module Granite
     module ClassMethods
       PROXY_CONTEXT_KEY = :granite_proxy_context
 
-      def using(data)
+      def with(data)
         Proxy.new(self, Data.wrap(data))
       end
 
       def as(performer)
-        using(performer: performer)
+        with(performer: performer)
       end
 
       def with_context(context)
