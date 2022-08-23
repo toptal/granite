@@ -3,8 +3,6 @@ module Granite
     # Proxy which wraps the following method calls with BA context.
     #
     class Proxy
-      extend Granite::Ruby3Compatibility
-
       def initialize(klass, context)
         @klass = klass
         @context = context
