@@ -1,6 +1,10 @@
 module Granite
   module Represents
     class Attribute < ActiveData::Model::Attributes::Attribute
+      types = {}
+      types[ActiveRecord::Enum::EnumType] = String if defined?(ActiveRecord)
+      TYPES = types.freeze
+
       delegate :writer, :reader, :reader_before_type_cast, to: :reflection
 
       def initialize(*_args)
@@ -84,6 +88,7 @@ module Granite
 
         attribute_type = reference.type_for_attribute(name.to_s)
 
+        return TYPES[attribute_type.class] if TYPES.key?(attribute_type.class)
         return Granite::Action::Types::Collection.new(convert_type_to_value_class(attribute_type.subtype)) if attribute_type.respond_to?(:subtype)
 
         convert_type_to_value_class(attribute_type)

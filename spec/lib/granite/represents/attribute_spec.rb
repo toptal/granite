@@ -242,6 +242,20 @@ RSpec.describe Granite::Represents::Attribute do
           expect(subject.type.subtype).to eq Integer
         end
       end
+
+      context 'with enum' do
+        before do
+          if ActiveRecord.gem_version >= Gem::Version.new('7.0')
+            DummyUser.enum :sign_in_count, once: 1, many: 2
+          else
+            DummyUser.enum sign_in_count: %i[once many]
+          end
+        end
+
+        specify do
+          expect(subject.type).to eq String
+        end
+      end
     end
 
     context 'when not defined' do

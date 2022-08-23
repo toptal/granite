@@ -4,7 +4,7 @@ RSpec.describe Granite::Action::Precondition do
       description 'Test description'
 
       def call(expected_title:, **)
-        expected_title == title
+        respond_to_missing?(:title) && expected_title == title
       end
     end
 

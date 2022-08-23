@@ -7,10 +7,6 @@ RSpec.describe Granite::ContextProxy do
   let(:klass) do
     Class.new do
       include Granite::ContextProxy
-
-      def self.hash
-        'hash'
-      end
     end
   end
   let(:performer) { performers.first }
