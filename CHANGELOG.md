@@ -1,5 +1,10 @@
 # master (not released yet)
 
+# Version 0.14.1
+
+* Introduce the ruby2_keywords (https://github.com/ruby/ruby2_keywords) gem in order
+  to provide compatibility with Ruby 3 for some internal methods
+
 # Version 0.14.0
 
 * Introduce instrumentation and RSpec matcher to check if action was performed:
