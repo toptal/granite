@@ -1,11 +1,11 @@
 require 'active_support/dependencies'
 require 'action_controller'
+require 'ruby2_keywords'
 
 require 'granite/version'
 require 'granite/config'
 require 'granite/context'
 require 'granite/util'
-require 'granite/ruby3_compatibility'
 
 module Granite
   def self.config
