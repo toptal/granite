@@ -84,7 +84,11 @@ module Granite
 
         attribute_type = reference.type_for_attribute(name.to_s)
 
-        return Granite::Action::Types::Collection.new(convert_type_to_value_class(attribute_type.subtype)) if attribute_type.respond_to?(:subtype)
+        # [ROGUE-3303] in ActiveRecord 6.1 `subtype` on `ActiveRecord::Enum::EnumType`
+        # changed visibility from private to public, which began to break typecasting
+        if attribute_type.respond_to?(:subtype) && !attribute_type.is_a?(ActiveRecord::Enum::EnumType)
+          return Granite::Action::Types::Collection.new(convert_type_to_value_class(attribute_type.subtype))
+        end
 
         convert_type_to_value_class(attribute_type)
       end
