@@ -193,7 +193,7 @@ class CreateBook < Granite::Action
     book.year = year
   end
   
-  private def assign_name
+  private def set_name
     book.name = name
   end
 end
