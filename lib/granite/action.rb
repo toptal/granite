@@ -72,7 +72,7 @@ module Granite
     else
       def merge_errors(other_errors)
         other_errors.each do |error|
-          errors.import(error) unless errors.added?(error.attribute, error)
+          errors.import(error) unless errors.messages[error.attribute].include?(error.message)
         end
       end
     end

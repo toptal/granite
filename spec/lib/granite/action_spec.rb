@@ -169,4 +169,152 @@ RSpec.describe Granite::Action do
       end
     end
   end
+
+  describe '#merge_errors' do
+    subject(:action) { Action.new }
+
+    let(:errors_to_merge) { ActiveModel::Errors.new(Action.new) }
+    let(:error_args) { [] }
+    let(:error_options) { {} }
+
+    before { action.errors.add(*error_args, **error_options) }
+
+    context 'when error types are string' do
+      let(:error_args) { [:base, 'some error'] }
+
+      context 'when errors have different attributes' do
+        before { errors_to_merge.add(:comment, 'some error') }
+
+        it 'merges given errors with existing ones' do
+          action.merge_errors(errors_to_merge)
+
+          expect(action.errors.messages).to match(base: ['some error'], comment: ['some error'])
+        end
+      end
+
+      context 'when errors have different types' do
+        before { errors_to_merge.add(:base, 'some other error') }
+
+        it 'merges given errors with existing ones' do
+          action.merge_errors(errors_to_merge)
+
+          expect(action.errors.messages).to match(base: ['some error', 'some other error'])
+        end
+      end
+
+      context 'when errors are duplicates' do
+        before { errors_to_merge.add(:base, 'some error') }
+
+        it 'does not duplicate existing errors' do
+          action.merge_errors(errors_to_merge)
+
+          expect(action.errors.messages).to match(base: ['some error'])
+        end
+      end
+
+      context 'when errors have options' do
+        let(:error_args) { [:base, 'some error'] }
+        let(:error_options) { {count: 1, message: 'count is wrong'} }
+
+        context 'when message differs' do
+          before { errors_to_merge.add(:base, 'some error', count: 1, message: 'count is low') }
+
+          it 'does not duplicate existing errors' do
+            action.merge_errors(errors_to_merge)
+
+            expect(action.errors.messages).to match(base: ['some error'])
+          end
+        end
+
+        context 'when options differ' do
+          before { errors_to_merge.add(:base, 'some error', count: 2, message: 'count is wrong') }
+
+          it 'ignores options and does not duplicate existing errors' do
+            action.merge_errors(errors_to_merge)
+
+            expect(action.errors.messages).to match(base: ['some error'])
+          end
+        end
+
+        context 'when options match' do
+          before { errors_to_merge.add(:base, 'some error', count: 1, message: 'count is wrong') }
+
+          it 'does not duplicate existing errors' do
+            action.merge_errors(errors_to_merge)
+
+            expect(action.errors.messages).to match(base: ['some error'])
+          end
+        end
+      end
+    end
+
+    context 'when error types are symbol' do
+      let(:error_args) { %i[base invalid] }
+
+      context 'when errors have different attributes' do
+        before { errors_to_merge.add(:comment, :invalid) }
+
+        it 'merges given errors with existing ones' do
+          action.merge_errors(errors_to_merge)
+
+          expect(action.errors.messages).to match(base: ['is invalid'], comment: ['is invalid'])
+        end
+      end
+
+      context 'when errors have different types' do
+        before { errors_to_merge.add(:base, :blank) }
+
+        it 'merges given errors with existing ones' do
+          action.merge_errors(errors_to_merge)
+
+          expect(action.errors.messages).to match(base: ['is invalid', 'can\'t be blank'])
+        end
+      end
+
+      context 'when errors are duplicates' do
+        before { errors_to_merge.add(:base, :invalid) }
+
+        it 'does not duplicate existing errors' do
+          action.merge_errors(errors_to_merge)
+
+          expect(action.errors.messages).to match(base: ['is invalid'])
+        end
+      end
+
+      context 'when errors have options' do
+        let(:error_args) { %i[base invalid] }
+        let(:error_options) { {count: 1, message: 'count is wrong'} }
+
+        context 'when message differs' do
+          before { errors_to_merge.add(:base, :invalid, count: 1, message: 'count is low') }
+
+          it 'merges given errors with existing ones' do
+            action.merge_errors(errors_to_merge)
+
+            expect(action.errors.messages).to match(base: ['count is wrong', 'count is low'])
+          end
+        end
+
+        context 'when options differ' do
+          before { errors_to_merge.add(:base, :invalid, count: 2, message: 'count is wrong') }
+
+          it 'does not duplicate existing errors' do
+            action.merge_errors(errors_to_merge)
+
+            expect(action.errors.messages).to match(base: ['count is wrong'])
+          end
+        end
+
+        context 'when options match' do
+          before { errors_to_merge.add(:base, :invalid, count: 1, message: 'count is wrong') }
+
+          it 'does not duplicate existing errors' do
+            action.merge_errors(errors_to_merge)
+
+            expect(action.errors.messages).to match(base: ['count is wrong'])
+          end
+        end
+      end
+    end
+  end
 end
