@@ -123,7 +123,7 @@ RSpec.describe Granite::Action do
     specify { expect(Action.new).not_to be_performable }
   end
 
-  describe '#attributes_changed??' do
+  describe '#attributes_changed?' do
     before do
       stub_class(:action, Granite::Action) do
         subject :role
