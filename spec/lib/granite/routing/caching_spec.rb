@@ -32,14 +32,15 @@ RSpec.describe Granite::Routing::Caching do
       before { subject.clear_cache! }
 
       it 'returns instance of Cache' do
-        expect(subject.granite_cache).to be_kind_of Granite::Routing::Cache
+        expect(subject.granite_cache).to be_a Granite::Routing::Cache
       end
     end
   end
 
   describe '#clear_cache!' do
     it 'calls super' do
-      allow_any_instance_of(super_module).to receive(:super)
+      expect_any_instance_of(super_module).to receive(:clear_cache!)
+      subject.clear_cache!
     end
 
     it 'sets granite_cache to nil' do

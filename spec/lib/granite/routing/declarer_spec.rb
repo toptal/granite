@@ -14,7 +14,7 @@ RSpec.describe Granite::Routing::Declarer do
       expect(matched_route.required_defaults[:granite_action]).to eq 'ba/student/pause'
       expect(matched_route.required_defaults[:granite_projector]).to eq 'modal'
       expect(matched_route.verb).to eq('')
-      expect(matched_route.app.app).to be_kind_of Granite::Dispatcher
+      expect(matched_route.app.app).to be_a Granite::Dispatcher
       expect(matched_route.path).to match '/pause/my_action'
     end
 
