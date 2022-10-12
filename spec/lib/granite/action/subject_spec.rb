@@ -34,7 +34,7 @@ RSpec.describe Granite::Action::Subject do
   end
 
   describe '::subject?' do
-    specify { expect(Action.subject?).to be_truthy }
+    specify { expect(Action).to be_subject }
 
     context 'when Action does not define subject' do
       before do
@@ -43,7 +43,7 @@ RSpec.describe Granite::Action::Subject do
         end
       end
 
-      specify { expect(Action.subject?).to be_falsey }
+      specify { expect(Action).not_to be_subject }
     end
   end
 end
