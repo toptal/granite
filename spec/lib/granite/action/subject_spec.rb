@@ -1,15 +1,15 @@
 RSpec.describe Granite::Action::Subject do
-  before do
-    stub_class(:action, Granite::Action) do
-      subject :student
-      attribute :comment, String
-    end
-  end
-
   let(:student) { Student.create! }
   let(:teacher) { Teacher.create! }
 
   describe '#initialize' do
+    before do
+      stub_class(:action, Granite::Action) do
+        subject :student
+        attribute :comment, String
+      end
+    end
+
     specify { expect { Action.new(comment: 'Comment') }.to raise_error Granite::Action::SubjectNotFoundError }
     specify { expect(Action.new(comment: 'Comment', subject: student).student).to eq(student) }
 
@@ -31,5 +31,17 @@ RSpec.describe Granite::Action::Subject do
 
     specify { expect(Action.new(comment: 'Comment', subject: student).comment).to eq('Comment') }
     specify { expect(Action.new(student, comment: 'Comment').comment).to eq('Comment') }
+  end
+
+  describe '.subject?' do
+    before { stub_class(:action, Granite::Action) }
+
+    specify { expect(Action).not_to be_subject }
+
+    context 'when action defines subject' do
+      before { Action.subject(:student) }
+
+      specify { expect(Action).to be_subject }
+    end
   end
 end

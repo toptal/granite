@@ -29,15 +29,20 @@ module Granite
 
           self._subject = name
         end
+
+        def subject?
+          _subject.present?
+        end
+
+        def subject_reflection
+          reflect_on_association(_subject)
+        end
       end
 
       def initialize(*args)
-        if self.class._subject.blank?
-          super
-          return
-        end
+        return super unless self.class.subject? # rubocop:disable Lint/ReturnInVoidContext
 
-        reflection = self.class.reflect_on_association(self.class._subject)
+        reflection = self.class.subject_reflection
         attributes = extract_initialize_attributes(args)
 
         subject_attributes = extract_subject_attributes!(attributes, reflection)
