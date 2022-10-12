@@ -36,10 +36,7 @@ module Granite
       end
 
       def initialize(*args)
-        unless self.class.subject?
-          super
-          return
-        end
+        return super unless self.class.subject? # rubocop:disable Lint/ReturnInVoidContext
 
         reflection = find_subject_reflection
         attributes = extract_initialize_attributes(args)
