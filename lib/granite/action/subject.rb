@@ -33,12 +33,16 @@ module Granite
         def subject?
           _subject.present?
         end
+
+        def subject_reflection
+          reflect_on_association(_subject)
+        end
       end
 
       def initialize(*args)
         return super unless self.class.subject? # rubocop:disable Lint/ReturnInVoidContext
 
-        reflection = find_subject_reflection
+        reflection = self.class.subject_reflection
         attributes = extract_initialize_attributes(args)
 
         subject_attributes = extract_subject_attributes!(attributes, reflection)
@@ -48,10 +52,6 @@ module Granite
       end
 
       private
-
-      def find_subject_reflection
-        self.class.reflect_on_association(self.class._subject)
-      end
 
       def extract_initialize_attributes(args)
         if args.last.respond_to?(:to_unsafe_hash)
