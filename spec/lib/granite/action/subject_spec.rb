@@ -32,4 +32,18 @@ RSpec.describe Granite::Action::Subject do
     specify { expect(Action.new(comment: 'Comment', subject: student).comment).to eq('Comment') }
     specify { expect(Action.new(student, comment: 'Comment').comment).to eq('Comment') }
   end
+
+  describe '::subject?' do
+    specify { expect(Action.subject?).to be_truthy }
+
+    context 'when Action does not define subject' do
+      before do
+        stub_class(:action, Granite::Action) do
+          attribute :comment, String
+        end
+      end
+
+      specify { expect(Action.subject?).to be_falsey }
+    end
+  end
 end

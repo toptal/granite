@@ -29,10 +29,14 @@ module Granite
 
           self._subject = name
         end
+
+        def subject?
+          _subject.present?
+        end
       end
 
       def initialize(*args)
-        if self.class._subject.blank?
+        unless self.class.subject?
           super
           return
         end
