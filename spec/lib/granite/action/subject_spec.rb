@@ -36,14 +36,12 @@ RSpec.describe Granite::Action::Subject do
   describe '.subject?' do
     before { stub_class(:action, Granite::Action) }
 
+    specify { expect(Action).not_to be_subject }
+
     context 'when action defines subject' do
       before { Action.subject(:student) }
 
       specify { expect(Action).to be_subject }
-    end
-
-    context 'when action does not define subject' do
-      specify { expect(Action).not_to be_subject }
     end
   end
 end
