@@ -1,5 +1,11 @@
 # master (not released yet)
 
+# Version 0.14.2
+
+* Fix error existence check on `Granite::Action#merge_errors` in Rails 6.1
+* Add `Granite::Action.subject?` helper method
+* Fix ActiveRecord::Enum handling with represents
+
 # Version 0.14.1
 
 * Introduce the ruby2_keywords (https://github.com/ruby/ruby2_keywords) gem in order
