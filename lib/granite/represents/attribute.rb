@@ -86,12 +86,18 @@ module Granite
       def type_from_type_for_attribute
         return nil unless reference.respond_to?(:type_for_attribute)
 
-        attribute_type = reference.type_for_attribute(name.to_s)
+        attribute_type = reference.type_for_attribute(attribute_name.to_s)
 
         return TYPES[attribute_type.class] if TYPES.key?(attribute_type.class)
         return Granite::Action::Types::Collection.new(convert_type_to_value_class(attribute_type.subtype)) if attribute_type.respond_to?(:subtype)
 
         convert_type_to_value_class(attribute_type)
+      end
+
+      def attribute_name
+        return name if ActiveModel.version >= Gem::Version.new('6.1.0')
+
+        reference.class.attribute_aliases[name.to_s] || name
       end
 
       def convert_type_to_value_class(attribute_type)
