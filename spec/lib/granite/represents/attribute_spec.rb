@@ -67,6 +67,7 @@ RSpec.describe Granite::Represents::Attribute do
     end
 
     context 'when represented an aliased attribute' do
+      subject { action.attribute(:sign_ins) }
       before do
         stub_class(:action, Granite::Action) do
           allow_if { true }
@@ -78,8 +79,6 @@ RSpec.describe Granite::Represents::Attribute do
           end
         end
       end
-
-      subject { action.attribute(:sign_ins) }
 
       it 'sets default value' do
         expect(subject.read).to eq(1)
