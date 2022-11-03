@@ -65,6 +65,33 @@ RSpec.describe Granite::Represents::Attribute do
         end
       end
     end
+
+    context 'when represented an aliased attribute' do
+      subject { action.attribute(:sign_ins) }
+      before do
+        stub_class(:action, Granite::Action) do
+          allow_if { true }
+
+          represents :sign_ins, default: '1', of: :user
+
+          def user
+            @user ||= User.new
+          end
+        end
+      end
+
+      it 'sets default value' do
+        expect(subject.read).to eq(1)
+      end
+
+      it 'sets default value_before_type_cast' do
+        expect(subject.read_before_type_cast).to eq('1')
+      end
+
+      it 'returns correct type' do
+        expect(subject.type).to eq(Integer)
+      end
+    end
   end
 
   describe '#sync' do
