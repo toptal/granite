@@ -1,10 +1,9 @@
 module Granite
   module Represents
-    class Attribute < ActiveData::Model::Attributes::Attribute
+    class Attribute < Granite::Form::Model::Attributes::Attribute
       types = {}
       types[ActiveRecord::Enum::EnumType] = String if defined?(ActiveRecord)
       TYPES = types.freeze
-
       delegate :writer, :reader, :reader_before_type_cast, to: :reflection
 
       def initialize(*_args)
@@ -27,13 +26,13 @@ module Granite
       def type
         return reflection.options[:type] if reflection.options[:type].present?
 
-        active_data_type || type_from_type_for_attribute || super
+        granite_form_type || type_from_type_for_attribute || super
       end
 
       def typecaster
         @typecaster ||= begin
           type_class = type.instance_of?(Class) ? type : type.class
-          @typecaster = ActiveData.typecaster(type_class.ancestors.grep(Class))
+          @typecaster = Granite::Form.typecaster(type_class.ancestors.grep(Class))
         end
       end
 
@@ -67,20 +66,20 @@ module Granite
         end
       end
 
-      def active_data_type
-        return nil unless reference.is_a?(ActiveData::Model)
+      def granite_form_type
+        return nil unless reference.is_a?(Granite::Form::Model)
 
         reference_attribute = reference.attribute(name)
 
         return nil if reference_attribute.nil?
 
         return Granite::Action::Types::Collection.new(reference_attribute.type) if [
-          ActiveData::Model::Attributes::ReferenceMany,
-          ActiveData::Model::Attributes::Collection,
-          ActiveData::Model::Attributes::Dictionary
+          Granite::Form::Model::Attributes::ReferenceMany,
+          Granite::Form::Model::Attributes::Collection,
+          Granite::Form::Model::Attributes::Dictionary
         ].any? { |klass| reference_attribute.is_a? klass }
 
-        reference_attribute.type # TODO: create `type_for_attribute` method inside of ActiveData
+        reference_attribute.type # TODO: create `type_for_attribute` method inside of Granite::Form
       end
 
       def type_from_type_for_attribute
@@ -103,7 +102,7 @@ module Granite
       def convert_type_to_value_class(attribute_type)
         return attribute_type.value_class if attribute_type.respond_to?(:value_class)
 
-        ActiveData::Model::Associations::PersistenceAdapters::ActiveRecord::TYPES[attribute_type.type&.to_sym]
+        Granite::Form::Model::Associations::PersistenceAdapters::ActiveRecord::TYPES[attribute_type.type&.to_sym]
       end
     end
   end

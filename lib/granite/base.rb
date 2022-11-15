@@ -1,24 +1,24 @@
-require 'active_data/model'
-require 'active_data/model/primary'
-require 'active_data/model/lifecycle'
-require 'active_data/model/associations'
+require 'granite/form/model'
+require 'granite/form/model/primary'
+require 'granite/form/model/lifecycle'
+require 'granite/form/model/associations'
 
 require 'granite/translations'
 require 'granite/represents'
 require 'granite/assign_data'
 
 module Granite
-  # Base included in Granite::Action, but also used by ActiveData when building data objects (e.g. when using
+  # Base included in Granite::Action, but also used by Granite::Form when building data objects (e.g. when using
   # embeds_many)
   module Base
     extend ActiveSupport::Concern
 
     include ActiveSupport::Callbacks
-    include ActiveData::Model
-    include ActiveData::Model::Representation
-    include ActiveData::Model::Dirty
-    include ActiveData::Model::Associations
-    include ActiveData::Model::Primary
+    include Granite::Form::Model
+    include Granite::Form::Model::Representation
+    include Granite::Form::Model::Dirty
+    include Granite::Form::Model::Associations
+    include Granite::Form::Model::Primary
     include ActiveModel::Validations::Callbacks
 
     include Granite::Util

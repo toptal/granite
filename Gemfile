@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
-git_source(:toptal) { |repo| "https://github.com/#{repo}.git" }
+git_source(:toptal) { |repo| "https://github.com/toptal/#{repo}.git" }
 
 gemspec

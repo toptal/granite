@@ -50,7 +50,7 @@ RSpec.describe Granite::Action do
     describe 'active data' do
       before do
         stub_class 'DummyUser' do
-          include ActiveData::Model
+          include Granite::Form::Model
           attribute :email, String
           attribute :full_name, String
 
@@ -140,7 +140,7 @@ RSpec.describe Granite::Action do
     subject { Action.new }
 
     before do
-      allow(ActiveData.config.logger).to receive(:info)
+      allow(Granite::Form.config.logger).to receive(:info)
     end
 
     specify do

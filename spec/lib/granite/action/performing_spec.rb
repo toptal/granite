@@ -107,7 +107,7 @@ RSpec.describe Granite::Action::Performing do
       let(:action) { Action.new(user, login: 'Login', skills_attributes: [{name: ''}]) }
 
       before do
-        allow(ActiveData.config.logger).to receive(:info)
+        allow(Granite::Form.config.logger).to receive(:info)
       end
 
       specify { expect(action.perform).to be(false) }
@@ -208,7 +208,7 @@ RSpec.describe Granite::Action::Performing do
       let(:action) { Action.new(user, login: 'Login', skills_attributes: [{name: ''}]) }
 
       before do
-        allow(ActiveData.config.logger).to receive(:info)
+        allow(Granite::Form.config.logger).to receive(:info)
       end
 
       specify do
@@ -321,7 +321,7 @@ RSpec.describe Granite::Action::Performing do
       let(:action) { Action.new(user, login: 'Login', skills_attributes: [{name: ''}]) }
 
       before do
-        allow(ActiveData.config.logger).to receive(:info)
+        allow(Granite::Form.config.logger).to receive(:info)
       end
 
       specify do

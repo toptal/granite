@@ -78,7 +78,7 @@ RSpec.describe Granite::Action::TransactionManager do
         it 'calls for every callback, fails with first callback error and logs others' do
           expect(object_listener).to receive(:run_callbacks).with(:commit).ordered
           expect(block_listener).to receive(:do_stuff).ordered
-          expect(ActiveData.config.logger).to receive(:error).with(/Unhandled.*RuntimeError.*callback failed second.*\n.*transaction_manager_spec.*/)
+          expect(Granite::Form.config.logger).to receive(:error).with(/Unhandled.*RuntimeError.*callback failed second.*\n.*transaction_manager_spec.*/)
           expect { subject }.to raise_error 'callback failed first'
         end
       end

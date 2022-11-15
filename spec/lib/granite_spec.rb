@@ -30,7 +30,7 @@ RSpec.describe Granite, type: :request do
 
   describe '#authorize_action!' do
     before do
-      allow(ActiveData.config.logger).to receive(:info)
+      allow(Granite::Form.config.logger).to receive(:info)
     end
 
     context 'without performer' do

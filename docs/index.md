@@ -157,7 +157,7 @@ BaseAction.with(performer: performer, custom: true)
 
 ### Attributes
 
-The next step is defining action attributes. There are several types of them and they are provided by `active_data` gem:
+The next step is defining action attributes. There are several types of them and they are provided by `granite-form` gem:
 
 ```ruby
 class Action < Granite::Action
@@ -170,13 +170,13 @@ class Action < Granite::Action
 end
 ```
 
-For detailed information on the available types and usage examples, check out [ActiveData documentation](https://github.com/pyromaniac/active_data#attributes).
+For detailed information on the available types and usage examples, check out [Granite::Form documentation](https://github.com/toptal/granite-form#attributes).
 
-The attributes behave pretty much as they do with `ActiveData` objects, except for `represents`:
+The attributes behave pretty much as they do with `Granite::Form` objects, except for `represents`:
 
 #### Represents
 
-In `ActiveData` objects, when a model attribute is exposed through `represents` and the AD object changes, the exposed attribute is updated right away, and Granite Actions update the represented attribute using `assign_data`.
+In `Granite::Form` objects, when a model attribute is exposed through `represents` and the AD object changes, the exposed attribute is updated right away, and Granite Actions update the represented attribute using `assign_data`.
 
 #### Assign_data
 
@@ -213,7 +213,7 @@ class CreateBook < Granite::Action
 end
 ```
 
-For more information on the associations available and usage examples, see [ActiveData documentation](https://github.com/pyromaniac/active_data#associations).
+For more information on the associations available and usage examples, see [Granite::Form documentation](https://github.com/toptal/granite-form#associations).
 
 ### NestedActions
 
