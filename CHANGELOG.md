@@ -1,5 +1,11 @@
 # master (not released yet)
 
+# Version 0.15.0
+
+* [BREAKING] Change form builder from ActiveData to Granite::Form. This means Granite no longer depends
+  on ActiveData, Granite::Form currently is a direct replacement for ActiveData that uses same syntax.  
+* Add support for detecting types of aliased attributes when using `represents`
+
 # Version 0.14.2
 
 * Fix error existence check on `Granite::Action#merge_errors` in Rails 6.1
