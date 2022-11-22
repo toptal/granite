@@ -28,4 +28,4 @@ require 'granite/routing'
 require 'granite/typecasters'
 require 'granite/rails' if defined?(::Rails)
 
-ActiveData.base_concern = Granite::Base
+Granite::Form.base_concern = Granite::Base

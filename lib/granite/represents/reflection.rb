@@ -2,7 +2,7 @@ require 'granite/represents/attribute'
 
 module Granite
   module Represents
-    class Reflection < ActiveData::Model::Attributes::Reflections::Represents
+    class Reflection < Granite::Form::Model::Attributes::Reflections::Represents
       class << self
         def build(target, generated_methods, name, *args, &block)
           options = args.last

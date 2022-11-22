@@ -75,7 +75,7 @@ module Granite
 
         def log_errors(errors)
           errors.each do |error|
-            ActiveData.config.logger.error "Unhandled error in callback: #{error.inspect}\n#{error.backtrace.join("\n")}"
+            Granite::Form.config.logger.error "Unhandled error in callback: #{error.inspect}\n#{error.backtrace.join("\n")}"
           end
         end
       end

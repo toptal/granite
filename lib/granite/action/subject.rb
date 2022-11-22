@@ -66,7 +66,7 @@ module Granite
 
         self.subject = args.first unless args.empty?
         fail SubjectNotFoundError, self.class unless subject
-      rescue ActiveData::AssociationTypeMismatch
+      rescue Granite::Form::AssociationTypeMismatch
         raise SubjectTypeMismatchError.new(self.class, args.first.class.name, reflection.klass)
       end
 

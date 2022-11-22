@@ -1,4 +1,4 @@
-require 'active_data'
+require 'granite/form'
 require 'active_record/errors'
 require 'active_record/validations'
 require 'active_support/callbacks'
@@ -27,7 +27,7 @@ module Granite
     end
 
     # We are using a lot of stacked additional logic for `assign_attributes`
-    # At least, represented and nested attributes modules in ActiveData
+    # At least, represented and nested attributes modules in Granite::Form
     # are having such a method redefiniions. Both are prepended to the
     # Granite action, so we have to prepend our patch as well in order
     # to put it above all other, so it will handle the attributes first.
@@ -55,7 +55,7 @@ module Granite
       merge_errors(e.record.errors)
     end
 
-    handle_exception ActiveData::ValidationError do |e|
+    handle_exception Granite::Form::ValidationError do |e|
       merge_errors(e.model.errors)
     end
 

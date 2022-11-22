@@ -6,7 +6,7 @@ RSpec.describe Granite::Represents::Attribute do
 
   before do
     stub_class(:dummy_user) do
-      include ActiveData::Model
+      include Granite::Form::Model
 
       attribute :sign_in_count, Integer, default: '1'
       attribute :created_at, Time
@@ -171,8 +171,8 @@ RSpec.describe Granite::Represents::Attribute do
         end
 
         stub_class(:holder) do
-          include ActiveData::Model
-          include ActiveData::Model::Associations
+          include Granite::Form::Model
+          include Granite::Form::Model::Associations
 
           references_many :users, class_name: 'User'
         end
@@ -197,8 +197,8 @@ RSpec.describe Granite::Represents::Attribute do
 
       before do
         stub_class(:holder) do
-          include ActiveData::Model
-          include ActiveData::Model::Associations
+          include Granite::Form::Model
+          include Granite::Form::Model::Associations
 
           collection :users, String
         end
@@ -223,8 +223,8 @@ RSpec.describe Granite::Represents::Attribute do
 
       before do
         stub_class(:holder) do
-          include ActiveData::Model
-          include ActiveData::Model::Associations
+          include Granite::Form::Model
+          include Granite::Form::Model::Associations
 
           dictionary :numbers, Float
         end
@@ -244,7 +244,7 @@ RSpec.describe Granite::Represents::Attribute do
       end
     end
 
-    it 'derrives type from attribute of ActiveData::Model' do
+    it 'derrives type from attribute of Granite::Form::Model' do
       expect(subject.type).to eq Integer
     end
 
@@ -294,7 +294,7 @@ RSpec.describe Granite::Represents::Attribute do
 
   describe '#typecaster' do
     specify do
-      expect(subject.typecaster).to eq ActiveData.typecaster(Integer)
+      expect(subject.typecaster).to eq Granite::Form.typecaster(Integer)
     end
   end
 
