@@ -1,3 +1,3 @@
-class BA::User::BusinessAction < BaseAction
+class User::BusinessAction < BaseAction
   subject :user
 end

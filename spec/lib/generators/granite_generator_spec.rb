@@ -25,28 +25,28 @@ RSpec.describe GraniteGenerator do
   end
 
   def entries
-    destination_path('apq/actions/ba/user/').entries.map(&:to_s) - %w[. ..]
+    destination_path('apq/actions/user/').entries.map(&:to_s) - %w[. ..]
   end
 
   specify do
     run_generator %w[user/create]
     expect(entries).to match_array(%w[create.rb business_action.rb])
-    expect_same_content('apq/actions/ba/user/business_action.rb', 'base_action')
-    expect_same_content('apq/actions/ba/user/create.rb', 'action')
-    expect_same_content('spec/apq/actions/ba/user/create_spec.rb', 'action_spec')
+    expect_same_content('apq/actions/user/business_action.rb', 'base_action')
+    expect_same_content('apq/actions/user/create.rb', 'action')
+    expect_same_content('spec/apq/actions/user/create_spec.rb', 'action_spec')
   end
 
   specify do
     run_generator %w[user/create -C]
     expect(entries).to match_array(%w[create.rb])
-    expect_same_content('apq/actions/ba/user/create.rb', 'collection_action')
-    expect_same_content('spec/apq/actions/ba/user/create_spec.rb', 'collection_action_spec')
+    expect_same_content('apq/actions/user/create.rb', 'collection_action')
+    expect_same_content('spec/apq/actions/user/create_spec.rb', 'collection_action_spec')
   end
 
   specify do
     run_generator %w[user/create simple]
     expect(entries).to match_array(%w[create create.rb business_action.rb])
-    expect(destination_path('apq/actions/ba/user/create/simple/')).to be_directory
-    expect_same_content('apq/actions/ba/user/create.rb', 'simple_action')
+    expect(destination_path('apq/actions/user/create/simple/')).to be_directory
+    expect_same_content('apq/actions/user/create.rb', 'simple_action')
   end
 end
