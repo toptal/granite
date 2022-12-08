@@ -25,7 +25,6 @@ require 'granite/dispatcher'
 require 'granite/action'
 require 'granite/projector'
 require 'granite/routing'
-require 'granite/typecasters'
-require 'granite/rails' if defined?(::Rails)
+require 'granite/rails' if defined?(Rails)
 
 Granite::Form.base_concern = Granite::Base

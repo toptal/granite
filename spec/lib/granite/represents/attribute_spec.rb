@@ -89,7 +89,7 @@ RSpec.describe Granite::Represents::Attribute do
       end
 
       it 'returns correct type' do
-        expect(subject.type).to eq(Integer)
+        expect(subject.type_definition).to have_attributes(type: Integer)
       end
     end
   end
@@ -121,21 +121,26 @@ RSpec.describe Granite::Represents::Attribute do
     end
   end
 
-  describe '#typecast' do
+  describe 'typecasting' do
+    def typecast(value)
+      subject.write(value)
+      subject.read
+    end
+
     it 'returns original value when it has right class' do
-      expect(subject.typecast(1)).to eq 1
+      expect(typecast(1)).to eq 1
     end
 
     it 'returns converted value to a proper type' do
-      expect(subject.typecast('1')).to eq 1
+      expect(typecast('1')).to eq 1
     end
 
     it 'ignores nil' do
-      expect(subject.typecast(nil)).to be_nil
+      expect(typecast(nil)).to be_nil
     end
   end
 
-  describe '#type' do
+  describe '#type_definition' do
     context 'when defined in options' do
       before do
         stub_class(:action, Granite::Action) do
@@ -149,7 +154,7 @@ RSpec.describe Granite::Represents::Attribute do
         end
       end
 
-      specify { expect(subject.type).to eq String }
+      specify { expect(subject.type_definition).to have_attributes(type: String, owner: action) }
     end
 
     context 'when defined in attribute' do
@@ -159,7 +164,24 @@ RSpec.describe Granite::Represents::Attribute do
         end
       end
 
-      specify { expect(subject.type).to eq String }
+      specify { expect(subject.type_definition).to have_attributes(type: String, owner: action) }
+    end
+
+    context 'when defined in represents attribute' do
+      before do
+        stub_class(:child_dummy_user, Granite::Action) do
+          attribute :sign_in_count, Boolean
+        end
+        stub_class(:dummy_user, Granite::Action) do
+          represents :sign_in_count, of: :subject
+
+          def subject
+            @subject ||= ChildDummyUser.new
+          end
+        end
+      end
+
+      specify { expect(subject.type_definition).to have_attributes(type: Boolean, owner: action) }
     end
 
     context 'when defined in references_many' do
@@ -187,8 +209,8 @@ RSpec.describe Granite::Represents::Attribute do
       end
 
       specify do
-        expect(subject.type).to be_a Granite::Action::Types::Collection
-        expect(subject.type.subtype).to eq Integer
+        expect(subject.type_definition).to be_a(Granite::Action::Types::Collection)
+        expect(subject.type_definition.subtype_definition).to have_attributes(type: Integer, owner: action)
       end
     end
 
@@ -213,8 +235,8 @@ RSpec.describe Granite::Represents::Attribute do
       end
 
       specify do
-        expect(subject.type).to be_a Granite::Action::Types::Collection
-        expect(subject.type.subtype).to eq String
+        expect(subject.type_definition).to be_a(Granite::Action::Types::Collection)
+        expect(subject.type_definition.subtype_definition).to have_attributes(type: String, owner: action)
       end
     end
 
@@ -239,13 +261,9 @@ RSpec.describe Granite::Represents::Attribute do
       end
 
       specify do
-        expect(subject.type).to be_a Granite::Action::Types::Collection
-        expect(subject.type.subtype).to eq Float
+        expect(subject.type_definition).to be_a(Granite::Action::Types::Collection)
+        expect(subject.type_definition.subtype_definition).to have_attributes(type: Float, owner: action)
       end
-    end
-
-    it 'derrives type from attribute of Granite::Form::Model' do
-      expect(subject.type).to eq Integer
     end
 
     context 'when defined in ActiveRecord::Base' do
@@ -255,18 +273,14 @@ RSpec.describe Granite::Represents::Attribute do
         end
       end
 
-      context 'with usual attribute' do
-        specify do
-          expect(subject.type).to eq Integer
-        end
-      end
+      specify { expect(subject.type_definition).to have_attributes(type: Integer, owner: action) }
 
       context 'with array' do
         subject { action.attribute(:related_ids) }
 
         specify do
-          expect(subject.type).to be_a Granite::Action::Types::Collection
-          expect(subject.type.subtype).to eq Integer
+          expect(subject.type_definition).to be_a(Granite::Action::Types::Collection)
+          expect(subject.type_definition.subtype_definition).to have_attributes(type: Integer, owner: action)
         end
       end
 
@@ -279,22 +293,26 @@ RSpec.describe Granite::Represents::Attribute do
           end
         end
 
-        specify do
-          expect(subject.type).to eq String
+        specify { expect(subject.type_definition).to have_attributes(type: String, owner: action) }
+      end
+
+      context 'with unknown attribute' do
+        subject { action.attribute(:unknown_attribute) }
+
+        before do
+          Action.class_eval do
+            represents :unknown_attribute, of: :user
+          end
         end
+
+        specify { expect(subject.type_definition).to have_attributes(type: Object, owner: action) }
       end
     end
 
     context 'when not defined' do
       before { stub_class(:dummy_user) }
 
-      specify { expect(subject.type).to eq Object }
-    end
-  end
-
-  describe '#typecaster' do
-    specify do
-      expect(subject.typecaster).to eq Granite::Form.typecaster(Integer)
+      specify { expect(subject.type_definition).to have_attributes(type: Object, owner: action) }
     end
   end
 
