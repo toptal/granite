@@ -1,4 +1,4 @@
-class BA::User::Create < BaseAction
+class User::Create < BaseAction
   allow_if { false }
 
   precondition do

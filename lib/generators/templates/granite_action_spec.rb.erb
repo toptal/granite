@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe BA::<%= class_name %> do
+RSpec.describe <%= class_name %> do
 <% if options.collection? -%>
   subject(:action) { described_class.as(performer).new(attributes) }
 
