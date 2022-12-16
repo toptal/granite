@@ -1,5 +1,8 @@
 # master (not released yet)
 
+* Remove `BA` prefix in granite action generator
+* Remove automatic synchronization from `embeds_many`/`embeds_one` associated objects (`action.association`) to their appropriate virtual attribute (`action.attributes('association')`)
+
 # Version 0.15.0
 
 * [BREAKING] Change form builder from ActiveData to Granite::Form. This means Granite no longer depends
