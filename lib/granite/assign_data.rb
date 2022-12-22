@@ -10,6 +10,8 @@ module Granite
 
       alias_method :only_run_validations!, :run_validations!
       protected :only_run_validations!
+
+      assign_data :sync_attributes
     end
 
     module ClassMethods

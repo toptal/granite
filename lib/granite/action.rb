@@ -3,7 +3,6 @@ require 'active_record/errors'
 require 'active_record/validations'
 require 'active_support/callbacks'
 
-require 'granite/action/types'
 require 'granite/action/error'
 require 'granite/action/instrumentation'
 require 'granite/action/performing'
