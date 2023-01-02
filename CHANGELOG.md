@@ -1,4 +1,5 @@
 ## Next
+## v0.15.1
 
 * Remove `BA` prefix in granite action generator
 * Remove automatic synchronization from `embeds_many`/`embeds_one` associated objects (`action.association`) to their appropriate virtual attribute (`action.attributes('association')`)
