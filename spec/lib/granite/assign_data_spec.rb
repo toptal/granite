@@ -1,6 +1,6 @@
 RSpec.describe Granite::AssignData do
   subject(:action) { DummyAction.new(user) }
-  let!(:user) { User.create! }
+  let!(:user) { User.create!(full_name: '') }
 
   before do
     stub_class(:dummy_action, Granite::Action) do
@@ -30,6 +30,22 @@ RSpec.describe Granite::AssignData do
     end
 
     it { expect { action.validate }.to change { user.full_name }.to('New Name') }
+  end
+
+  context 'when using :before' do
+    before do
+      DummyAction.class_eval do
+        assign_data :add4
+        assign_data :add1, :add3, before: :add4
+        assign_data :add2, before: :add3
+
+        ('1'..'4').each do |i|
+          define_method("add#{i}") { user.full_name += i }
+        end
+      end
+    end
+
+    it { expect { action.validate }.to change { user.full_name }.to('1234') }
   end
 
   context 'when using method name & options' do

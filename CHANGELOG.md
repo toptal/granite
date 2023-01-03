@@ -1,4 +1,7 @@
 ## Next
+
+* Allow ordering of `assign_data` blocks using `before` keyword.
+
 ## v0.15.1
 
 * Remove `BA` prefix in granite action generator

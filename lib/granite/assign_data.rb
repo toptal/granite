@@ -15,12 +15,22 @@ module Granite
     module ClassMethods
       # Defines a callback to call when assigning data from business action to model.
       # @param methods [Array<Symbol>] list of methods to call
+      # @param before [Symbol] used when you want to add a callback before another callback. For example you can use
+      #   `before: :sync_attributes` to add a callback before `represents` attributes are synchronized to their
+      #   reference
       # @param block [Proc] a block to call
       # @option options [Symbol, Proc, Object] :if call methods/block if this condition evaluates to true
       # @option options [Symbol, Proc, Object] :unless call method/block unless this condition evaluates to true
-      def assign_data(*methods, **options, &block)
-        self.data_assignments += methods.map { |method| DataAssignment.new(method, options) }
-        self.data_assignments += [DataAssignment.new(block, options)] if block
+      def assign_data(*methods, before: nil, **options, &block)
+        assignments = methods.map { |method| DataAssignment.new(method, options) }
+        assignments += [DataAssignment.new(block, options)] if block
+
+        if before
+          index = data_assignments.index { |assignment| assignment.method == before }
+          self.data_assignments = data_assignments[0...index] + assignments + data_assignments[index..]
+        else
+          self.data_assignments += assignments
+        end
       end
     end
 
