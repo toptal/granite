@@ -60,6 +60,27 @@ end
 
 ### Callbacks
 
+
+#### `after_initialize`
+
+is triggered after an action is initialized.
+
+```ruby
+class Action < Granite::Action
+  attribute :name, String
+
+  after_initialize do
+    self.name = 'Default'
+  end
+
+  # OR
+  # after_initialize :method_to_trigger
+end
+
+Action.new.name
+# => 'Default'
+```
+
 #### `after_commit`
 
 is triggered after DB transaction committed.

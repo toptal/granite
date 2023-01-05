@@ -63,6 +63,13 @@ module Granite
       merge_errors(e.action.errors)
     end
 
+    define_model_callbacks :initialize, only: :after
+
+    def initialize(*)
+      super
+      _run_initialize_callbacks
+    end
+
     if ActiveModel.version < Gem::Version.new('6.1.0')
       def merge_errors(other_errors)
         errors.messages.deep_merge!(other_errors.messages) do |_, this, other|

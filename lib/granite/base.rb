@@ -11,8 +11,8 @@ module Granite
   # embeds_many)
   module Base
     extend ActiveSupport::Concern
+    extend ActiveModel::Callbacks
 
-    include ActiveSupport::Callbacks
     include Granite::Form::Model
     include Granite::Form::Model::Representation
     include Granite::Form::Model::Dirty

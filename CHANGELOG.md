@@ -1,4 +1,7 @@
 ## Next
+
+* Add `after_initialize` callback 
+
 ## v0.15.1
 
 * Remove `BA` prefix in granite action generator
