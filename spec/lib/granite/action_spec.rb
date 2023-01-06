@@ -116,6 +116,19 @@ RSpec.describe Granite::Action do
     end
   end
 
+  describe '.after_initialize' do
+    subject { Action.new.callbacks }
+
+    before do
+      stub_class :Action, Granite::Action do
+        collection :callbacks, String
+        after_initialize { callbacks << 'after_initialize' }
+      end
+    end
+
+    it { is_expected.to eq(%w[after_initialize]) }
+  end
+
   describe '#performable?' do
     before { Action.precondition { decline_with(:message) unless comment == 'Comment' } }
 
