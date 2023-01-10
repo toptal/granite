@@ -1,8 +1,24 @@
 RSpec.describe Granite::Action::Transaction do
   describe 'after_commit' do
-    subject { action.perform! }
+    subject(:perform) { action.perform! }
 
     let(:action) { Action.new }
+
+    before do
+      stub_class(:action, Granite::Action) do
+        allow_if { true }
+        collection :callbacks, String
+
+        after_commit do
+          callbacks << 'after_commit'
+        end
+
+        def execute_perform!(*)
+        end
+      end
+    end
+
+    it { expect { perform }.to change { action.callbacks }.to(%w[after_commit]) }
 
     context 'when raises error' do
       before do
