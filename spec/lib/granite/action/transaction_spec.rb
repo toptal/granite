@@ -57,6 +57,21 @@ RSpec.describe Granite::Action::Transaction do
       end
     end
 
+    context 'when preconditions fail' do
+      before do
+        Action.precondition { decline_with(:invalid) }
+      end
+
+      it { expect { perform }.to not_change { action.callbacks }.and raise_error(Granite::Action::ValidationError) }
+
+      context 'when using perform' do
+        subject(:perform) { action.perform }
+
+        it { expect(perform).to be(false) }
+        it { expect { perform }.to not_change { action.callbacks } }
+      end
+    end
+
     context 'when actions chained with after_commit' do
       let(:sub_action) { SubAction.new }
 
