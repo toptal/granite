@@ -51,4 +51,13 @@ RSpec.describe Granite::AssignData do
       it { expect { action.validate }.not_to change { user.full_name } }
     end
   end
+
+  context 'with represented attribute' do
+    before do
+      DummyAction.represents :full_name, of: :subject
+      action.full_name = 'New Name'
+    end
+
+    it { expect { action.validate }.to change { user.full_name }.to('New Name') }
+  end
 end

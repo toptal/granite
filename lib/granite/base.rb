@@ -3,7 +3,6 @@ require 'granite/form/model/primary'
 require 'granite/form/model/associations'
 
 require 'granite/translations'
-require 'granite/represents'
 require 'granite/assign_data'
 
 module Granite
@@ -22,6 +21,5 @@ module Granite
 
     include Granite::Util
     include Granite::AssignData
-    include Granite::Represents
   end
 end
