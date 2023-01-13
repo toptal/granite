@@ -5,7 +5,6 @@ require 'ruby2_keywords'
 require 'granite/version'
 require 'granite/config'
 require 'granite/context'
-require 'granite/util'
 
 module Granite
   def self.config
