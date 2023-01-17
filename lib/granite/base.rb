@@ -19,7 +19,6 @@ module Granite
     include Granite::Form::Model::Primary
     include ActiveModel::Validations::Callbacks
 
-    include Granite::Util
     include Granite::AssignData
   end
 end
