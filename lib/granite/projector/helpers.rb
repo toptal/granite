@@ -5,7 +5,7 @@ module Granite
     class ActionNotMountedError < Error
       def initialize(projector)
         super("Seems like #{projector.class} was not mounted. \
-Do you have #{projector.action_class.name.underscore}##{projector.projector_name} declared in routes?", projector)
+Do you have #{projector.action_name}##{projector.projector_name} declared in routes?", projector)
       end
     end
 
@@ -43,7 +43,7 @@ Do you have #{projector.action_class.name.underscore}##{projector.projector_name
       end
 
       def route_id
-        [action_class.name.underscore, projector_name]
+        [action_name, projector_name]
       end
 
       def url_options
