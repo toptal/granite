@@ -307,8 +307,8 @@ class Action < Granite::Action
 end
 ```
 
-Policies support strategies. If default [AnyStrategy](lib/granite/action/policies/any_strategy.rb) doesn't fit your needs
-you can use [AlwaysAllowStrategy](lib/granite/action/policies/always_allow_strategy.rb), [RequiredPerformerStrategy](lib/granite/action/policies/required_performer_strategy.rb)
+Policies support strategies. If default [AnyStrategy](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/any_strategy.rb) doesn't fit your needs
+you can use [AlwaysAllowStrategy](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/always_allow_strategy.rb), [RequiredPerformerStrategy](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/required_performer_strategy.rb)
 or write your own. You can use new strategy like that:
 
 ```ruby

@@ -12,7 +12,7 @@ module Granite
     include Translations
 
     singleton_class.__send__(:attr_accessor, :action_class)
-    delegate :action_class, :projector_name, to: 'self.class'
+    delegate :action_class, :projector_name, :action_name, to: 'self.class'
     attr_reader :action
 
     def self.controller_class
@@ -29,6 +29,10 @@ module Granite
 
     def self.projector_name
       @projector_name ||= name.demodulize.remove(/Projector$/).underscore
+    end
+
+    def self.action_name
+      @action_name ||= action_class.name.underscore
     end
 
     def initialize(*args)

@@ -32,6 +32,16 @@ describe 'projectors', type: :granite_projector do
 end
 ```
 
+Test controller methods:
+
+```ruby
+describe 'projectors', type: :granite_projector do
+  projector { described_class.modal }
+  before { get :confirm, params: attributes }
+  it { expect(response).to be_successful }
+end
+```
+
 Test projectors on abstract actions:
 
 ```ruby

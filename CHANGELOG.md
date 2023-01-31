@@ -1,8 +1,11 @@
 ## Next
 
-* Add `after_initialize` callback
-* Fix `after_commit` being called even if `perform` fails (because of failing preconditions/validations)
-* Extract `Granite::Util` to `granite-form`. It's now called `Granite::Form::Util`
+* Add `after_initialize` callback.
+* Fix `after_commit` being called even if `perform` fails (because of failing preconditions/validations).
+* Extract `Granite::Util` to `granite-form`. It's now called `Granite::Form::Util`.
+* [BREAKING] Change granite projector specs to use controller specs instead of request specs:
+  * This means that you'll have to replace `get projector.action_path` with `get :action`.
+  * As a temporary measure you should be able to `include RSpec::Rails::RequestExampleGroup` in your describe block to use request specs temporarily. This is not guaranteed to not break in the future.
 
 ## v0.15.1
 
