@@ -1,4 +1,5 @@
 ## Next
+## v0.16.0
 
 * Add `after_initialize` callback.
 * Fix `after_commit` being called even if `perform` fails (because of failing preconditions/validations).
