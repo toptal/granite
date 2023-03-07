@@ -23,6 +23,7 @@ jobs:
           - { ruby: '2.7', rails: '6.1' }
           - { ruby: '3.0', rails: '7.0' }
           - { ruby: '3.1', rails: '7.0' }
+          - { ruby: '3.2', rails: '7.0' }
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/rails.${{ matrix.rails }}.gemfile
 
