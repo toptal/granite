@@ -4,7 +4,7 @@ Granite is an architecture for business actions in Rails applications, combining
 
 ## What problems does Granite solve
 
-Granite employs patterns to increase productivity in developing growing applications. Instead of bloating the controller and model, business logic is placed in the app/actions directory.
+Granite employs patterns to increase productivity in developing growing applications. Instead of bloating the controller and model, business logic is placed in the `app/actions` directory.
 
 These atomic actions process data and execute arbitrary operations in response to user requests or programmatically, such as by a background worker or another action.
 
@@ -26,15 +26,15 @@ end
 
 There are several ways to execute a recently defined business action, including `#perform`, `#perform!`, or `try_perform!`:
 1. `perform!` raises an exception when encountering errors.
-2. `perform` returns `false` when encountering errors.
-3. `try_perform!` is comparable to `perform!` but doesn't execute the action if preconditions are not met.
+1. `perform` returns `false` when encountering errors.
+1. `try_perform!` is comparable to `perform!` but doesn't execute the action if preconditions are not met.
 
 ### Transactions
 
 To ensure proper data management, each action execution is enclosed in a DB transaction using `ActiveRecord::Base.transaction(requires_new: true)`.
 
 ```irb
-[1] pry(main)> Action.new.perform! # the same for `perform` and `try_perform!`
+pry(main)> Action.new.perform! # the same for `perform` and `try_perform!`
    (0.3ms)  BEGIN
 Hello World
    (0.1ms)  COMMIT
@@ -93,7 +93,7 @@ end
 ```
 
 ```irb
-[1] pry(main)> Action.new.perform!
+pry(main)> Action.new.perform!
    (0.3ms)  BEGIN
 Hello World
    (0.1ms)  COMMIT
@@ -101,7 +101,7 @@ after_commit triggered
 => true
 ```
 
-### before and after `execute_perform`
+#### before and after `execute_perform`
 
 ```ruby
 class Action < Granite::Action
@@ -120,7 +120,7 @@ end
 ```
 
 ```irb
-[1] pry(main)> Action.new.perform!
+pry(main)> Action.new.perform!
    (0.3ms)  BEGIN
 before execute_perform
 Hello World
@@ -248,8 +248,8 @@ validates :subaction, nested: true
 
 The definition of the subject does three things:
 1. Defines a `references_one` association.
-2. Aliases its methods to common names (`subject` and `subject_id`)
-3. Modifies the action initializer to provide the ability to pass the subject as the first argument and restricts subject-less action initialization.
+1. Aliases its methods to common names (`subject` and `subject_id`)
+1. Modifies the action initializer to provide the ability to pass the subject as the first argument and restricts subject-less action initialization.
 
 Let's take a look to an example below:
 
@@ -290,8 +290,8 @@ Notice that the method `#user` has been assigned to the alias `#subject`, and `#
 
 When deciding how to structure policies, preconditions, and validations, there are some simple rules to follow:
 1. If the condition depends on _any user-provided attribute values_ except for the subject, it is a **validation**.
-2. If the condition depends on _the subject or any value that depends on the subject_, it is a **precondition**.
-3. Otherwise, if it is _related to the performer_, choose a **policy**.
+1. If the condition depends on _the subject or any value that depends on the subject_, it is a **precondition**.
+1. Otherwise, if it is _related to the performer_, choose a **policy**.
 
 #### Policies
 
@@ -310,8 +310,8 @@ There is also an `allow_self` method that is equivalent to `allow_if { performer
 
 Granite policies also support strategies:
 1. By default, the [`AnyStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/any_strategy.rb) is used, which allows an action to be performed if any policy allows it.
-2. Other built-in strategies include [`AlwaysAllowStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/always_allow_strategy.rb), which allows all actions, 
-3. And [`RequiredPerformerStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/required_performer_strategy.rb), which requires that a performer be present for all actions. 
+1. Other built-in strategies include [`AlwaysAllowStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/always_allow_strategy.rb), which allows all actions, 
+1. And [`RequiredPerformerStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/required_performer_strategy.rb), which requires that a performer be present for all actions. 
 
 You can also write your own custom policy strategy.
 
@@ -452,7 +452,7 @@ foobar
 
 It's important to note that the lookup rules are different when performing an I18n lookup within a projector context. See the section on [I18n lookup inside a projector context](projectors/#i18n-projectors-lookup) for more information.
 
-### Generator
+## Generators
 
 You can use the granite generator to create a starting point for your action. To do so, pass the name and path of your action as the first argument using the following syntax:
 
@@ -469,10 +469,10 @@ Here are some examples of using the rails g granite command:
 
     This command generates a new action called "create" for the "user" `subject`. It creates three files: `apq/actions/ba/user/create.rb`, `apq/actions/ba/user/business_action.rb`, and `spec/apq/actions/ba/user/create_spec.rb`.
 
-2. `rails g granite user/create -C`
+1. `rails g granite user/create -C`
    Adding the `-C` option generates a collection action where the subject is not known at initialization. This command generates two files: `apq/actions/ba/user/create.rb` and `spec/apq/actions/ba/user/create_spec.rb`.
 
-3. `rails g granite user/create simple`
+1. `rails g granite user/create simple`
    Adding a second argument, such as "simple" specifies the name of the projector to use. This command generates a new directory called simple within the `apq/actions/ba/user/create directory`, as well as the same files as the first example: `apq/actions/ba/user/create.rb`, `apq/actions/ba/user/business_action.rb`, and `spec/apq/actions/ba/user/create_spec.rb`.
 
 ## Conclusion
