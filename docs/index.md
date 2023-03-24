@@ -442,7 +442,7 @@ By using this technique, you can easily provide dependencies to your Granite act
 
 ### I18n
 
-When using the I18n feature, if an identifier is prefixed with a dot (t('.foobar')), translations will be looked up in the following order:
+When using the I18n feature, if an identifier is prefixed with a dot (`t('.foobar')`), translations will be looked up in the following order:
 
 ```
 granite_action.#{granite_action_name}.foobar
