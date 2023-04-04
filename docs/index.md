@@ -191,7 +191,7 @@ The behavior of the attributes is similar to that of `Granite::Form` objects, wi
 
 With Granite Form objects, when a model attribute is exposed via `represents` and the Active Record object changes, the exposed attribute is immediately updated. 
 
-_In contrast_, Granite Actions use `assign_data` to update the represented attribute.
+_In contrast_, Granite actions use `assign_data` to update the represented attribute.
 
 #### Assigning the data
 

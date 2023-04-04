@@ -1,41 +1,38 @@
 # Application example
 
-The business we're going to cover is straightforward.
-It will be a book library, and we need to allow logged in users to create new
-books and rent it.
+The business we will be discussing is simple. We plan to establish a book library where registered users can create new books and rent them.
 
-## Book library
+## Book library requirements
 
-A simple system to track books. Each book has a title.
+We need a basic book tracking system in which every book is identified by a title. The following rules will apply:
 
-- Everybody can view the list of books
-- **Only** logged in users can edit the books
-- Logged in users can **edit** or **remove** a book
+- The book list will be publicly accessible to everyone.
+- _Only_ users who are logged in will be allowed to modify the book list.
+- Logged-in users will have the ability to _edit_ or _delete_ a book.
 
-### The Rental system
+### The rental system
 
-- All available books can be **rented**
-- Logged in users can rent a book
-- A book is not **available** when it's rented to someone
-- A book is **available** after return
+Logged-in users will have the ability to manage **books**, taking into account the following:
 
-### Books wishlist
+- Users should be able to _rent any available_ book.
+- _Only logged-in users_ will be able to rent books.
+- A book will be marked as _unavailable_ while it is rented out to someone.
+- After a book is returned, it will be marked as _available_ once again.
 
-The logged in user can manage a **wishlist** considering:
+### The books wishlist
 
-- When a book is **not available** and the user **didn't read** it
-- If the person **already read** the book, also **doesn't make sense add it to the wishlist**
-- When the book becomes available, the system should notify people that are with this book on the wishlist
-- When the book is rented by someone that has the book on the wishlist, it should be removed after return
+Logged-in users will have the ability to manage their **wishlist**, taking into account the following:
 
-The application domain is very simple, and we're going to build step by step
-this small logic case to show how granite can be useful and abstract a few
-steps of your application.
+- Users should be able to add books to their wishlist if the book is currently _unavailable_ and they _have not yet read_ it.
+- If a user _has already read_ a book, adding it to their wishlist would not be practical.
+- Once a book on a user's wishlist becomes available, the system _should notify_ them.
+- When the book is rented by someone that has the book on the wishlist, it _should be removed after return_.
+
+The application domain is straightforward, and we will be building this small logic case step by step to demonstrate how Granite can simplify and streamline certain aspects of your application.
 
 ## New project setup
 
-We're testing here with Rails version x. The following example can be found
-here: https://github.com/toptal/example_granite_application
+We are working here with Rails 5.1, however, Granite currently supports Rails versions up to `7.x.x`. You can find an example of this application following the link: https://github.com/toptal/example_granite_application
 
 ### Generating a new project
 
@@ -57,7 +54,7 @@ Let's start setting up the database for development:
 rails db:setup
 ```
 
-## Setup devise
+### Setup Devise
 
 Let's add devise to control users access and have a simple control over logged
 users. Adding it to `Gemfile`.
@@ -89,9 +86,9 @@ rails db:migrate
     documentation on the official [website](https://github.com/plataformatec/devise).
 
 
-## Setup granite
+### Setup Granite
 
-Add `granite` to your Gemfile:
+Add `granite` to your `Gemfile`:
 
 ```ruby
 gem 'granite'
@@ -106,7 +103,9 @@ the [testing](testing.md) section.
     If you get in any trouble in this section, please
     [report an issue](https://github.com/toptal/granite/issues/new).
 
-## Book::Create
+## Books domain
+
+### Book::Create action
 
 It's time to create our first model and has some domain on it.
 
@@ -118,7 +117,7 @@ rails g scaffold book title:string
 
 Now, we can start working on the first business action.
 
-Let's generate the boilerplate business action class with Rails granite generator:
+Let's generate the boilerplate business action class with Rails `granite` generator:
 
 ```ruby
 rails g granite book/create
@@ -151,7 +150,7 @@ class BA::Book::BusinessAction < BaseAction
 end
 ```
 
-## Policies
+#### Policies
 
 The generated code says `allow_if { false }` and we need to restrict it to
 logged in users. Let's replace this line to restrict the action only for logged in users:
@@ -183,7 +182,7 @@ RSpec.describe BA::Book::Create do
 end
 ```
 
-## Attributes
+#### Attributes
 
 We also need to be specific about what attributes this action can touch and then
 we need to define attributes for it:
@@ -239,7 +238,7 @@ RSpec.describe BA::Book::Create do
 end
 ```
 
-## Perform
+#### Perform
 
 For now, the perform is a simple call to `book.save!` because Granite already
 assign the attributes.
@@ -322,7 +321,7 @@ class BooksController < ApplicationController
 end
 ```
 
-## Book::Rent
+### Book::Rent action
 
 To start renting the book, we need a few steps:
 
@@ -342,13 +341,13 @@ and add an `available` column in the books table:
 rails g migration add_availability_to_books available:boolean
 ```
 
-Now it's time to generate the next granite action:
+Now it's time to generate the next Granite action:
 
 ```bash
 rails g granite book/rent
 ```
 
-## Preconditions
+#### Preconditions
 
 Let's write specs for the preconditions first:
 
@@ -427,7 +426,7 @@ RSpec.describe BA::Book::Rent do
 end
 ```
 
-## Book::Return
+### Book::Return action
 
 First, think about the policies: to return the book, it needs to be rented by the person that is logged in.
 
@@ -531,7 +530,7 @@ RSpec.describe BA::Book::Return do
 end
 ```
 
-## I18n
+### I18n
 
 The last step to make it user-friendly and return a personalized
 message when the business action calls `decline_with(:unavailable)`.
@@ -549,6 +548,8 @@ en:
             base:
               unavailable: 'The book is unavailable.'
 ```
+
+### Application layer
 
 Great! Now it's time to change our views to allow people to interact with the
 actions we created.
@@ -624,12 +625,12 @@ The actual implementation contains a few boilerplate code in the controller that
 few different logics that are already in the business action.
 
 Projectors can help with that. Avoiding the need for creating repetitive
-controller methods and reverify preconditions and policies to decide what
+controller methods and re-verify preconditions and policies to decide what
 actions can be executed.
 
 ### Setup view context for Granite projector
 
-You'll need to set up the master controller class. Let's create a file to configure what will be the base controller for granite:
+You'll need to set up the master controller class. Let's create a file to configure what will be the base controller for Granite:
 
 File: `config/initializers/granite.rb`
 ```ruby
@@ -639,23 +640,25 @@ end
 ```
 
 The next step is to change `ApplicationController` to setup context
-view and allow granite to inherit behavior from it.
+view and allow Granite to inherit behavior from it.
 
 `app/controllers/application_controller`
 ```ruby
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  
   around_action :setup_granite_view_context
   before_action { view_context }
 
   protected
+  
   def setup_granite_view_context(&block)
     Granite.with_view_context(view_context, &block)
   end
 end
 ```
 
-## Inline projector
+### Inline projector
 
 The current `rent` and `returned_at` methods have a very similar structure.
 
@@ -776,7 +779,7 @@ end
     3. Refactor the `config/routes.rb` declaring the `granite 'action#projector'`
 
 
-## Projector Helpers
+#### Projector Helpers
 
 You can define useful methods for helping you rendering your view and improving
 the experience with your actions. Now, let's create a `button` function,
@@ -827,12 +830,24 @@ And now, we can replace the links with the new `button` function:
   </tbody>
 ```
 
-Now it's clear, and the "Return" link will appear only for the user
-that rented the book.
+Now it's clear, and the "Return" link will appear only for the user that rented the book.
 
+## Wishlist domain
 
-## Wishlist::Add
+As we are still working on the description of the wishlist domain, we encourage you to take the initiative and implement it yourself. We believe this will be a great opportunity for you to apply your own creativity and problem-solving skills, and we are always here to support you along the way.
 
-## Wishlist::Remove
+### Wishlist::Add action
 
-## Wishlist::NotifyAvailability
+To be done.
+
+### Wishlist::Remove action
+
+To be done.
+
+### Wishlist::NotifyAvailability action
+
+To be done.
+
+## Conclusion
+
+To conclude, you have learned how to work with Granite, and we are excited to see you apply this knowledge to your upcoming project. We are confident that Granite will simplify your development process and allow you to focus on the more important aspects of your application. As always, please do not hesitate to reach out to us if you have any questions or need further assistance.
