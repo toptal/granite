@@ -1,13 +1,14 @@
 # Testing
 
-Granite has multiple helpers for your rspec tests. Add `require 'granite/rspec'` to your `rails_helper.rb` in order
-to use them.
-All specs that live in `spec/apq/actions/` will get tagged with `:granite_action` type and will have access to granite
-action specific helpers.
-All specs that live in `spec/apq/projectors/` will get tagged with `:granite_projector` type and will have access to
-granite projector specific helpers.
+Granite provides several RSpec helpers for testing your application. To use them, add `require 'granite/rspec'` to your `rails_helper.rb` file.
 
-<h3 id="testing-subject">Subject</h3>
+All specs that live in `spec/apq/actions/` will get tagged with `:granite_action` type and will have access to Granite action specific helpers.
+
+All specs that live in `spec/apq/projectors/` will get tagged with `:granite_projector` type and will have access to Granite projector specific helpers.
+
+## Subject
+
+The subject is an instance of the action being tested. You can create it using the `as` method to specify the performer, and passing any necessary attributes as arguments. Here's an example:
 
 ```ruby
 subject(:action) { described_class.as(performer).new(user, attributes) }
@@ -15,13 +16,15 @@ let(:user) { User.new }
 let(:attributes) { {} }
 ```
 
-<h3 id="testing-projectors">Projectors</h3>
+## Projectors
+
+You can test your projectors using the `have_projector` matcher. Here's an example:
 
 ```ruby
 it { is_expected.to have_projector(:simple) }
 ```
 
-Test overridden projector methods:
+You can also test overridden projector methods like this:
 
 ```ruby
 describe 'projectors', type: :granite_projector do
@@ -32,7 +35,7 @@ describe 'projectors', type: :granite_projector do
 end
 ```
 
-Test controller methods:
+If you need to test controller methods, you can do so like this:
 
 ```ruby
 describe 'projectors', type: :granite_projector do
@@ -42,7 +45,7 @@ describe 'projectors', type: :granite_projector do
 end
 ```
 
-Test projectors on abstract actions:
+To test projectors, you can define a abstract action class and use it to test the projector like this:
 
 ```ruby
 describe SimpleProjector do
@@ -62,14 +65,18 @@ describe SimpleProjector do
 end
 ```
 
-<h3 id="testing-policies">Policies</h3>
+## Policies
+
+You can test action policies using the `be_allowed` matcher like this:
 
 ```ruby
 subject { described_class.as(User.new).new }
 it { is_expected.to be_allowed }
 ```
 
-<h3 id="testing-preconditions">Preconditions</h3>
+## Preconditions
+
+You can test action preconditions using the `satisfy_preconditions` matcher. Here's an example:
 
 ```ruby
 context 'correct initial state' do
@@ -78,29 +85,28 @@ end
 
 context 'incorrect initial state' do
   let(:company) { build_stubbed(:company, :active) }
-  it { is_expected.not_to satisfy_preconditions.with_message("Some validation message")}
-  it { is_expected.not_to satisfy_preconditions.with_messages(["First validation message", "Second validation message"])}
+  it { is_expected.not_to satisfy_preconditions.with_message("Some validation message") }
+  it { is_expected.not_to satisfy_preconditions.with_messages(["First validation message", "Second validation message"]) }
 end
 ```
 
-<h3 id="testing-validations">Validations</h3>
+## Validations
 
-Validations tests are no different to ActiveRecord models tests
+Validations tests are no different to Active Record models tests.
 
-<h3 id="testing-perform">Perform</h3>
+## Performing
 
-Run the action using `perform!` to test side-effects:
+You can use the `perform!` method to run the action and test its side-effects like this:
 
 ```ruby
 specify { expect { perform! }.to change(User, :count).by(1) }
 ```
 
-<h3 id="testing-composition">Testing action is performed from another Action</h3>
+### Testing action is performed from another action
 
-Run the action using `perform!` to test side-effects:
+You can test that an action is performed from another action using the `perform_action` matcher. Here's an example:
 
 ```ruby
 it { expect { perform! }.to perform_action(MyAction) }
 it { expect { perform! }.to perform_action(MyAction).as(performer).with(user: user).using(:try_perform!) }
 ```
-
