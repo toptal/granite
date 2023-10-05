@@ -271,6 +271,11 @@ RSpec/SubjectStub:
 RSpec/VerifiedDoubles:
   Enabled: true
 
+RSpec/SpecFilePathSuffix:
+  Enabled: true
+  Exclude:
+    - 'spec/fixtures/*'
+
 Style/CommentedKeyword:
   Enabled: false
 
