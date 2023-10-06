@@ -1,10 +1,18 @@
 require 'rails/generators'
-require 'rails/generators/testing/behaviour'
+if Rails.version > '7.1'
+  require 'rails/generators/testing/behavior'
+else
+  require 'rails/generators/testing/behaviour'
+end
 require_relative '../../../lib/generators/granite_generator'
 
 RSpec.describe GraniteGenerator do
   include RSpec::Rails::RailsExampleGroup
-  include Rails::Generators::Testing::Behaviour
+  if Rails.version > '7.1'
+    include Rails::Generators::Testing::Behavior
+  else
+    include Rails::Generators::Testing::Behaviour
+  end
   include FileUtils
 
   tests described_class
