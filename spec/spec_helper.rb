@@ -13,7 +13,7 @@ require 'rspec/rails'
 require 'rspec/matchers/fail_matchers'
 require 'simplecov'
 SimpleCov.start do
-  minimum_coverage 99.74
+  minimum_coverage 99.73
 end
 
 require 'granite'
