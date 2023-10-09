@@ -1,4 +1,13 @@
 ## Next
+
+## v0.17.0
+
+* Support for ruby 3.2 by @konalegi in https://github.com/toptal/granite/pull/100
+* Refine main page of the Granite docs by @jarosluv in https://github.com/toptal/granite/pull/101
+* Refine documentation. Part 2 by @jarosluv in https://github.com/toptal/granite/pull/103
+* Support for Rails 7.1 by @ojab and @dependabot in https://github.com/toptal/granite/pull/107
+* [BREAKING] Drop support for Rails < 6.0 by @ojab and @dependabot in https://github.com/toptal/granite/pull/107
+
 ## v0.16.0
 
 * Add `after_initialize` callback.
