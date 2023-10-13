@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'activerecord'
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'bump'
-  s.add_development_dependency 'capybara', '~> 2.18'
   s.add_development_dependency 'fuubar', '~> 2.0'
   s.add_development_dependency 'pg', '< 2'
   s.add_development_dependency 'pry-byebug'
