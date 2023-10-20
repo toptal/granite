@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-activemodel-mocks', '~> 1.0'
   s.add_development_dependency 'rspec-collection_matchers', '~> 1.1'
   s.add_development_dependency 'rspec-its', '~> 1.2 '
-  s.add_development_dependency 'rspec-rails', '~> 5.0'
+  s.add_development_dependency 'rspec-rails', '~> 6.0'
   s.add_development_dependency 'rspec_junit_formatter', '~> 0.2'
   s.add_development_dependency 'rubocop', '~> 1.0'
   s.add_development_dependency 'rubocop-rails', '~> 2.13'
