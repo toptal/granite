@@ -27,6 +27,7 @@ module Granite
       attr_accessor :in_transaction
 
       def transaction(&block)
+        # binding.pry
         if in_transaction
           yield
         else
