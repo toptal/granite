@@ -2,13 +2,13 @@ module Granite
   class Action
     class SubjectNotFoundError < ArgumentError
       def initialize(action_class)
-        super "Unable to initialize #{action_class} without subject provided"
+        super("Unable to initialize #{action_class} without subject provided")
       end
     end
 
     class SubjectTypeMismatchError < ArgumentError
       def initialize(action_class, candidate, expected)
-        super "Unable to initialize #{action_class} with #{candidate} as subject, expecting instance of #{expected}"
+        super("Unable to initialize #{action_class} with #{candidate} as subject, expecting instance of #{expected}")
       end
     end
 
@@ -48,7 +48,7 @@ module Granite
         subject_attributes = extract_subject_attributes!(attributes, reflection)
         assign_subject(args, subject_attributes, reflection)
 
-        super attributes
+        super(attributes)
       end
 
       private
