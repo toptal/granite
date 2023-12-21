@@ -13,12 +13,12 @@ module Granite
       def run_callbacks(event)
         if event.to_s == 'commit'
           begin
-            super event
+            super(event)
           rescue *handled_exceptions => e
             handle_exception(e)
           end
         else
-          super event
+          super(event)
         end
       end
 
