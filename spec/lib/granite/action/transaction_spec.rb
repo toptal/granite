@@ -11,6 +11,16 @@ RSpec.describe Granite::Action::Transaction do
         stub_class(:action, Granite::Action) do
           allow_if { true }
 
+          def execute_perform!(*)
+            # Simulates the after_commit_everywhere in_transaction helper (https://github.com/Envek/after_commit_everywhere/pull/23)
+            # to avoid name collisions
+            in_transaction { 'test' }
+          end
+
+          def in_transaction
+            yield
+          end
+
           after_commit do
             fail DummyError, 'Dummy exception'
           end
