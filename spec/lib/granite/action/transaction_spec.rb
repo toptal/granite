@@ -14,6 +14,13 @@ RSpec.describe Granite::Action::Transaction do
         end
 
         def execute_perform!(*)
+          # Simulates the after_commit_everywhere in_transaction helper (https://github.com/Envek/after_commit_everywhere/pull/23)
+          # to avoid name collisions
+          in_transaction { 'test' }
+        end
+
+        def in_transaction
+          yield
         end
       end
     end
