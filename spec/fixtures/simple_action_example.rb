@@ -1,4 +1,4 @@
-class User::Create < User::BusinessAction
+class BA::User::Create < BA::User::BusinessAction
   projector :simple
 
   allow_if { false }

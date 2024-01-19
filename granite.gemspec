@@ -15,14 +15,13 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.5'
 
   s.add_runtime_dependency 'actionpack', '>= 5.1', '< 7.1'
-  s.add_runtime_dependency 'granite-form', '>= 0.3.0'
+  s.add_runtime_dependency 'granite-form'
   s.add_runtime_dependency 'activesupport', '>= 5.1', '< 7.1'
   s.add_runtime_dependency 'memoist', '~> 0.16'
   s.add_runtime_dependency 'ruby2_keywords', '~> 0.0.5'
 
   s.add_development_dependency 'activerecord'
   s.add_development_dependency 'appraisal'
-  s.add_development_dependency 'bump'
   s.add_development_dependency 'capybara', '~> 2.18'
   s.add_development_dependency 'fuubar', '~> 2.0'
   s.add_development_dependency 'pg', '< 2'

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::Create do
+RSpec.describe BA::User::Create do
   subject(:action) { described_class.as(performer).new(attributes) }
 
   let(:performer) { double }

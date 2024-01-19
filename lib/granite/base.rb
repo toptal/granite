@@ -1,5 +1,6 @@
 require 'granite/form/model'
 require 'granite/form/model/primary'
+require 'granite/form/model/lifecycle'
 require 'granite/form/model/associations'
 
 require 'granite/translations'
