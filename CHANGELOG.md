@@ -1,5 +1,9 @@
 ## Next
 
+## v0.17.1
+
+* Fix in_transaction collisions with other gems (https://github.com/toptal/granite/pull/112)
+
 ## v0.17.0
 
 * Support for ruby 3.2 by @konalegi in https://github.com/toptal/granite/pull/100
