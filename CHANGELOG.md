@@ -1,4 +1,9 @@
 ## Next
+
+## v0.15.3
+
+* Fix in_transaction collisions with other gems (https://github.com/toptal/granite/pull/113)
+
 ## v0.15.1
 
 * Remove `BA` prefix in granite action generator
