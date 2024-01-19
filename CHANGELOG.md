@@ -1,5 +1,10 @@
 # master (not released yet)
 
+## v0.15.4
+
+* Revert breaking changes from 0.15.1 and 0.15.2
+* Keep backport fix from v0.15.3 (https://github.com/toptal/granite/pull/113)
+
 ## v0.15.3
 
 * Fix in_transaction collisions with other gems (https://github.com/toptal/granite/pull/113)
@@ -12,7 +17,7 @@
 # Version 0.15.0
 
 * [BREAKING] Change form builder from ActiveData to Granite::Form. This means Granite no longer depends
-  on ActiveData, Granite::Form currently is a direct replacement for ActiveData that uses same syntax.  
+  on ActiveData, Granite::Form currently is a direct replacement for ActiveData that uses same syntax.
 * Add support for detecting types of aliased attributes when using `represents`
 
 # Version 0.14.2
