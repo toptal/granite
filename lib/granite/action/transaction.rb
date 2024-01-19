@@ -24,10 +24,10 @@ module Granite
 
       private
 
-      attr_accessor :in_transaction
+      attr_accessor :granite_in_transaction
 
       def transaction(&block)
-        if in_transaction
+        if granite_in_transaction
           yield
         else
           run_in_transaction(&block)
@@ -35,14 +35,14 @@ module Granite
       end
 
       def run_in_transaction
-        self.in_transaction = true
+        self.granite_in_transaction = true
 
         TransactionManager.transaction do
           TransactionManager.after_commit(self)
           yield
         end
       ensure
-        self.in_transaction = false
+        self.granite_in_transaction = false
       end
     end
   end
