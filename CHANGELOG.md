@@ -1,5 +1,7 @@
 ## Next
 
+* Deprecate `Granite::Action#perform` in favor of using `Granite::Action#try_perform!`, as these 2 methods are basically identical. It will be removed in next major version. (https://github.com/toptal/granite/pull/117)
+
 ## v0.17.1
 
 * Fix in_transaction collisions with other gems (https://github.com/toptal/granite/pull/112)
@@ -25,12 +27,12 @@
 
 * Remove `BA` prefix in granite action generator
 * Remove automatic synchronization from `embeds_many`/`embeds_one` associated objects (`action.association`) to their appropriate virtual attribute (`action.attributes('association')`)
-* Update minimum granite-form version to 0.3.0 
+* Update minimum granite-form version to 0.3.0
 
 ## v0.15.0
 
 * [BREAKING] Change form builder from ActiveData to Granite::Form. This means Granite no longer depends
-  on ActiveData, Granite::Form currently is a direct replacement for ActiveData that uses same syntax.  
+  on ActiveData, Granite::Form currently is a direct replacement for ActiveData that uses same syntax.
 * Add support for detecting types of aliased attributes when using `represents`
 
 ## v0.14.2

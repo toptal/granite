@@ -161,7 +161,7 @@ RSpec.describe Granite::Action::Performing do
         context 'with valid data in all contexts' do
           let(:action) { Action.new(user, login: 'Login') }
 
-          specify { is_expected.to eq(42) }
+          it { is_expected.to eq(42) }
           specify { expect(action.perform(context: :user, number: 43)).to eq(43) }
           specify { expect { subject }.to change { user.reload.email }.to('Login') }
         end
@@ -169,7 +169,7 @@ RSpec.describe Granite::Action::Performing do
         context 'with invalid data for the :user context' do
           let(:action) { Action.new(user, login: 'Foo Bar') }
 
-          specify { is_expected.to be(false) }
+          it { is_expected.to be(false) }
           specify { expect { subject }.to change { action.errors.messages }.to(login: ['is invalid']) }
           specify { expect { subject }.not_to change { user.reload.email } }
         end
@@ -271,7 +271,7 @@ RSpec.describe Granite::Action::Performing do
         context 'with valid data in all contexts' do
           let(:action) { Action.new(user, login: 'Login') }
 
-          specify { is_expected.to eq(42) }
+          it { is_expected.to eq(42) }
           specify { expect(action.perform!(context: :user, number: 43)).to eq(43) }
           specify { expect { subject }.to change { user.reload.email }.to('Login') }
         end
@@ -406,7 +406,7 @@ RSpec.describe Granite::Action::Performing do
         context 'with valid data in all contexts' do
           let(:action) { Action.new(user, login: 'Login') }
 
-          specify { is_expected.to eq(42) }
+          it { is_expected.to eq(42) }
           specify { expect(action.try_perform!(context: :user, number: 43)).to eq(43) }
           specify { expect { subject }.to change { user.reload.email }.to('Login') }
         end
@@ -429,14 +429,14 @@ RSpec.describe Granite::Action::Performing do
         context 'with valid data in all contexts' do
           let(:action) { Action.new(user, login: 'Login') }
 
-          specify { is_expected.to eq(42) }
+          it { is_expected.to eq(42) }
           specify { expect { subject }.to change { user.reload.email }.to('Login') }
         end
 
         context 'with invalid data for the :user context' do
           let(:action) { Action.new(user, login: 'Foo Bar') }
 
-          specify { is_expected.to eq(42) }
+          it { is_expected.to eq(42) }
           specify { expect { subject }.to change { user.reload.email }.to('Foo Bar') }
         end
       end
