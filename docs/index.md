@@ -24,20 +24,20 @@ class Action < Granite::Action
 end
 ```
 
-There are several ways to execute a recently defined business action, including `#perform`, `#perform!`, or `try_perform!`:
+There are 2 ways to execute a recently defined business action: `#perform!`, or `try_perform!`:
 
 1. `perform!` raises an exception when encountering errors.
 
-2. `perform` returns `false` when encountering errors.
+2. `try_perform!` is comparable to `perform!` but doesn't execute the action if preconditions are not met.
 
-3. `try_perform!` is comparable to `perform!` but doesn't execute the action if preconditions are not met.
+Note: Business actions can currently also be executed with `#perform` method. It behaves the same as `try_perform!`, is deprecated and will be removed in next major version.
 
 ### Transactions
 
 To ensure proper data management, each action execution is enclosed in a DB transaction using `ActiveRecord::Base.transaction(requires_new: true)`.
 
 ```irb
-pry(main)> Action.new.perform! # the same for `perform` and `try_perform!`
+pry(main)> Action.new.perform! # the same for `try_perform!`
    (0.3ms)  BEGIN
 Hello World
    (0.1ms)  COMMIT
@@ -189,7 +189,7 @@ The behavior of the attributes is similar to that of `Granite::Form` objects, wi
 
 #### Representing
 
-With Granite Form objects, when a model attribute is exposed via `represents` and the Active Record object changes, the exposed attribute is immediately updated. 
+With Granite Form objects, when a model attribute is exposed via `represents` and the Active Record object changes, the exposed attribute is immediately updated.
 
 _In contrast_, Granite actions use `assign_data` to update the represented attribute.
 
@@ -202,12 +202,12 @@ class CreateBook < Granite::Action
   attribute :name, String
   attribute :year, Integer
   represents :author, of: :book
-  
+
   assign_data :set_name
   assign_data do
     book.year = year
   end
-  
+
   private def set_name
     book.name = name
   end
@@ -268,7 +268,7 @@ end
 ```
 
 ```irb
-pry(main)> Action.new 
+pry(main)> Action.new
 => ArgumentError
 
 pry(main)> Action.new(User.first)
@@ -304,7 +304,7 @@ When deciding how to structure policies, preconditions, and validations, there a
 
 #### Policies
 
-Policies are used to define restrictions on the performer of an action. The `allow_if` method can be used to specify a condition that must be met for the action to be allowed. 
+Policies are used to define restrictions on the performer of an action. The `allow_if` method can be used to specify a condition that must be met for the action to be allowed.
 
 For example, the following code specifies that an action can only be performed if the performer is present:
 
@@ -321,9 +321,9 @@ Granite policies also support strategies:
 
 1. By default, the [`AnyStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/any_strategy.rb) is used, which allows an action to be performed if any policy allows it.
 
-2. Other built-in strategies include [`AlwaysAllowStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/always_allow_strategy.rb), which allows all actions, 
+2. Other built-in strategies include [`AlwaysAllowStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/always_allow_strategy.rb), which allows all actions,
 
-3. And [`RequiredPerformerStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/required_performer_strategy.rb), which requires that a performer be present for all actions. 
+3. And [`RequiredPerformerStrategy`](https://github.com/toptal/granite/blob/master/lib/granite/action/policies/required_performer_strategy.rb), which requires that a performer be present for all actions.
 
 You can also write your own custom policy strategy.
 
@@ -337,7 +337,7 @@ end
 
 #### Preconditions
 
-Preconditions are used for subject-related pre-validation and work similarly to validations with blocks. However, instead of using `errors.add`, the `decline_with` method is preferred. 
+Preconditions are used for subject-related pre-validation and work similarly to validations with blocks. However, instead of using `errors.add`, the `decline_with` method is preferred.
 
 For example, you can use a precondition to check if the subject is active before performing an action:
 
@@ -363,7 +363,7 @@ end
 
 ##### Preconditions as objects
 
-The `precondition` method can also accept a class that inherits from `Granite::Action::Precondition`. When defining a precondition this way, you can pass additional parameters to the precondition object, making it more reusable. 
+The `precondition` method can also accept a class that inherits from `Granite::Action::Precondition`. When defining a precondition this way, you can pass additional parameters to the precondition object, making it more reusable.
 
 The precondition method with a class argument supports the same options (`:if` and `:unless`) as defining a precondition as a block:
 
@@ -391,7 +391,7 @@ Granite supports using any of the validations provided by Active Model.
 
 Granite supports and encourages the use of [context validations](http://api.rubyonrails.org/classes/ActiveModel/Validations.html#method-i-valid-3F), which can be specified using the `on:` key with any validation to declare the context in which the validation should be executed. This means that these validations will only be triggered when the provided context is explicitly specified.
 
-To specify a context when using the built-in ActiveModel methods `valid?` and `invalid?`, simply provide the context as the first argument. When using `perform`, `perform!`, or `try_perform!`, pass the name of the context as a keyword argument `context:`.
+To specify a context when using the built-in ActiveModel methods `valid?` and `invalid?`, simply provide the context as the first argument. When using `perform!`, or `try_perform!`, pass the name of the context as a keyword argument `context:`.
 
 Context validations should be used when different validation behavior is required in different scenarios (e.g., by a staff member and a non-staff user). For example, consider a simplified business action for updating a user's portfolio:
 

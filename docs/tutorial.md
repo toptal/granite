@@ -377,7 +377,7 @@ end
 [Preconditions](/granite/#preconditions) are related to the book in the context.
 And the action will decline the context not to be executed if it does not satisfy the preconditions.
 
-Let's implement the `precondition` and `perform` code:
+Let's implement the `precondition` and `perform!` code:
 
 ```diff
 class BA::Book::Rent < BA::Book::BusinessAction
@@ -520,7 +520,7 @@ RSpec.describe BA::Book::Return do
 
 +   describe '#perform!' do
 +     let!(:rental) { Rental.create! book: book, user: performer }
-+ 
++
 +     specify do
 +       expect { action.perform! }
 +         .to change { book.reload.available }.from(false).to(true)
@@ -646,12 +646,12 @@ view and allow Granite to inherit behavior from it.
 ```ruby
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  
+
   around_action :setup_granite_view_context
   before_action { view_context }
 
   protected
-  
+
   def setup_granite_view_context(&block)
     Granite.with_view_context(view_context, &block)
   end
