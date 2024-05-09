@@ -1,7 +1,7 @@
 require 'action_controller'
 
 module Granite
-  class Controller < Granite.base_controller_class
+  class Controller < Granite.base_controller_class # :nodoc:
     include Controller::Translations
     helper Controller::Translations
 

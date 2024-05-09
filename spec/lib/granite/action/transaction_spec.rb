@@ -25,7 +25,7 @@ RSpec.describe Granite::Action::Transaction do
       end
     end
 
-    it { expect { perform }.to change { action.callbacks }.to(%w[after_commit]) }
+    it { expect { perform }.to change(action, :callbacks).to(%w[after_commit]) }
 
     context 'when raises error' do
       before do
@@ -35,7 +35,7 @@ RSpec.describe Granite::Action::Transaction do
           allow_if { true }
 
           after_commit do
-            fail DummyError, 'Dummy exception'
+            raise DummyError, 'Dummy exception'
           end
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe Granite::Action::Transaction do
       context 'with unhandled error' do
         it 'fails' do
           expect(action).to receive(:execute_perform!)
-          expect { subject }.to raise_error(DummyError, 'Dummy exception')
+          expect { perform }.to raise_error(DummyError, 'Dummy exception')
         end
       end
 
@@ -59,7 +59,7 @@ RSpec.describe Granite::Action::Transaction do
         it 'does not fail' do
           expect(action).to receive(:execute_perform!)
           expect(action).to receive(:handle_dummy_error).with(instance_of(DummyError))
-          subject
+          perform
         end
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe Granite::Action::Transaction do
         subject(:perform) { action.perform }
 
         it { expect(perform).to be(false) }
-        it { expect { perform }.to not_change { action.callbacks } }
+        it { expect { perform }.to(not_change { action.callbacks }) }
       end
     end
 
@@ -106,13 +106,13 @@ RSpec.describe Granite::Action::Transaction do
         expect(action).to receive(:execute_perform!).ordered
         expect(sub_action).to receive(:execute_perform!).ordered
         expect(sub_action).to receive(:after_commit_handler).ordered
-        subject
+        perform
       end
     end
   end
 
   describe 'transaction' do
-    subject { action.perform! }
+    subject(:perform) { action.perform! }
 
     let(:action) { Action.new }
 
@@ -129,7 +129,7 @@ RSpec.describe Granite::Action::Transaction do
     it 'opens a transaction and registers self as a callback' do
       expect(Granite::Action::TransactionManager).to receive(:transaction).ordered.and_call_original
       expect(Granite::Action::TransactionManager).to receive(:after_commit).ordered.with(action)
-      subject
+      perform
     end
 
     context 'with twice nested actions when the third action fails and the second silenced the failure' do
@@ -165,7 +165,7 @@ RSpec.describe Granite::Action::Transaction do
       it 'commits changes of the first action only' do
         expect do
           expect(Action1.new.perform!).to be(true)
-        end.to change { User.count }.by(2).and not_change { Role.count }
+        end.to change(User, :count).by(2).and(not_change { Role.count })
       end
     end
   end

@@ -1,9 +1,8 @@
-# spec: unit
-
 require 'granite/context_proxy'
 
 RSpec.describe Granite::ContextProxy do
   subject { klass.new }
+
   let(:klass) do
     Class.new do
       include Granite::ContextProxy
@@ -11,7 +10,7 @@ RSpec.describe Granite::ContextProxy do
   end
   let(:performer) { performers.first }
   let(:performers) { 10.times.map { |i| instance_double(User, "Performer #{i}") } }
-  let(:context) { {performer: performer} }
+  let(:context) { { performer: performer } }
   let(:proxy) { instance_double(Granite::ContextProxy::Proxy) }
 
   describe '.with' do
@@ -46,7 +45,7 @@ RSpec.describe Granite::ContextProxy do
       expect(klass.proxy_context).to be_nil
     end
 
-    it 'correctly works with nested contexts' do
+    it 'correctly works with nested contexts' do # rubocop:disable RSpec/ExampleLength
       klass.with_context(context) do
         expect(klass.proxy_context).to eq context
         klass.with_context(performer: performers.second) do

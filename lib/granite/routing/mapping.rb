@@ -1,6 +1,6 @@
 module Granite
   module Routing
-    module Mapping
+    module Mapping # :nodoc:
       # Override the `ActionDispatch::Routing::Mapper::Mapping#app` method to
       # be able to mount custom Dispatcher objects. Otherwise, the only way to
       # point a dispatcher to business actions is to mount it as a Rack app

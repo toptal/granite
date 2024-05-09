@@ -1,6 +1,6 @@
 module Granite
   module Routing
-    class Cache
+    class Cache # :nodoc:
       attr_reader :routes
 
       def initialize(routes)

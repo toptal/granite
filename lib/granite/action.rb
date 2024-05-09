@@ -15,13 +15,16 @@ require 'granite/action/subject'
 require 'granite/action/translations'
 
 module Granite
-  class Action
-    class ValidationError < Error
+  class Action # :nodoc:
+    class ValidationError < Error # :nodoc:
       delegate :errors, to: :action
 
       def initialize(action)
         errors = action.errors.full_messages.join(', ')
-        super(I18n.t(:"#{action.class.i18n_scope}.errors.messages.action_invalid", action: action.class, errors: errors, default: :'errors.messages.action_invalid'), action)
+        super(I18n.t(:"#{action.class.i18n_scope}.errors.messages.action_invalid",
+                     action: action.class,
+                     errors: errors,
+                     default: :'errors.messages.action_invalid'), action)
       end
     end
 
@@ -102,7 +105,7 @@ module Granite
     protected
 
     def raise_validation_error(original_error = nil)
-      fail ValidationError, self, original_error&.backtrace
+      raise ValidationError, self, original_error&.backtrace
     end
   end
 end

@@ -1,5 +1,5 @@
 module Granite
-  module AssignData
+  module AssignData # :nodoc:
     DataAssignment = Struct.new(:method, :options) # rubocop:disable Lint/StructNewOverride
 
     extend ActiveSupport::Concern
@@ -14,7 +14,7 @@ module Granite
       assign_data :sync_attributes
     end
 
-    module ClassMethods
+    module ClassMethods # :nodoc:
       # Defines a callback to call when assigning data from business action to model.
       # @param methods [Array<Symbol>] list of methods to call
       # @param block [Proc] a block to call

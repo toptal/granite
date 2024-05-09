@@ -2,14 +2,14 @@ require 'granite/projector/error'
 
 module Granite
   class Projector
-    class ActionNotMountedError < Error
+    class ActionNotMountedError < Error # :nodoc:
       def initialize(projector)
         super("Seems like #{projector.class} was not mounted. \
 Do you have #{projector.action_name}##{projector.projector_name} declared in routes?", projector)
       end
     end
 
-    module Helpers
+    module Helpers # :nodoc:
       extend ActiveSupport::Concern
 
       def view_context
@@ -35,7 +35,7 @@ Do you have #{projector.action_name}##{projector.projector_name} declared in rou
 
       def required_params
         corresponding_route.required_parts
-          .to_h { |name| [name, action.public_send(name)] }
+                           .to_h { |name| [name, action.public_send(name)] }
       end
 
       def corresponding_route
@@ -51,7 +51,7 @@ Do you have #{projector.action_name}##{projector.projector_name} declared in rou
       end
 
       def fetch_corresponding_route
-        Rails.application.routes.routes.granite_cache[*route_id] || fail(ActionNotMountedError, self)
+        Rails.application.routes.routes.granite_cache[*route_id] || raise(ActionNotMountedError, self)
       end
     end
   end

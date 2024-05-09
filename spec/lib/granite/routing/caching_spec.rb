@@ -1,9 +1,8 @@
 RSpec.describe Granite::Routing::Caching do
-  subject { dummy_class.new }
+  subject(:caching) { dummy_class.new }
 
   super_module = Module.new do
-    def clear_cache!
-    end
+    def clear_cache!; end
   end
 
   let(:dummy_class) do
@@ -24,27 +23,27 @@ RSpec.describe Granite::Routing::Caching do
   describe '#granite_cache' do
     context 'when granite_cache is present' do
       it 'returns current value' do
-        expect(subject.granite_cache).to eq 'some_value'
+        expect(caching.granite_cache).to eq 'some_value'
       end
     end
 
     context 'when granite_cache is not present' do
-      before { subject.clear_cache! }
+      before { caching.clear_cache! }
 
       it 'returns instance of Cache' do
-        expect(subject.granite_cache).to be_a Granite::Routing::Cache
+        expect(caching.granite_cache).to be_a Granite::Routing::Cache
       end
     end
   end
 
   describe '#clear_cache!' do
     it 'calls super' do
-      expect_any_instance_of(super_module).to receive(:clear_cache!)
-      subject.clear_cache!
+      expect_any_instance_of(super_module).to receive(:clear_cache!) # rubocop:disable RSpec/AnyInstance
+      caching.clear_cache!
     end
 
     it 'sets granite_cache to nil' do
-      expect { subject.clear_cache! }.to change { subject.cache }.to(nil)
+      expect { caching.clear_cache! }.to change(caching, :cache).to(nil)
     end
   end
 end

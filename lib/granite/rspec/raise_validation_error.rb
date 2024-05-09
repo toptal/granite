@@ -38,13 +38,9 @@ RSpec::Matchers.define :raise_validation_error do
     expected
   end
 
-  failure_message do
-    "expected to #{description}"
-  end
+  failure_message { "expected to #{description}" }
 
-  failure_message_when_negated do
-    "expected not to #{description}"
-  end
+  failure_message_when_negated { "expected not to #{description}" }
 
   supports_block_expectations
 end

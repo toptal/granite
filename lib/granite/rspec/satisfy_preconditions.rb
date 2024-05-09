@@ -16,13 +16,13 @@
 # ```ruby
 # # assuming subject is business action
 # it { is_expected.to satisfy_preconditions }
-# it { is_expected.not_to satisfy_preconditions.with_message('Tax form has not been signed') }
-# it { is_expected.not_to satisfy_preconditions.with_messages(/^Tax form has not been signed by/', 'Signature required') }
-# it { is_expected.not_to satisfy_preconditions.with_message_of_kind(:relevant_portfolio_items_needed) }
-# it { is_expected.not_to satisfy_preconditions.with_messages_of_kinds(:relevant_portfolio_items_needed, :relevant_education_needed) }
+# it { is_expected.not_to satisfy_preconditions.with_message('Form has not been signed') }
+# it { is_expected.not_to satisfy_preconditions.with_messages(/^Form has not been signed by/', 'Signature required') }
+# it { is_expected.not_to satisfy_preconditions.with_message_of_kind(:portfolio_needed) }
+# it { is_expected.not_to satisfy_preconditions.with_messages_of_kinds(:portfolio_needed, :relevant_education_needed) }
 # ```
 #
-RSpec::Matchers.define :satisfy_preconditions do
+RSpec::Matchers.define :satisfy_preconditions do # rubocop:disable Metrics/BlockLength
   chain(:with_message) do |message|
     @expected_messages = [message]
   end
@@ -44,7 +44,7 @@ RSpec::Matchers.define :satisfy_preconditions do
   end
 
   match do |object|
-    fail '"with_messages" method chain is not supported for positive matcher' if @expected_messages
+    raise '"with_messages" method chain is not supported for positive matcher' if @expected_messages
 
     object.satisfy_preconditions?
   end

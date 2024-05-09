@@ -1,7 +1,7 @@
 require 'singleton'
 
 module Granite
-  class Context
+  class Context # :nodoc:
     include Singleton
 
     def view_context

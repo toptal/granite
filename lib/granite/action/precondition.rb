@@ -1,6 +1,6 @@
 module Granite
   class Action
-    class Precondition < BasicObject
+    class Precondition < BasicObject # :nodoc:
       UNDEFINED = ::Object.new.freeze
 
       def self.description(text = UNDEFINED)
@@ -17,7 +17,7 @@ module Granite
       end
 
       def call(*)
-        fail NotImplementedError, "#call method must be implemented for #{self.class}"
+        raise NotImplementedError, "#call method must be implemented for #{self.class}"
       end
 
       def method_missing(method_name, *args, &blk)

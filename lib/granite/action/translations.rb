@@ -1,9 +1,9 @@
 module Granite
   class Action
-    module Translations
+    module Translations # :nodoc:
       extend ActiveSupport::Concern
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         def i18n_scope
           :granite_action
         end

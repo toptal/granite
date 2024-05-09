@@ -7,13 +7,12 @@ RSpec.describe Granite, type: :request do
         render plain: 'OK'
       end
 
-      post :perform do
-      end
+      post :perform
     end
 
     stub_class(:action, Granite::Action) do
       allow_if do
-        fail 'No Performer' unless performer
+        raise 'No Performer' unless performer
 
         performer.id == 'User'
       end
@@ -42,33 +41,31 @@ RSpec.describe Granite, type: :request do
       end
     end
 
-    context 'with project_performer' do
-      context 'when user' do
-        let(:performer) { instance_double(User, id: 'User') }
+    context 'with user as project_performer' do
+      let(:performer) { instance_double(User, id: 'User') }
 
-        it 'is allowed' do
-          allow_any_instance_of(ApplicationController).to receive(:projector_context).and_return(performer: performer)
+      it 'is allowed' do
+        allow_any_instance_of(ApplicationController).to receive(:projector_context).and_return(performer: performer) # rubocop:disable RSpec/AnyInstance
 
-          get '/students/action/confirm'
+        get '/students/action/confirm'
 
-          expect(request.env['action_dispatch.exception'].to_s).to eq('')
-          expect(response).to be_successful
-          expect(response.body).to eq 'OK'
-        end
+        expect(request.env['action_dispatch.exception'].to_s).to eq('')
+        expect(response).to be_successful
+        expect(response.body).to eq 'OK'
       end
+    end
 
-      context 'when guest' do
-        let(:performer) { instance_double(User, id: 'Guest') }
+    context 'with guest as project_performer' do
+      let(:performer) { instance_double(User, id: 'Guest') }
 
-        it 'is not allowed' do
-          allow_any_instance_of(ApplicationController).to receive(:projector_context).and_return(performer: performer)
+      it 'is not allowed' do
+        allow_any_instance_of(ApplicationController).to receive(:projector_context).and_return(performer: performer) # rubocop:disable RSpec/AnyInstance
 
-          get '/students/action/confirm'
+        get '/students/action/confirm'
 
-          expect(request.env['action_dispatch.exception'].to_s).to eq('')
-          expect(response).to have_http_status :forbidden
-          expect(response.body).to match(/Action action is not allowed for (.*)Guest/)
-        end
+        expect(request.env['action_dispatch.exception'].to_s).to eq('')
+        expect(response).to have_http_status :forbidden
+        expect(response.body).to match(/Action action is not allowed for (.*)Guest/)
       end
     end
   end

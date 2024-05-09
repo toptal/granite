@@ -5,7 +5,7 @@ require 'granite/action/policies/required_performer_strategy'
 
 module Granite
   class Action
-    class NotAllowedError < Error
+    class NotAllowedError < Error # :nodoc:
       def initialize(action)
         performer_id = "##{action.performer.id}" if action.performer.respond_to?(:id) && action.performer.id.present?
 
@@ -30,7 +30,7 @@ module Granite
         self._policies_strategy = AnyStrategy
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         # The simplies policy. Takes block and executes it returning
         # boolean result. Multiple policies are reduced with ||
         #
@@ -80,7 +80,7 @@ module Granite
       # Raises Granite::Action::NotAllowedError if action is not allowed
       #
       def authorize!
-        fail Granite::Action::NotAllowedError, self unless allowed?
+        raise Granite::Action::NotAllowedError, self unless allowed?
 
         self
       end

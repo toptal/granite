@@ -2,7 +2,7 @@ require 'singleton'
 require 'active_support/core_ext/object/try'
 
 module Granite
-  class Config
+  class Config # :nodoc:
     include Singleton
 
     attr_accessor :base_controller

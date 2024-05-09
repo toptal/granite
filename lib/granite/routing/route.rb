@@ -1,6 +1,6 @@
 module Granite
   module Routing
-    class Route
+    class Route # :nodoc:
       attr_reader :projector_path, :action_path, :projector_name
 
       def initialize(projector_path, path: nil, as: nil, projector_prefix: false)

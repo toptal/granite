@@ -10,14 +10,16 @@ RSpec.describe Granite::Controller::Translations, type: :granite_projector do
 
   describe '#i18n_scopes' do
     it do
-      expect(controller.i18n_scopes).to eq %w[granite_action.dummy_action.dummy granite_action.granite/action.dummy dummy]
+      expect(controller.i18n_scopes).to eq %w[granite_action.dummy_action.dummy granite_action.granite/action.dummy
+                                              dummy]
     end
 
     context 'when action name is :result' do
       before { controller.action_name = :result }
 
       it do
-        expect(controller.i18n_scopes).to eq %w[granite_action.dummy_action.dummy.result granite_action.dummy_action.dummy granite_action.granite/action.dummy.result granite_action.granite/action.dummy dummy.result dummy]
+        expect(controller.i18n_scopes).to eq %w[granite_action.dummy_action.dummy.result
+                                                granite_action.dummy_action.dummy granite_action.granite/action.dummy.result granite_action.granite/action.dummy dummy.result dummy] # rubocop:disable Layout/LineLength
       end
     end
   end
@@ -28,7 +30,7 @@ RSpec.describe Granite::Controller::Translations, type: :granite_projector do
       expect(controller.translate('.other_key')).to eq 'dummy projector other key'
       expect(controller.view_context.translate('.key')).to eq 'dummy action dummy projector key'
 
-      expect(controller.view_context.translate(:no_such_key)).to eq '<span class="translation_missing" title="translation missing: en.no_such_key">No Such Key</span>'
+      expect(controller.view_context.translate(:no_such_key)).to eq '<span class="translation_missing" title="translation missing: en.no_such_key">No Such Key</span>' # rubocop:disable Layout/LineLength
     end
 
     context 'when action name is :result' do

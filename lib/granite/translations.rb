@@ -1,5 +1,5 @@
 module Granite
-  class Translations
+  class Translations # :nodoc:
     class << self
       def combine_paths(paths1, paths2)
         paths1.flat_map do |path1|

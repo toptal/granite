@@ -6,13 +6,17 @@ require 'granite/version'
 require 'granite/config'
 require 'granite/context'
 
-module Granite
+module Granite # :nodoc:
   def self.config
     Granite::Config.instance
   end
 
   def self.context
     Granite::Context.instance
+  end
+
+  def self.deprecator
+    @deprecator ||= ActiveSupport::Deprecation.new('1.0.0', 'Granite')
   end
 
   singleton_class.delegate(*Granite::Config.delegated, to: :config)

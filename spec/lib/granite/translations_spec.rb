@@ -22,16 +22,17 @@ RSpec.describe Granite::Translations do
       described_class.scope_translation_args(TestAction.i18n_scopes, *args, **options)
     end
 
-    it 'prepends translation key with action ancestor lookup scopes' do
-      expect(scope('key')).to eq(['key', {default: []}])
-      expect(scope(['key'])).to eq([['key'], {default: []}])
-      expect(scope('key', default: ['Default'])).to eq(['key', {default: ['Default']}])
-      expect(scope('key', default: 'Default')).to eq(['key', {default: ['Default']}])
+    it 'prepends translation key with action ancestor lookup scopes' do # rubocop:disable RSpec/ExampleLength
+      expect(scope('key')).to eq(['key', { default: [] }])
+      expect(scope(['key'])).to eq([['key'], { default: [] }])
+      expect(scope('key', default: ['Default'])).to eq(['key', { default: ['Default'] }])
+      expect(scope('key', default: 'Default')).to eq(['key', { default: ['Default'] }])
 
       expect(scope('.key'))
-        .to eq([:'granite_action.test_action.key', {default: %i[granite_action.granite/action.key key]}])
+        .to eq([:'granite_action.test_action.key', { default: %i[granite_action.granite/action.key key] }])
       expect(scope('.key', default: ['Default']))
-        .to eq([:'granite_action.test_action.key', {default: [:'granite_action.granite/action.key', :key, 'Default']}])
+        .to eq([:'granite_action.test_action.key',
+                { default: [:'granite_action.granite/action.key', :key, 'Default'] }])
     end
   end
 end

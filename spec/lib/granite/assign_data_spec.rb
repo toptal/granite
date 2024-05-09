@@ -1,5 +1,6 @@
 RSpec.describe Granite::AssignData do
   subject(:action) { DummyAction.new(user) }
+
   let!(:user) { User.create! }
 
   before do
@@ -15,7 +16,7 @@ RSpec.describe Granite::AssignData do
       end
     end
 
-    it { expect { action.validate }.to change { user.full_name }.to('New Name') }
+    it { expect { action.validate }.to change(user, :full_name).to('New Name') }
   end
 
   context 'when using method name with assign data' do
@@ -29,7 +30,7 @@ RSpec.describe Granite::AssignData do
       end
     end
 
-    it { expect { action.validate }.to change { user.full_name }.to('New Name') }
+    it { expect { action.validate }.to change(user, :full_name).to('New Name') }
   end
 
   context 'when using method name & options' do
@@ -43,12 +44,12 @@ RSpec.describe Granite::AssignData do
       end
     end
 
-    it { expect { action.validate }.to change { user.full_name }.to('New Name') }
+    it { expect { action.validate }.to change(user, :full_name).to('New Name') }
 
     context 'when conditions are not satisfied' do
       let!(:user) { User.create! full_name: 'Existing name' }
 
-      it { expect { action.validate }.not_to change { user.full_name } }
+      it { expect { action.validate }.not_to(change(user, :full_name)) }
     end
   end
 
@@ -58,6 +59,6 @@ RSpec.describe Granite::AssignData do
       action.full_name = 'New Name'
     end
 
-    it { expect { action.validate }.to change { user.full_name }.to('New Name') }
+    it { expect { action.validate }.to change(user, :full_name).to('New Name') }
   end
 end

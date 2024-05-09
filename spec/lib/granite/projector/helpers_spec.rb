@@ -2,13 +2,13 @@ RSpec.describe Granite::Projector::Helpers, type: :granite_projector do
   prepend_before do
     stub_class(:dummy_user)
     stub_class(:projector, Granite::Projector) do
-      get :confirm, as: '' do
+      get :confirm, as: '' do # rubocop:disable Lint/EmptyBlock
       end
 
-      post :perform, as: '' do
+      post :perform, as: '' do # rubocop:disable Lint/EmptyBlock
       end
 
-      get :result do
+      get :result do # rubocop:disable Lint/EmptyBlock
       end
     end
     stub_class(:dummy_action, Granite::Action) do
@@ -26,76 +26,86 @@ RSpec.describe Granite::Projector::Helpers, type: :granite_projector do
     specify { expect(Granite.with_view_context(view_context) { projector.view_context }).to eq(view_context) }
   end
 
-  describe 'projectors related' do
+  context 'without route' do
     projector { DummyAction.dummy }
 
-    context 'without route' do
-      describe '#action_url' do
-        specify do
-          expect do
-            projector.action_url('confirm', foo: 'string')
-          end.to raise_error(
+    describe '#action_url' do
+      specify do
+        expect { projector.action_url('confirm', foo: 'string') }
+          .to raise_error(
             Granite::Projector::ActionNotMountedError,
             'Seems like DummyAction::DummyProjector was not mounted. Do you have dummy_action#dummy declared in routes?'
           )
-        end
       end
+    end
 
-      describe '#action_path' do
-        specify do
-          expect do
-            projector.action_path('confirm')
-          end.to raise_error(
+    describe '#action_path' do
+      specify do
+        expect { projector.action_path('confirm') }
+          .to raise_error(
             Granite::Projector::ActionNotMountedError,
             'Seems like DummyAction::DummyProjector was not mounted. Do you have dummy_action#dummy declared in routes?'
           )
-        end
+      end
+    end
+  end
+
+  context 'without subject' do
+    projector { DummyAction.dummy }
+
+    draw_routes do
+      resources :students, only: [] do
+        granite 'dummy_action#dummy', on: :collection
       end
     end
 
-    context 'without subject' do
-      draw_routes do
-        resources :students, only: [] do
-          granite 'dummy_action#dummy', on: :collection
-        end
+    describe '#action_url' do
+      specify { expect(projector.action_url('confirm', foo: 'string')).to eq('http://test.host/students/dummy_action?foo=string') }
+      specify { expect(projector.action_url(:perform, anchor: 'ok')).to eq('http://test.host/students/dummy_action#ok') }
+      specify { expect(projector.action_url(:result)).to eq('http://test.host/students/dummy_action/result') }
+    end
+
+    describe '#action_path' do
+      specify { expect(projector.action_path('confirm')).to eq('/students/dummy_action') }
+
+      specify do
+        expect(projector.action_path(:perform, bar: 'string',
+                                               only_path: false)).to eq('/students/dummy_action?bar=string')
       end
 
-      describe '#action_url' do
-        specify { expect(projector.action_url('confirm', foo: 'string')).to eq('http://test.host/students/dummy_action?foo=string') }
-        specify { expect(projector.action_url(:perform, anchor: 'ok')).to eq('http://test.host/students/dummy_action#ok') }
-        specify { expect(projector.action_url(:result)).to eq('http://test.host/students/dummy_action/result') }
-      end
+      specify { expect(projector.action_path(:result)).to eq('/students/dummy_action/result') }
+    end
+  end
 
-      describe '#action_path' do
-        specify { expect(projector.action_path('confirm')).to eq('/students/dummy_action') }
-        specify { expect(projector.action_path(:perform, bar: 'string', only_path: false)).to eq('/students/dummy_action?bar=string') }
-        specify { expect(projector.action_path(:result)).to eq('/students/dummy_action/result') }
+  context 'with subject' do
+    projector { DummyAction.dummy }
+
+    draw_routes do
+      resources :students, only: [] do
+        granite 'dummy_action#dummy', on: :member
       end
     end
 
-    context 'with subject' do
-      draw_routes do
-        resources :students, only: [] do
-          granite 'dummy_action#dummy', on: :member
-        end
+    before do
+      DummyAction.subject :role
+      controller.params[:role] = Role.new(id: 42)
+    end
+
+    describe '#action_url' do
+      specify { expect(projector.action_url('confirm', foo: 'string')).to eq('http://test.host/students/42/dummy_action?foo=string') }
+      specify { expect(projector.action_url(:perform, anchor: 'ok')).to eq('http://test.host/students/42/dummy_action#ok') }
+      specify { expect(projector.action_url(:result)).to eq('http://test.host/students/42/dummy_action/result') }
+    end
+
+    describe '#action_path' do
+      specify { expect(projector.action_path('confirm')).to eq('/students/42/dummy_action') }
+
+      specify do
+        expect(projector.action_path(:perform, bar: 'string',
+                                               only_path: false)).to eq('/students/42/dummy_action?bar=string')
       end
 
-      before do
-        DummyAction.subject :role
-        controller.params[:role] = Role.new(id: 42)
-      end
-
-      describe '#action_url' do
-        specify { expect(projector.action_url('confirm', foo: 'string')).to eq('http://test.host/students/42/dummy_action?foo=string') }
-        specify { expect(projector.action_url(:perform, anchor: 'ok')).to eq('http://test.host/students/42/dummy_action#ok') }
-        specify { expect(projector.action_url(:result)).to eq('http://test.host/students/42/dummy_action/result') }
-      end
-
-      describe '#action_path' do
-        specify { expect(projector.action_path('confirm')).to eq('/students/42/dummy_action') }
-        specify { expect(projector.action_path(:perform, bar: 'string', only_path: false)).to eq('/students/42/dummy_action?bar=string') }
-        specify { expect(projector.action_path(:result)).to eq('/students/42/dummy_action/result') }
-      end
+      specify { expect(projector.action_path(:result)).to eq('/students/42/dummy_action/result') }
     end
   end
 end

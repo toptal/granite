@@ -1,5 +1,5 @@
 module RuboCop
-  module Granite
+  module Granite # :nodoc:
     PROJECT_ROOT   = Pathname.new(__dir__).parent.parent.expand_path.freeze
     CONFIG_DEFAULT = PROJECT_ROOT.join('config', 'rubocop-default.yml').freeze
     CONFIG         = YAML.safe_load(CONFIG_DEFAULT.read).freeze

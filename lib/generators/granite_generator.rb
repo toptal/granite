@@ -1,4 +1,4 @@
-class GraniteGenerator < Rails::Generators::NamedBase
+class GraniteGenerator < Rails::Generators::NamedBase # :nodoc:
   source_root File.expand_path('templates', __dir__)
 
   argument :projector, type: :string, required: false
@@ -6,7 +6,10 @@ class GraniteGenerator < Rails::Generators::NamedBase
 
   def create_action
     template 'granite_action.rb.erb', "apq/actions/#{file_path}.rb"
-    template 'granite_business_action.rb.erb', "apq/actions/#{class_path.join('/')}/business_action.rb" unless options.collection?
+    unless options.collection?
+      template 'granite_business_action.rb.erb',
+               "apq/actions/#{class_path.join('/')}/business_action.rb"
+    end
     template 'granite_base_action.rb.erb', 'apq/actions/base_action.rb', skip: true
     template 'granite_action_spec.rb.erb', "spec/apq/actions/#{file_path}_spec.rb"
     empty_directory "apq/actions/#{file_path}/#{projector}" if projector

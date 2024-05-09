@@ -5,8 +5,7 @@ RSpec.describe Granite::Action::Policies do
 
       private
 
-      def execute_perform!(*)
-      end
+      def execute_perform!(*); end
     end
   end
 
@@ -44,8 +43,7 @@ RSpec.describe Granite::Action::Policies do
 
           private
 
-          def execute_perform!(*)
-          end
+          def execute_perform!(*); end
         end
       end
 
@@ -73,8 +71,7 @@ RSpec.describe Granite::Action::Policies do
 
         private
 
-        def execute_perform!(*)
-        end
+        def execute_perform!(*); end
       end
     end
 

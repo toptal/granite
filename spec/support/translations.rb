@@ -11,7 +11,7 @@ I18n.backend.store_translations(:en, YAML.safe_load(<<-YAML))
             base:
               message: 'Base error message'
               wrong_title: 'Wrong title'
-              wrong_author: 'George Orwell is the only acceptable author, %{author_name} is not'
+              wrong_author: 'George Orwell is the only acceptable author, %<author_name>s is not'
     dummy_action:
       key: 'dummy action key'
       dummy:
