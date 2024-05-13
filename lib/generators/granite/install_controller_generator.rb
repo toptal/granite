@@ -2,7 +2,7 @@ require 'rails/generators/base'
 
 module Granite
   module Generators
-    class InstallControllerGenerator < Rails::Generators::Base
+    class InstallControllerGenerator < Rails::Generators::Base # :nodoc:
       source_root File.expand_path('../../..', __dir__)
 
       desc 'Creates a Granite::Controller for further customization'

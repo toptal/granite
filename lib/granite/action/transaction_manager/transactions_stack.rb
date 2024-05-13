@@ -21,7 +21,7 @@ module Granite
         end
 
         def add_callback(callback)
-          fail 'Start a transaction before you add callbacks on it' if depth.zero?
+          raise 'Start a transaction before you add callbacks on it' if depth.zero?
 
           @callbacks.last << callback
         end
@@ -46,7 +46,7 @@ module Granite
         end
 
         def finish_current(result)
-          fail ArgumentError, 'No current transaction' if @depth.zero?
+          raise ArgumentError, 'No current transaction' if @depth.zero?
 
           @depth -= 1
 
@@ -58,7 +58,6 @@ module Granite
             @callbacks.pop
           end
         end
-
       end
     end
   end

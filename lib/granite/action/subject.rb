@@ -1,25 +1,25 @@
 module Granite
   class Action
-    class SubjectNotFoundError < ArgumentError
+    class SubjectNotFoundError < ArgumentError # :nodoc:
       def initialize(action_class)
         super("Unable to initialize #{action_class} without subject provided")
       end
     end
 
-    class SubjectTypeMismatchError < ArgumentError
+    class SubjectTypeMismatchError < ArgumentError # :nodoc:
       def initialize(action_class, candidate, expected)
         super("Unable to initialize #{action_class} with #{candidate} as subject, expecting instance of #{expected}")
       end
     end
 
-    module Subject
+    module Subject # :nodoc:
       extend ActiveSupport::Concern
 
       included do
         class_attribute :_subject
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         def subject(name, *args, &block)
           reflection = reflect_on_association(name)
           reflection ||= references_one name, *args, &block
@@ -65,7 +65,7 @@ module Granite
         assign_attributes(attributes)
 
         self.subject = args.first unless args.empty?
-        fail SubjectNotFoundError, self.class unless subject
+        raise SubjectNotFoundError, self.class unless subject
       rescue Granite::Form::AssociationTypeMismatch
         raise SubjectTypeMismatchError.new(self.class, args.first.class.name, reflection.klass)
       end

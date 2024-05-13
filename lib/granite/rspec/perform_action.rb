@@ -1,4 +1,4 @@
-RSpec::Matchers.define :perform_action do |klass|
+RSpec::Matchers.define :perform_action do |klass| # rubocop:disable Metrics/BlockLength
   chain :using do |using|
     @using = using
   end

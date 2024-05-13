@@ -1,4 +1,4 @@
-RSpec.describe 'have_projector', aggregate_failures: false do
+RSpec.describe 'have_projector', aggregate_failures: false do # rubocop:disable RSpec/DescribeClass
   before do
     stub_class(:action, Granite::Action) do
       projector :simple

@@ -1,9 +1,9 @@
 module Granite
   class Action
-    module Projectors
+    module Projectors # :nodoc:
       extend ActiveSupport::Concern
 
-      class ProjectorsCollection
+      class ProjectorsCollection # :nodoc:
         def initialize(action_class)
           @action_class = action_class
           @storage = {}
@@ -40,9 +40,7 @@ module Granite
           redefine_const(projector_name, projector)
           redefine_const(controller_name, projector.controller_class)
 
-          blocks.each do |block|
-            projector.class_eval(&block)
-          end
+          blocks.each { |block| projector.class_eval(&block) }
 
           projector
         end
@@ -72,7 +70,7 @@ module Granite
         end
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         def _projectors
           @_projectors ||= ProjectorsCollection.new(self)
         end

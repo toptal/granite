@@ -25,9 +25,9 @@ module Granite
         define_callbacks :execute_perform
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         def perform(*)
-          fail 'Perform block declaration was removed! Please declare `private def execute_perform!(*)` method'
+          raise 'Perform block declaration was removed! Please declare `private def execute_perform!(*)` method'
         end
       end
 
@@ -42,10 +42,10 @@ module Granite
       #   using `:on`)
       # @return [Object] result of execute_perform! method execution or false in case of errors
       def perform(context: nil, **options)
-        ActiveSupport::Deprecation.warn('Granite::Action#perform is deprecated, use #perform! or #try_perform! instead')
+        Granite.deprecator.warn('Granite::Action#perform is deprecated, use #perform! or #try_perform! instead')
 
         transaction do
-          fail Rollback unless valid?(context)
+          raise Rollback unless valid?(context)
 
           perform_action(**options)
         end
@@ -113,7 +113,7 @@ module Granite
       end
 
       def execute_perform!(**_options)
-        fail NotImplementedError, "BA perform body MUST be defined for #{self}"
+        raise NotImplementedError, "BA perform body MUST be defined for #{self}"
       end
     end
   end

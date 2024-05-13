@@ -5,7 +5,7 @@ module Granite
     class Rollback < defined?(ActiveRecord) ? ActiveRecord::Rollback : StandardError
     end
 
-    module TransactionManager
+    module TransactionManager # :nodoc:
       class << self
         # Runs a block in a transaction
         # It will open a new transaction or append a block to the current one if it exists
@@ -23,7 +23,7 @@ module Granite
         def after_commit(listener = nil, &block)
           callback = listener || block
 
-          fail 'Block or object is required to register after_commit hook!' unless callback
+          raise 'Block or object is required to register after_commit hook!' unless callback
 
           transactions_stack.add_callback callback
         end
@@ -70,12 +70,13 @@ module Granite
           return unless collected_errors.any?
 
           log_errors(collected_errors[1..])
-          fail collected_errors.first
+          raise collected_errors.first
         end
 
         def log_errors(errors)
           errors.each do |error|
-            Granite::Form.config.logger.error "Unhandled error in callback: #{error.inspect}\n#{error.backtrace.join("\n")}"
+            message = "Unhandled error in after_commit callback: #{error.inspect}\n#{error.backtrace.join("\n")}"
+            Granite::Form.config.logger.error message
           end
         end
       end

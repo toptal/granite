@@ -2,7 +2,7 @@ require 'granite/error'
 
 module Granite
   class Projector
-    class Error < Granite::Error
+    class Error < Granite::Error # :nodoc:
       attr_reader :projector
 
       def initialize(message, projector = nil)

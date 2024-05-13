@@ -1,6 +1,6 @@
 module Granite
   class Action
-    module Instrumentation
+    module Instrumentation # :nodoc:
       def perform!(*, **)
         instrument_perform(:perform!) { super }
       end

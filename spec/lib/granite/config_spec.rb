@@ -2,7 +2,7 @@ RSpec.describe Granite::Config do
   let(:config) { described_class.__send__(:new) }
 
   describe '#base_controller_class' do
-    subject { config.base_controller_class }
+    subject(:base_controller_class) { config.base_controller_class }
 
     it { is_expected.to eq ActionController::Base }
 
@@ -16,11 +16,16 @@ RSpec.describe Granite::Config do
       context 'with invalid value' do
         before { config.base_controller = 'NonExistingController' }
 
-        specify { expect { subject }.to raise_error NameError, /uninitialized constant NonExistingController/ }
+        specify do
+          expect do
+            base_controller_class
+          end.to raise_error NameError, /uninitialized constant NonExistingController/
+        end
       end
 
       context 'with live reload' do
         let(:controller_class_reloaded) { stub_class('GraniteConfigTestController', ActionController::Base) }
+
         specify do
           expect(config.base_controller_class).to eq controller_class
           controller_class_reloaded

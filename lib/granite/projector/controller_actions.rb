@@ -2,7 +2,7 @@ require 'action_dispatch/routing'
 
 module Granite
   class Projector
-    module ControllerActions
+    module ControllerActions # :nodoc:
       extend ActiveSupport::Concern
 
       included do
@@ -16,8 +16,8 @@ module Granite
         end
       end
 
-      module ClassMethods
-        def action(name, options = {}, &block)
+      module ClassMethods # :nodoc:
+        def action(name, options = {}, &block) # rubocop:disable Metrics/MethodLength
           if block
             self.controller_actions = controller_actions.merge(name.to_sym => options)
             controller_class.__send__(:define_method, name, &block)

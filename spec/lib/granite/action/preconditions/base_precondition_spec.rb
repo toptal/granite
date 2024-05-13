@@ -26,7 +26,7 @@ RSpec.describe Granite::Action::Preconditions::BasePrecondition do
       stub_class(:action, Granite::Action) do
         subject :student
 
-        precondition if: -> { subject.status == 'passed' } do
+        precondition if: -> { student.status == 'passed' } do
           decline_with 'DECLINED!'
         end
       end
@@ -43,7 +43,7 @@ RSpec.describe Granite::Action::Preconditions::BasePrecondition do
       stub_class(:action, Granite::Action) do
         subject :student
 
-        precondition unless: -> { subject.status == 'passed' } do
+        precondition unless: -> { student.status == 'passed' } do
           decline_with 'DECLINED!'
         end
       end

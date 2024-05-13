@@ -1,14 +1,15 @@
 RSpec.describe Granite::Projector do
   before do
     stub_class(:action, Granite::Action)
-    stub_class(:projector, Granite::Projector) do
+    stub_class(:projector, described_class) do
       self.action_class = Action
     end
     stub_class(:descendant, Projector)
   end
 
   describe '.with' do
-    let(:context) { {performer: instance_double(Student)} }
+    let(:context) { { performer: instance_double(Student) } }
+
     specify { expect(Projector.with(context).new.action.ctx).to have_attributes(**context) }
   end
 

@@ -1,6 +1,6 @@
 module Granite
   class Controller
-    module Translations
+    module Translations # :nodoc:
       def i18n_scopes
         Granite::Translations.combine_paths(projector.i18n_scopes, [*action_name, nil])
       end

@@ -1,4 +1,4 @@
-RSpec.describe 'raise_validation_error', aggregate_failures: false do
+RSpec.describe 'raise_validation_error', aggregate_failures: false do # rubocop:disable RSpec/DescribeClass
   before do
     stub_class(:action, Granite::Action) do
       allow_if { true }
@@ -12,7 +12,7 @@ RSpec.describe 'raise_validation_error', aggregate_failures: false do
       private
 
       def execute_perform!(*)
-        fail StandardError if raise_error
+        raise StandardError if raise_error
       end
     end
   end
@@ -37,19 +37,19 @@ RSpec.describe 'raise_validation_error', aggregate_failures: false do
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.of_type(:some_error2)
-      end.to fail_with('expected to raise validation error on attribute :base of type :some_error2, but raised {:base=>[{:error=>:some_error}]}')
+      end.to fail_with('expected to raise validation error on attribute :base of type :some_error2, but raised {:base=>[{:error=>:some_error}]}') # rubocop:disable Layout/LineLength
     end
 
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.on_attribute(:raise_error)
-      end.to fail_with(include 'expected to raise validation error on attribute :raise_error, but raised {:base=>[{:error=>:some_error}]')
+      end.to fail_with(include 'expected to raise validation error on attribute :raise_error, but raised {:base=>[{:error=>:some_error}]') # rubocop:disable Layout/LineLength
     end
 
     specify do
       expect do
         expect { action.perform! }.to raise_validation_error.on_attribute(:raise_error).of_type(:some_error)
-      end.to fail_with(include 'expected to raise validation error on attribute :raise_error of type :some_error, but raised {:base=>[{:error=>:some_error}]')
+      end.to fail_with(include 'expected to raise validation error on attribute :raise_error of type :some_error, but raised {:base=>[{:error=>:some_error}]') # rubocop:disable Layout/LineLength
     end
   end
 end

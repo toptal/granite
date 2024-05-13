@@ -1,12 +1,12 @@
 RSpec.describe Granite::Routing::Declarer do
-  subject { described_class }
+  subject(:declarer) { described_class }
 
   describe '.declare' do
     let(:routing) { ActionDispatch::Routing::Mapper.new(Rails.application.routes) }
     let(:route) { Granite::Routing::Route.new('ba/student/pause#modal') }
 
-    it 'declares route according to route object' do
-      subject.declare(routing, route)
+    it 'declares route according to route object' do # rubocop:disable RSpec/ExampleLength
+      declarer.declare(routing, route)
 
       matched_route = Rails.application.routes.named_routes[route.as]
 
@@ -21,7 +21,7 @@ RSpec.describe Granite::Routing::Declarer do
     context 'with explicit on: parameter' do
       it 'declares a route with appropriate path' do
         routing.resources :another_model do
-          subject.declare(routing, route, on: :member)
+          declarer.declare(routing, route, on: :member)
         end
 
         matched_route = Rails.application.routes.named_routes['pause_another_model']
@@ -33,7 +33,7 @@ RSpec.describe Granite::Routing::Declarer do
     context 'with explicit http verb via: :post' do
       it 'declares a route with appropriate verb' do
         routing.resources :another do
-          subject.declare(routing, route, via: :post)
+          declarer.declare(routing, route, via: :post)
         end
 
         matched_route = Rails.application.routes.named_routes['another_pause']
@@ -45,8 +45,9 @@ RSpec.describe Granite::Routing::Declarer do
 
   describe '.reset_dispatcher' do
     it 'resets an instance of the Dispatcher' do
-      expect(subject.dispatcher).to receive(:reset!)
-      subject.reset_dispatcher
+      allow(declarer.dispatcher).to receive(:reset!)
+      declarer.reset_dispatcher
+      expect(declarer.dispatcher).to have_received(:reset!)
     end
   end
 end

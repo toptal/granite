@@ -2,7 +2,7 @@ require 'granite/action/transaction_manager'
 
 module Granite
   class Action
-    module Transaction
+    module Transaction # :nodoc:
       extend ActiveSupport::Concern
 
       included do

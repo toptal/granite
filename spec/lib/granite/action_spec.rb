@@ -1,6 +1,6 @@
 RSpec.describe Granite::Action do
   before do
-    stub_class(:action, Granite::Action) do
+    stub_class(:action, described_class) do
       allow_if { true }
 
       attribute :comment, String
@@ -13,7 +13,7 @@ RSpec.describe Granite::Action do
 
   describe 'exception handling' do
     before do
-      stub_class(:action, Granite::Action) do
+      stub_class(:action, described_class) do
         allow_if { true }
 
         attribute :email, String
@@ -58,7 +58,7 @@ RSpec.describe Granite::Action do
           validates :full_name, presence: true
         end
 
-        stub_class(:action, Granite::Action) do
+        stub_class(:action, described_class) do
           allow_if { true }
 
           attribute :email, String
@@ -83,7 +83,7 @@ RSpec.describe Granite::Action do
 
     describe 'business action' do
       before do
-        stub_class(:action, Granite::Action) do
+        stub_class(:action, described_class) do
           allow_if { true }
 
           attribute :email, String
@@ -99,7 +99,7 @@ RSpec.describe Granite::Action do
           end
         end
 
-        stub_class(:nested_action, Granite::Action) do
+        stub_class(:nested_action, described_class) do
           allow_if { true }
           attribute :email, String
           attribute :full_name, String
@@ -120,7 +120,7 @@ RSpec.describe Granite::Action do
     subject { Action.new.callbacks }
 
     before do
-      stub_class :Action, Granite::Action do
+      stub_class :Action, described_class do
         collection :callbacks, String
         after_initialize { callbacks << 'after_initialize' }
       end
@@ -138,7 +138,7 @@ RSpec.describe Granite::Action do
 
   describe '#attributes_changed?' do
     before do
-      stub_class(:action, Granite::Action) do
+      stub_class(:action, described_class) do
         subject :role
         attribute :name, String
       end
@@ -150,35 +150,35 @@ RSpec.describe Granite::Action do
   end
 
   describe 'nested attributes assigning' do
-    subject { Action.new }
+    subject(:action) { Action.new }
 
     before do
       allow(Granite::Form.config.logger).to receive(:info)
     end
 
     specify do
-      expect { subject.assign_attributes(action: {comment: 'Comment'}) }
-        .to change { subject.comment }.to('Comment')
+      expect { action.assign_attributes(action: { comment: 'Comment' }) }
+        .to change(action, :comment).to('Comment')
     end
 
     specify do
-      expect { subject.assign_attributes('action' => {comment: 'Comment'}) }
-        .to change { subject.comment }.to('Comment')
+      expect { action.assign_attributes('action' => { comment: 'Comment' }) }
+        .to change(action, :comment).to('Comment')
     end
 
     specify do
-      expect { subject.assign_attributes(blabla: {comment: 'Comment'}) }
-        .not_to change { subject.comment }
+      expect { action.assign_attributes(blabla: { comment: 'Comment' }) }
+        .not_to(change(action, :comment))
     end
 
     describe '#initialize' do
-      specify { expect(Action.new(action: {comment: 'Comment'}).comment).to eq('Comment') }
+      specify { expect(Action.new(action: { comment: 'Comment' }).comment).to eq('Comment') }
     end
 
     describe '#update' do
       specify do
-        expect { subject.update(action: {comment: 'Comment'}) }
-          .to change { subject.comment }.to('Comment')
+        expect { action.update(action: { comment: 'Comment' }) }
+          .to change(action, :comment).to('Comment')
       end
     end
   end
@@ -227,7 +227,7 @@ RSpec.describe Granite::Action do
 
       context 'when errors have options' do
         let(:error_args) { [:base, 'some error'] }
-        let(:error_options) { {count: 1, message: 'count is wrong'} }
+        let(:error_options) { { count: 1, message: 'count is wrong' } }
 
         context 'when message differs' do
           before { errors_to_merge.add(:base, 'some error', count: 1, message: 'count is low') }
@@ -296,7 +296,7 @@ RSpec.describe Granite::Action do
 
       context 'when errors have options' do
         let(:error_args) { %i[base invalid] }
-        let(:error_options) { {count: 1, message: 'count is wrong'} }
+        let(:error_options) { { count: 1, message: 'count is wrong' } }
 
         context 'when message differs' do
           before { errors_to_merge.add(:base, :invalid, count: 1, message: 'count is low') }

@@ -7,7 +7,7 @@ module Granite
   module ContextProxy
     extend ActiveSupport::Concern
 
-    module ClassMethods
+    module ClassMethods # :nodoc:
       PROXY_CONTEXT_KEY = :granite_proxy_context
 
       def with(data)

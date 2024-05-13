@@ -2,7 +2,7 @@ require 'granite/routing/cache'
 
 module Granite
   module Routing
-    module Caching
+    module Caching # :nodoc:
       def granite_cache
         @granite_cache ||= Cache.new(self)
       end

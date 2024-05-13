@@ -1,10 +1,13 @@
 RSpec.describe Granite::Routing::Cache do
-  subject { described_class.new(routes) }
+  subject(:cache) { described_class.new(routes) }
+
   let(:action_route) do
-    instance_double(ActionDispatch::Journey::Route, required_defaults: {granite_action: 'test', granite_projector: 'simple'})
+    instance_double(ActionDispatch::Journey::Route,
+                    required_defaults: { granite_action: 'test', granite_projector: 'simple' })
   end
   let(:another_action_route) do
-    instance_double(ActionDispatch::Journey::Route, required_defaults: {granite_action: 'test2', granite_projector: 'simple'})
+    instance_double(ActionDispatch::Journey::Route,
+                    required_defaults: { granite_action: 'test2', granite_projector: 'simple' })
   end
   let(:regular_route) do
     instance_double(ActionDispatch::Journey::Route, required_defaults: {})
@@ -15,11 +18,11 @@ RSpec.describe Granite::Routing::Cache do
 
   describe '#[]' do
     it 'returns route with matched action & projector' do
-      expect(subject[:test, :simple]).to eq action_route
+      expect(cache[:test, :simple]).to eq action_route
     end
 
     it 'returns nil if no route found' do
-      expect(subject[:foo, :bar]).to be_nil
+      expect(cache[:foo, :bar]).to be_nil
     end
   end
 end

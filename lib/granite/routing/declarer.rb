@@ -1,6 +1,6 @@
 module Granite
   module Routing
-    module Declarer
+    module Declarer # :nodoc:
       class << self
         def declare(routing, route, **options)
           routing.match route.path,

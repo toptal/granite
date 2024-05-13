@@ -57,7 +57,7 @@ RSpec.describe Granite::Action::Projectors do
     specify { expect(SecondAction.projector_names).to match_array(%i[first third zero other overwritten_other]) }
   end
 
-  describe '.#{projector_name}' do
+  describe '#projector_name' do
     specify { expect(FirstAction.zero).to equal(FirstAction.zero) }
     specify { expect(FirstAction.new.zero.value).to eq(31) }
 
@@ -96,7 +96,7 @@ RSpec.describe Granite::Action::Projectors do
     specify { expect(SecondAction.third.action_class).to eq(SecondAction) }
   end
 
-  describe '##{projector_name}' do
+  describe '##projector_name' do
     specify { expect(FirstAction.new.first).to be_a FirstAction::FirstProjector }
     specify { expect(FirstAction.new.other).to be_a FirstAction::OtherProjector }
     specify { expect(FirstAction.new.overwritten_other).to be_a FirstAction::OverwrittenOtherProjector }

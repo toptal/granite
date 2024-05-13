@@ -1,7 +1,7 @@
 module Granite
   class Action
     module Preconditions
-      class BasePrecondition
+      class BasePrecondition # :nodoc:
         def initialize(*args, &block)
           @options = args.extract_options!
           @args = args

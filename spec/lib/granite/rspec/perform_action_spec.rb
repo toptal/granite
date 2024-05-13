@@ -1,4 +1,4 @@
-RSpec.describe 'perform_action' do
+RSpec.describe 'perform_action' do # rubocop:disable RSpec/DescribeClass
   let(:action) { DummyAction.new(user) }
   let(:other_action) { OtherAction.new }
   let(:user) { User.create! }
@@ -9,15 +9,13 @@ RSpec.describe 'perform_action' do
       allow_if { true }
       subject :user
 
-      def execute_perform!(*)
-      end
+      def execute_perform!(*); end
     end
 
     stub_class(:OtherAction, Granite::Action) do
       allow_if { true }
 
-      def execute_perform!(*)
-      end
+      def execute_perform!(*); end
     end
   end
 
@@ -52,7 +50,7 @@ RSpec.describe 'perform_action' do
   describe '#as' do
     it { expect { action.perform! }.to perform_action(DummyAction).as(nil) }
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect do
         expect { action.perform! }.to perform_action(DummyAction).as(user)
       end.to fail_with(<<~MESSAGE.strip)
@@ -69,26 +67,26 @@ RSpec.describe 'perform_action' do
 
     it { expect { action.perform! }.to perform_action(DummyAction).with(subject: kind_of(User)) }
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       expect do
         expect { action.perform! }.to perform_action(DummyAction).with(subject: other_user)
       end.to fail_with(<<~MESSAGE.strip)
         expected to call DummyAction#perform!
-            WITH #{{subject: other_user}.inspect}
+            WITH #{{ subject: other_user }.inspect}
         received calls to DummyAction#perform!:
-            WITH #{{subject: user}.inspect}
+            WITH #{{ subject: user }.inspect}
       MESSAGE
     end
 
-    it do
+    it do # rubocop:disable RSpec/ExampleLength
       kind_of_matcher = kind_of(String)
       expect do
         expect { action.perform! }.to perform_action(DummyAction).with(subject: kind_of_matcher)
       end.to fail_with(<<~MESSAGE.strip)
         expected to call DummyAction#perform!
-            WITH #{{subject: kind_of_matcher}.inspect}
+            WITH #{{ subject: kind_of_matcher }.inspect}
         received calls to DummyAction#perform!:
-            WITH #{{subject: user}.inspect}
+            WITH #{{ subject: user }.inspect}
       MESSAGE
     end
   end

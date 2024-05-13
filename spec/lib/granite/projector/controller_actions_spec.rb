@@ -2,19 +2,19 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
   prepend_before do
     stub_class(:projector, Granite::Projector) do
       get :confirm do
-        render json: {success: true, action: 'confirm'}
+        render json: { success: true, action: 'confirm' }
       end
 
       post :perform do
-        render json: {success: true, action: 'perform'}
+        render json: { success: true, action: 'perform' }
       end
 
       get :custom, as: '' do
-        render json: {success: true, action: 'custom'}
+        render json: { success: true, action: 'custom' }
       end
 
       post :custom_post, as: '' do
-        render json: {success: true, action: 'custom_post'}
+        render json: { success: true, action: 'custom_post' }
       end
     end
     stub_class(:descendant, Projector)
@@ -27,8 +27,8 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
 
   describe '.action' do
     before do
-      Projector.action(:first, method: 'post') {}
-      Descendant.action(:second, method: 'put') {}
+      Projector.action(:first, method: 'post') {} # rubocop:disable Lint/EmptyBlock
+      Descendant.action(:second, method: 'put') {} # rubocop:disable Lint/EmptyBlock
     end
 
     specify { expect(Projector.action(:first)).to eq(method: 'post') }
@@ -46,7 +46,7 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
 
   ActionDispatch::Routing::HTTP_METHODS.each do |method|
     describe ".#{method}" do
-      before { Projector.public_send(method, :first) {} }
+      before { Projector.public_send(method, :first) {} } # rubocop:disable Lint/EmptyBlock
 
       specify { expect(Projector.action(:first)).to eq(method: method) }
       specify { expect(Descendant.action('first')).to eq(method: method) }
@@ -62,7 +62,7 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
     context 'with custom name' do
       before do
         stub_class(:projector, Granite::Projector) do
-          get(:confirm, as: 'test') {}
+          get(:confirm, as: 'test') {} # rubocop:disable Lint/EmptyBlock
         end
       end
 
@@ -71,63 +71,57 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
     end
   end
 
-  describe 'routes' do
+  describe 'routes, with no subject' do
     projector { DummyAction.dummy }
 
-    context 'with no subject' do
-      draw_routes do
-        resources :students do
-          granite 'dummy_action#dummy', on: :collection
-        end
-      end
-
-      describe '##{action}_url' do
-        specify { expect(projector.confirm_url(foo: 'string')).to eq('http://test.host/students/dummy_action/confirm?foo=string') }
-        specify { expect(projector.perform_url(anchor: 'ok')).to eq('http://test.host/students/dummy_action/perform#ok') }
-
-        context 'with option keys provides as strings' do
-          specify { expect(projector.perform_url('anchor' => 'ok')).to eq('http://test.host/students/dummy_action/perform#ok') }
-        end
-      end
-
-      describe '##{action}_path' do
-        specify { expect(projector.confirm_path).to eq('/students/dummy_action/confirm') }
-        specify { expect(projector.perform_path(bar: 'string')).to eq('/students/dummy_action/perform?bar=string') }
-
-        context 'with option keys provides as strings' do
-          specify { expect(projector.perform_path('bar' => 'string')).to eq('/students/dummy_action/perform?bar=string') }
-        end
+    draw_routes do
+      resources :students do
+        granite 'dummy_action#dummy', on: :collection
       end
     end
 
-    context 'with subject' do
-      draw_routes do
-        resources :students do
-          granite 'dummy_action#dummy', on: :member
-        end
+    describe '##action_url' do
+      specify { expect(projector.confirm_url(foo: 'string')).to eq('http://test.host/students/dummy_action/confirm?foo=string') }
+      specify { expect(projector.perform_url(anchor: 'ok')).to eq('http://test.host/students/dummy_action/perform#ok') }
+      specify { expect(projector.perform_url('anchor' => 'ok')).to eq('http://test.host/students/dummy_action/perform#ok') }
+    end
+
+    describe '##action_path' do
+      specify { expect(projector.confirm_path).to eq('/students/dummy_action/confirm') }
+      specify { expect(projector.perform_path(bar: 'string')).to eq('/students/dummy_action/perform?bar=string') }
+
+      specify do
+        expect(projector.perform_path('bar' => 'string')).to eq('/students/dummy_action/perform?bar=string')
       end
+    end
+  end
 
-      before do
-        DummyAction.subject :role
-        controller.params[:role] = Role.new(id: 42)
+  describe 'routes, with subject' do
+    projector { DummyAction.dummy }
+
+    draw_routes do
+      resources :students do
+        granite 'dummy_action#dummy', on: :member
       end
+    end
 
-      describe '##{action}_url' do
-        specify { expect(projector.confirm_url(foo: 'string')).to eq('http://test.host/students/42/dummy_action/confirm?foo=string') }
-        specify { expect(projector.perform_url(anchor: 'ok')).to eq('http://test.host/students/42/dummy_action/perform#ok') }
+    before do
+      DummyAction.subject :role
+      controller.params[:role] = Role.new(id: 42)
+    end
 
-        context 'with option keys provides as strings' do
-          specify { expect(projector.perform_url('anchor' => 'ok')).to eq('http://test.host/students/42/dummy_action/perform#ok') }
-        end
-      end
+    describe '##action_url' do
+      specify { expect(projector.confirm_url(foo: 'string')).to eq('http://test.host/students/42/dummy_action/confirm?foo=string') }
+      specify { expect(projector.perform_url(anchor: 'ok')).to eq('http://test.host/students/42/dummy_action/perform#ok') }
+      specify { expect(projector.perform_url('anchor' => 'ok')).to eq('http://test.host/students/42/dummy_action/perform#ok') }
+    end
 
-      describe '##{action}_path' do
-        specify { expect(projector.confirm_path).to eq('/students/42/dummy_action/confirm') }
-        specify { expect(projector.perform_path(bar: 'string')).to eq('/students/42/dummy_action/perform?bar=string') }
+    describe '##action_path' do
+      specify { expect(projector.confirm_path).to eq('/students/42/dummy_action/confirm') }
+      specify { expect(projector.perform_path(bar: 'string')).to eq('/students/42/dummy_action/perform?bar=string') }
 
-        context 'with option keys provides as strings' do
-          specify { expect(projector.perform_path('bar' => 'string')).to eq('/students/42/dummy_action/perform?bar=string') }
-        end
+      specify do
+        expect(projector.perform_path('bar' => 'string')).to eq('/students/42/dummy_action/perform?bar=string')
       end
     end
   end
@@ -152,7 +146,7 @@ RSpec.describe Granite::Projector::ControllerActions, type: :granite_projector d
     end
 
     it 'passes extra params to the action' do
-      get :confirm, params: {name: 'Test Name'}
+      get :confirm, params: { name: 'Test Name' }
       expect(projector.action).to have_attributes(name: 'Test Name')
     end
   end

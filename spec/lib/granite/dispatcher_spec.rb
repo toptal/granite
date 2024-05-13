@@ -3,10 +3,10 @@ RSpec.describe Granite::Dispatcher do
 
   before do
     stub_class(:projector, Granite::Projector) do
-      get :confirm do
+      get :confirm do # rubocop:disable Lint/EmptyBlock
       end
 
-      post :perform, as: '' do
+      post :perform, as: '' do # rubocop:disable Lint/EmptyBlock
       end
     end
 
@@ -15,7 +15,7 @@ RSpec.describe Granite::Dispatcher do
     end
   end
 
-  let(:params) { {granite_action: 'action', granite_projector: 'dummy'} }
+  let(:params) { { granite_action: 'action', granite_projector: 'dummy' } }
 
   describe '#call' do
     specify { expect { dispatcher.call({}) }.to raise_error 'Dispatcher can\'t be used as a Rack app.' }
@@ -23,7 +23,10 @@ RSpec.describe Granite::Dispatcher do
 
   describe '#constraints' do
     subject { dispatcher.constraints.all? { |c| c.call(req) } }
-    let(:req) { instance_double(ActionDispatch::Request, env: env, params: params, request_method_symbol: request_method) }
+
+    let(:req) do
+      instance_double(ActionDispatch::Request, env: env, params: params, request_method_symbol: request_method)
+    end
     let(:env) { {} }
     let(:params) { super().merge(projector_action: 'confirm') }
     let(:request_method) { :get }
@@ -49,42 +52,46 @@ RSpec.describe Granite::Dispatcher do
         stub_class(:action_without_projectors, Granite::Action)
       end
 
-      let(:params) { {granite_action: 'action_without_projectors', granite_projector: 'dummy', projector_action: 'confirm'} }
+      let(:params) do
+        { granite_action: 'action_without_projectors', granite_projector: 'dummy', projector_action: 'confirm' }
+      end
 
       it { is_expected.to be(false) }
     end
   end
 
-  describe '#serve' do
+  describe '#serve' do # rubocop:disable RSpec/MultipleMemoizedHelpers
     let(:controller_class) { Action.dummy.controller_class }
     let(:controller_action) { object_spy(->(_env) {}) }
     let(:env) { {} }
     let(:params) { super().merge(projector_action: 'confirm') }
     let(:request_method) { :get }
-    let(:req) { instance_double(ActionDispatch::Request, env: env, params: params, request_method_symbol: request_method) }
+    let(:req) do
+      instance_double(ActionDispatch::Request, env: env, params: params, request_method_symbol: request_method)
+    end
 
     before do
       allow(controller_class).to receive(:action) { controller_action }
     end
 
     it 'finds the controller action by name in the specified projector' do
-      subject.serve(req)
+      dispatcher.serve(req)
 
       expect(controller_class).to have_received(:action).with(:confirm)
     end
 
     it 'calls the controller action by name in the specified business action' do
-      subject.serve(req)
+      dispatcher.serve(req)
 
       expect(controller_action).to have_received(:call).with(env)
     end
 
-    context 'when projector action is nil' do
+    context 'when projector action is nil' do # rubocop:disable RSpec/MultipleMemoizedHelpers
       let(:params) { super().except(:projector_action) }
       let(:request_method) { :post }
 
       it 'finds the controller action by name in the specified projector' do
-        subject.serve(req)
+        dispatcher.serve(req)
 
         expect(controller_class).to have_received(:action).with(:perform)
       end
@@ -100,20 +107,23 @@ RSpec.describe Granite::Dispatcher do
 
     context 'when projector does not exist' do
       let(:params) { super().merge(granite_projector: 'invalid') }
+
       it { is_expected.to be_nil }
     end
   end
 
   describe '#prepare_params!' do
     subject { dispatcher.prepare_params!(params) }
+
     let(:params) { double }
-    it('does nothing') { is_expected.to eq params }
+
+    it { is_expected.to eq params }
   end
 
   describe '#reset!' do
     it 'unmemoize all cached methods' do
-      expect(subject).to receive(:unmemoize_all)
-      subject.reset!
+      expect(dispatcher).to receive(:unmemoize_all) # rubocop:disable RSpec/SubjectStub
+      dispatcher.reset!
     end
   end
 end

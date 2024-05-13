@@ -1,6 +1,6 @@
 module Granite
   class Action
-    module ExceptionsHandling
+    module ExceptionsHandling # :nodoc:
       extend ActiveSupport::Concern
 
       included do
@@ -10,7 +10,7 @@ module Granite
         protected :_exception_handlers
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         # Register default handler for exceptions thrown inside execute_perform! and after_commit methods.
         # @param klass Exception class, could be parent class too [Class]
         # @param block [Block<Exception>] with default behavior for handling specified
@@ -28,11 +28,11 @@ module Granite
         _exception_handlers.keys
       end
 
-      def handle_exception(e)
-        klass = e.class.ancestors.detect do |ancestor|
+      def handle_exception(exception)
+        klass = exception.class.ancestors.detect do |ancestor|
           ancestor <= Exception && _exception_handlers[ancestor]
         end
-        instance_exec(e, &_exception_handlers[klass]) if klass
+        instance_exec(exception, &_exception_handlers[klass]) if klass
       end
     end
   end

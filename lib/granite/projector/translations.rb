@@ -1,6 +1,6 @@
 module Granite
   class Projector
-    module Translations
+    module Translations # :nodoc:
       include ActionView::Helpers::TranslationHelper
 
       def i18n_scopes

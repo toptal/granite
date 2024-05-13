@@ -10,7 +10,7 @@ RSpec.describe Granite::Action::Preconditions do
           decline_with(:wrong_author, author_name: author) if author && author != 'George Orwell'
         end
         # Just to check that validations are not run if preconditions are not satisfied
-        validates :title, inclusion: {in: ['Ruby']}
+        validates :title, inclusion: { in: ['Ruby'] }
       end
     end
 
@@ -20,13 +20,15 @@ RSpec.describe Granite::Action::Preconditions do
     end
 
     describe '#failed_preconditions' do
-      subject { action.failed_preconditions }
+      subject(:failed_preconditions) { action.failed_preconditions }
+
       let(:action) { Action.new(title: 'Delphi') }
+
       it { is_expected.to eq [] }
 
       specify do
         action.satisfy_preconditions?
-        expect(subject).to eq [:wrong_title]
+        expect(failed_preconditions).to eq [:wrong_title]
       end
     end
 
@@ -38,6 +40,7 @@ RSpec.describe Granite::Action::Preconditions do
     describe '#errors' do
       context 'with Delphi' do
         let(:action) { Action.new(title: 'Delphi') }
+
         specify do
           expect { action.valid? }.to change { action.errors.messages }
             .to(base: ['Wrong title'])
@@ -46,6 +49,7 @@ RSpec.describe Granite::Action::Preconditions do
 
       context 'with Rubyist' do
         let(:action) { Action.new(title: 'Rubyist') }
+
         specify do
           expect { action.valid? }.to change { action.errors.messages }
             .to(title: ['is not included in the list'])
@@ -54,8 +58,9 @@ RSpec.describe Granite::Action::Preconditions do
 
       context 'with Ruby' do
         let(:action) { Action.new(title: 'Ruby') }
+
         specify do
-          expect { action.valid? }.not_to change { action.errors.messages }
+          expect { action.valid? }.not_to(change { action.errors.messages })
         end
       end
 

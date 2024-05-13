@@ -5,7 +5,7 @@ require 'granite/projector/translations'
 require 'granite/context_proxy'
 
 module Granite
-  class Projector
+  class Projector # :nodoc:
     include ContextProxy
     include ControllerActions
     include Helpers

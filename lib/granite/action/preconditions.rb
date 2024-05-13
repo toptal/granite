@@ -13,7 +13,7 @@ module Granite
     module Preconditions
       extend ActiveSupport::Concern
 
-      class PreconditionsCollection
+      class PreconditionsCollection # :nodoc:
         include Enumerable
 
         delegate :each, to: :@preconditions
@@ -36,7 +36,7 @@ module Granite
         self._preconditions = PreconditionsCollection.new
       end
 
-      module ClassMethods
+      module ClassMethods # :nodoc:
         # Define preconditions for current action.
         #
         # @param options [Hash] hash with
@@ -61,7 +61,7 @@ module Granite
           key = key.to_s.camelize
           Granite.precondition_namespaces.reduce(nil) do |memo, ns|
             memo || "#{ns.to_s.camelize}::#{key}Precondition".safe_constantize
-          end || fail(NameError, "No precondition class for #{key}Precondition")
+          end || raise(NameError, "No precondition class for #{key}Precondition")
         end
 
         def add_preconditions_hash(*args, **options)

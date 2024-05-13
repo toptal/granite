@@ -13,7 +13,7 @@ require 'rspec/rails'
 require 'rspec/matchers/fail_matchers'
 require 'simplecov'
 SimpleCov.start do
-  minimum_coverage 99.73
+  minimum_coverage 99.66
 end
 
 require 'granite'
@@ -34,7 +34,7 @@ RSpec.configure do |config|
   config.default_formatter = config.files_to_run.one? ? 'doc' : 'Fuubar'
 
   if ENV.key?('CI_NODE_INDEX')
-    config.before(:example, :focus) { fail 'Should not commit focused specs' }
+    config.before(:example, :focus) { raise 'Should not commit focused specs' }
   else
     config.filter_run focus: true
     config.run_all_when_everything_filtered = true

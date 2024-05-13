@@ -3,7 +3,7 @@ require 'granite/action/preconditions/base_precondition'
 module Granite
   class Action
     module Preconditions
-      class ObjectPrecondition < BasePrecondition
+      class ObjectPrecondition < BasePrecondition # :nodoc:
         private
 
         def _execute(context)
