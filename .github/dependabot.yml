@@ -19,6 +19,7 @@ updates:
       - "no-jira"
       - "ruby"
       - "dependencies"
+      - "WIP"
     reviewers:
       - "toptal/devx"
     registries:
@@ -37,6 +38,7 @@ updates:
       - "no-jira"
       - "dependencies"
       - "gha"
+      - "WIP"
     reviewers:
       - "toptal/devx"
     open-pull-requests-limit: 2
