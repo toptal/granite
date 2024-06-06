@@ -38,7 +38,8 @@ module Granite
         attributes = attributes.to_unsafe_hash if attributes.respond_to?(:to_unsafe_hash)
         attributes = attributes.stringify_keys
         attributes = attributes.merge(attributes.delete(model_name.param_key)) if attributes.key?(model_name.param_key)
-        super(attributes)
+
+        super
       end
     end
 
