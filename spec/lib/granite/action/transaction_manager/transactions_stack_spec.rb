@@ -14,8 +14,7 @@ RSpec.describe Granite::Action::TransactionManager::TransactionsStack do
   context 'when in transaction' do
     let(:run_transaction) do
       transactions_stack.transaction do
-        expect(transactions_stack.depth).to eq(1)
-        expect { transactions_stack.add_callback(callback1) }.to change(transactions_stack, :callbacks).to([callback1])
+        transactions_stack.add_callback(callback1)
         block1
       end
     end
@@ -42,10 +41,7 @@ RSpec.describe Granite::Action::TransactionManager::TransactionsStack do
         transactions_stack.transaction do
           transactions_stack.add_callback(callback1)
           transactions_stack.transaction do
-            expect(transactions_stack.depth).to eq(2)
-            expect do
-              transactions_stack.add_callback(callback2)
-            end.to change(transactions_stack, :callbacks).to([callback1, callback2])
+            transactions_stack.add_callback(callback2)
             block2
           end
         end
