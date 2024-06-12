@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-rails', '~> 6.0'
   s.add_development_dependency 'rubocop', '~> 1.64.1'
   s.add_development_dependency 'rubocop-rails', '~> 2.25.0'
-  s.add_development_dependency 'rubocop-rspec', '~> 2.30.0'
+  s.add_development_dependency 'rubocop-rspec', '~> 3.0.1'
   s.add_development_dependency 'simplecov', '~> 0.15'
 
   s.metadata['rubygems_mfa_required'] = 'true'
