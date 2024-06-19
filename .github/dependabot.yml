@@ -24,6 +24,11 @@ updates:
       - toptal-github
     insecure-external-code-execution: allow
     open-pull-requests-limit: 10
+    ignore:
+      - dependency-name: '*'
+        update-types: [
+          'version-update:semver-patch'
+        ]
     groups:
       development-dependencies-group:
         dependency-type: development
