@@ -79,7 +79,7 @@ module Granite
       # @raise [Granite::Action::ValidationError] Action or associated objects are invalid
       # @raise [NotImplementedError] execute_perform! method was not defined yet
       def try_perform!(context: nil, **options)
-        return unless satisfy_preconditions?
+        return unless satisfy_preconditions?(cache_result: true)
 
         transaction do
           validate!(context)
