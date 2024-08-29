@@ -322,6 +322,37 @@ RSpec.describe Granite::Action::Performing do
   end
 
   describe '#try_perform!' do
+    context 'when checking preconditions run count' do
+      let(:action) { Action.new(user) }
+
+      before do
+        stub_class(:action, Granite::Action) do
+          subject :user, class_name: 'DummyUser'
+
+          allow_if { true }
+
+          attr_accessor :preconditions_run_count
+
+          precondition do
+            @preconditions_run_count ||= 0
+            @preconditions_run_count += 1
+          end
+
+          private
+
+          def execute_perform!(*)
+            false
+          end
+        end
+      end
+
+      it 'runs preconditions only once' do
+        action.try_perform!
+
+        expect(action.preconditions_run_count).to eq(1)
+      end
+    end
+
     context 'with login' do
       let(:action) { Action.new(user, login: 'Login') }
 

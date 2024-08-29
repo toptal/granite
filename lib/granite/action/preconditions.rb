@@ -85,16 +85,17 @@ module Granite
 
       def initialize(*)
         @failed_preconditions = []
+        @preconditions_run = nil
         super
       end
 
       # Check if all preconditions are satisfied
       #
       # @return [Boolean] wheter all preconditions are satisfied
-      def satisfy_preconditions?
+      def satisfy_preconditions?(cache_result: false)
         errors.clear
         failed_preconditions.clear
-        run_preconditions!
+        run_preconditions!(cache_result: cache_result)
       end
 
       # Adds passed error message and options to `errors` object
@@ -105,8 +106,9 @@ module Granite
 
       private
 
-      def run_preconditions!
-        _preconditions.execute! self
+      def run_preconditions!(cache_result: false)
+        _preconditions.execute!(self) if @preconditions_run.nil?
+        @preconditions_run = true if cache_result
         errors.empty?
       end
 

@@ -1,5 +1,9 @@
 ## Next
 
+## v0.17.3
+
+* Stopped preconditions from being executed twice on `#try_perform!`
+
 ## v0.17.2
 
 * Deprecate `Granite::Action#perform` in favor of using `Granite::Action#try_perform!`, as these 2 methods are basically identical. It will be removed in next major version. (https://github.com/toptal/granite/pull/117)
