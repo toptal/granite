@@ -10,6 +10,13 @@ AllCops:
     - '**/Rakefile'
   Exclude:
     - 'vendor/bundle/**/*'
+    - 'lib/granite/form/**/*'
+    - 'lib/granite/form.rb'
+    - 'spec/lib/granite/form/**/*'
+    - 'spec/lib/granite/form_spec.rb'
+    - 'spec/support/shared/**/*'
+    - 'spec/support/model_helpers.rb'
+    - 'spec/support/schema.rb'
     - 'log/**/*'
     - 'spec/fixtures/**/*'
   DisplayCopNames: true
