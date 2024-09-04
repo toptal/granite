@@ -54,7 +54,7 @@ RSpec.describe Granite::Form::Config do
       expect { subject.typecaster('Object', &:to_s) }
         .to change { subject.types['Object'] }.from(nil).to(an_instance_of(Class))
 
-      expect(subject.types['Object'].new(Object, nil, stub_model.new).typecast(1)).to eq('1')
+      expect(subject.types['Object'].new(Object, nil, stub_model_granite_form.new).typecast(1)).to eq('1')
     end
 
     specify do

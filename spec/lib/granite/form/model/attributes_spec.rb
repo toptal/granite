@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Attributes do
   let(:model) do
-    stub_model do
+    stub_model_granite_form do
       include Granite::Form::Model::Associations
 
       attribute :id, Integer
@@ -29,17 +29,17 @@ RSpec.describe Granite::Form::Model::Attributes do
   end
 
   describe '.attribute_names' do
-    specify { expect(stub_model.attribute_names).to eq([]) }
+    specify { expect(stub_model_granite_form.attribute_names).to eq([]) }
     specify { expect(model.attribute_names).to eq(%w[id full_name author projects]) }
     specify { expect(model.attribute_names(false)).to eq(%w[id full_name]) }
   end
 
   describe '.inspect' do
-    specify { expect(stub_model.inspect).to match(/#<Class:0x\w+>\(no attributes\)/) }
-    specify { expect(stub_model(:user).inspect).to eq('User(no attributes)') }
+    specify { expect(stub_model_granite_form.inspect).to match(/#<Class:0x\w+>\(no attributes\)/) }
+    specify { expect(stub_model_granite_form(:user).inspect).to eq('User(no attributes)') }
 
     specify do
-      expect(stub_model do
+      expect(stub_model_granite_form do
                include Granite::Form::Model::Primary
                primary :count, Integer
                attribute :object, Object
@@ -47,7 +47,7 @@ RSpec.describe Granite::Form::Model::Attributes do
     end
 
     specify do
-      expect(stub_model(:user) do
+      expect(stub_model_granite_form(:user) do
                include Granite::Form::Model::Primary
                primary :count, Integer
                attribute :object, Object
@@ -59,7 +59,7 @@ RSpec.describe Granite::Form::Model::Attributes do
     subject { model.new name: 'hello', count: 42 }
 
     let(:model) do
-      stub_model do
+      stub_model_granite_form do
         attribute :name, String
         attribute :count, Float, default: 0
       end
@@ -101,7 +101,7 @@ RSpec.describe Granite::Form::Model::Attributes do
   end
 
   describe '#attribute_names' do
-    specify { expect(stub_model.new.attribute_names).to eq([]) }
+    specify { expect(stub_model_granite_form.new.attribute_names).to eq([]) }
     specify { expect(model.new.attribute_names).to eq(%w[id full_name author projects]) }
     specify { expect(model.new.attribute_names(false)).to eq(%w[id full_name]) }
   end
@@ -113,7 +113,7 @@ RSpec.describe Granite::Form::Model::Attributes do
   end
 
   describe '#attributes' do
-    specify { expect(stub_model.new.attributes).to eq({}) }
+    specify { expect(stub_model_granite_form.new.attributes).to eq({}) }
 
     specify do
       expect(model.new(name: 'Name').attributes)
@@ -138,7 +138,7 @@ RSpec.describe Granite::Form::Model::Attributes do
       subject { model.new }
 
       let(:model) do
-        stub_model do
+        stub_model_granite_form do
           attr_reader :logger
 
           def self.log(a)
@@ -210,11 +210,11 @@ RSpec.describe Granite::Form::Model::Attributes do
 
   describe '#sync_attributes' do
     before do
-      stub_class :author, ActiveRecord::Base do
+      stub_class_granite_form :author, ActiveRecord::Base do
         alias_attribute :full_name, :name
       end
 
-      stub_model :model do
+      stub_model_granite_form :model do
         include Granite::Form::Model::Dirty
         include Granite::Form::Model::Representation
 
@@ -238,11 +238,11 @@ RSpec.describe Granite::Form::Model::Attributes do
   end
 
   describe '#inspect' do
-    specify { expect(stub_model.new.inspect).to match(/#<#<Class:0x\w+> \(no attributes\)>/) }
-    specify { expect(stub_model(:user).new.inspect).to match(/#<User \(no attributes\)>/) }
+    specify { expect(stub_model_granite_form.new.inspect).to match(/#<#<Class:0x\w+> \(no attributes\)>/) }
+    specify { expect(stub_model_granite_form(:user).new.inspect).to match(/#<User \(no attributes\)>/) }
 
     specify do
-      expect(stub_model do
+      expect(stub_model_granite_form do
                include Granite::Form::Model::Primary
                primary :count, Integer
                attribute :object, Object
@@ -250,7 +250,7 @@ RSpec.describe Granite::Form::Model::Attributes do
     end
 
     specify do
-      expect(stub_model(:user) do
+      expect(stub_model_granite_form(:user) do
                include Granite::Form::Model::Primary
                primary :count, Integer
                attribute :object, Object
@@ -262,7 +262,7 @@ RSpec.describe Granite::Form::Model::Attributes do
     subject { model.new('world') }
 
     let(:model) do
-      stub_class do
+      stub_class_granite_form do
         include Granite::Form::Util
         include Granite::Form::Model::Attributes
         include Granite::Form::Model::Associations

@@ -3,11 +3,11 @@ require 'spec_helper'
 RSpec.describe Granite::Form::Model::Representation do
   context 'integration' do
     before do
-      stub_model(:author) do
+      stub_model_granite_form(:author) do
         attribute :rate, Integer
       end
 
-      stub_model(:post) do
+      stub_model_granite_form(:post) do
         include Granite::Form::Model::Representation
 
         attribute :author, Object
@@ -62,9 +62,9 @@ RSpec.describe Granite::Form::Model::Representation do
 
     context 'when represents references_one association' do
       before do
-        stub_class(:author, ActiveRecord::Base)
+        stub_class_granite_form(:author, ActiveRecord::Base)
 
-        stub_model(:post) do
+        stub_model_granite_form(:post) do
           include Granite::Form::Model::Associations
           include Granite::Form::Model::Representation
 
@@ -83,12 +83,12 @@ RSpec.describe Granite::Form::Model::Representation do
 
     context 'multiple attributes in a single represents definition' do
       before do
-        stub_model(:author) do
+        stub_model_granite_form(:author) do
           attribute :first_name, String
           attribute :last_name, String
         end
 
-        stub_model(:post) do
+        stub_model_granite_form(:post) do
           include Granite::Form::Model::Representation
 
           attribute :author, Object
@@ -109,7 +109,7 @@ RSpec.describe Granite::Form::Model::Representation do
 
   describe '#validate' do
     before do
-      stub_class(:author, ActiveRecord::Base) do
+      stub_class_granite_form(:author, ActiveRecord::Base) do
         validates :name, presence: true
 
         # Emulate Active Record association auto save error.
@@ -120,7 +120,7 @@ RSpec.describe Granite::Form::Model::Representation do
         end
       end
 
-      stub_model(:post) do
+      stub_model_granite_form(:post) do
         include Granite::Form::Model::Associations
         include Granite::Form::Model::Representation
 

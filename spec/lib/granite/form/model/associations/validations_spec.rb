@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Associations::Validations do
   before do
-    stub_model(:project) do
+    stub_model_granite_form(:project) do
       include Granite::Form::Model::Associations
       include Granite::Form::Model::Associations::Validations
 
@@ -15,13 +15,13 @@ RSpec.describe Granite::Form::Model::Associations::Validations do
       end
     end
 
-    stub_model(:profile) do
+    stub_model_granite_form(:profile) do
       attribute :first_name, String
       attribute :last_name, String
       validates :first_name, presence: true
     end
 
-    stub_model(:user) do
+    stub_model_granite_form(:user) do
       include Granite::Form::Model::Associations
       include Granite::Form::Model::Associations::Validations
 

@@ -2,13 +2,13 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Associations::Reflections::EmbedsOne do
   before do
-    stub_model(:author) do
+    stub_model_granite_form(:author) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
       attribute :name, String
     end
 
-    stub_model(:book) do
+    stub_model_granite_form(:book) do
       include Granite::Form::Model::Associations
 
       attribute :title, String
@@ -22,7 +22,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::EmbedsOne do
 
   context ':read, :write' do
     before do
-      stub_model(:book) do
+      stub_model_granite_form(:book) do
         include Granite::Form::Model::Persistence
         include Granite::Form::Model::Associations
 
@@ -78,7 +78,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::EmbedsOne do
   context 'on the fly' do
     context do
       before do
-        stub_model(:book) do
+        stub_model_granite_form(:book) do
           include Granite::Form::Model::Associations
 
           attribute :title, String
@@ -96,7 +96,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::EmbedsOne do
 
     context do
       before do
-        stub_model(:book) do
+        stub_model_granite_form(:book) do
           include Granite::Form::Model::Associations
 
           attribute :title, String

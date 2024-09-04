@@ -2,15 +2,15 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Dirty do
   before do
-    stub_class(:author, ActiveRecord::Base) {}
-    stub_model :premodel do
+    stub_class_granite_form(:author, ActiveRecord::Base) {}
+    stub_model_granite_form :premodel do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
       attribute :age, Integer, default: 33
       alias_attribute :a, :age
     end
-    stub_model :model, Premodel do
+    stub_model_granite_form :model, Premodel do
       include Granite::Form::Model::Dirty
 
       references_one :author

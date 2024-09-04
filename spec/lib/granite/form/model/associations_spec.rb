@@ -3,21 +3,21 @@ require 'spec_helper'
 RSpec.describe Granite::Form::Model::Associations do
   context do
     before do
-      stub_model(:nobody) do
+      stub_model_granite_form(:nobody) do
         include Granite::Form::Model::Associations
       end
-      stub_model(:project) do
+      stub_model_granite_form(:project) do
         include Granite::Form::Model::Persistence
       end
-      stub_model(:user, Nobody) do
+      stub_model_granite_form(:user, Nobody) do
         include Granite::Form::Model::Associations
         embeds_many :projects
       end
-      stub_model(:manager, Nobody) do
+      stub_model_granite_form(:manager, Nobody) do
         include Granite::Form::Model::Associations
         embeds_one :managed_project, class_name: 'Project'
       end
-      stub_model(:admin, User) do
+      stub_model_granite_form(:admin, User) do
         include Granite::Form::Model::Associations
         embeds_many :admin_projects, class_name: 'Project'
 
@@ -52,7 +52,7 @@ RSpec.describe Granite::Form::Model::Associations do
   context 'class determine errors' do
     specify do
       expect do
-        stub_model do
+        stub_model_granite_form do
           include Granite::Form::Model::Associations
 
           embeds_one :author, class_name: 'Borogoves'
@@ -62,7 +62,7 @@ RSpec.describe Granite::Form::Model::Associations do
 
     specify do
       expect do
-        stub_model(:user) do
+        stub_model_granite_form(:user) do
           include Granite::Form::Model::Associations
 
           embeds_many :projects, class_name: 'Borogoves' do
@@ -75,7 +75,7 @@ RSpec.describe Granite::Form::Model::Associations do
 
   context do
     before do
-      stub_model(:project) do
+      stub_model_granite_form(:project) do
         include Granite::Form::Model::Persistence
         include Granite::Form::Model::Associations
 
@@ -90,7 +90,7 @@ RSpec.describe Granite::Form::Model::Associations do
         end
       end
 
-      stub_model(:profile) do
+      stub_model_granite_form(:profile) do
         include Granite::Form::Model::Persistence
 
         attribute :first_name, String
@@ -99,7 +99,7 @@ RSpec.describe Granite::Form::Model::Associations do
         validates :first_name, presence: true
       end
 
-      stub_model(:user) do
+      stub_model_granite_form(:user) do
         include Granite::Form::Model::Associations
 
         attribute :login, Object

@@ -11,12 +11,12 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Represents do
     end
 
     before do
-      stub_model(:author) do
+      stub_model_granite_form(:author) do
         attribute :name, String
         attribute :age, Integer
       end
 
-      stub_model(:target) do
+      stub_model_granite_form(:target) do
         attribute :author, Author
         alias_attribute :subject, :author
       end

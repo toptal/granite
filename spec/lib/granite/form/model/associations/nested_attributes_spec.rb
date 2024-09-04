@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Granite::Form::Model::Associations::NestedAttributes do
   context '' do
     before do
-      stub_model :user do
+      stub_model_granite_form :user do
         include Granite::Form::Model::Associations
 
         attribute :email, String

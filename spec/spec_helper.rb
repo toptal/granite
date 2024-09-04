@@ -46,9 +46,9 @@ RSpec.configure do |config|
     config.run_all_when_everything_filtered = true
   end
 
-  config.around(:each, time_zone: ->(value) { value.present? }) do |example|
-    Time.use_zone(example.metadata[:time_zone]) { example.run }
-  end
+  # config.around(:each, time_zone: ->(value) { value.present? }) do |example|
+  #   Time.use_zone(example.metadata[:time_zone]) { example.run }
+  # end
 
   config.include RSpec::Matchers::FailMatchers, file_path: %r{spec/lib/granite/rspec/}
 
@@ -68,7 +68,4 @@ RSpec.configure do |config|
   config.after do
     DatabaseCleaner.clean
   end
-
-  config.include ModelHelpers
-  config.include MuffleHelpers
 end

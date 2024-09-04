@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Scopes do
   let(:model) do
-    stub_model do
+    stub_model_granite_form do
       include Granite::Form::Model::Scopes
 
       attribute :name, String
@@ -24,7 +24,7 @@ RSpec.describe Granite::Form::Model::Scopes do
   end
 
   let(:hash_scoped_model) do
-    stub_model do
+    stub_model_granite_form do
       include Granite::Form::Model::Scopes
       scopify Hash
     end
@@ -70,7 +70,7 @@ RSpec.describe Granite::Form::Model::Scopes do
 
   context do
     let!(:ancestor) do
-      stub_model do
+      stub_model_granite_form do
         include Granite::Form::Model::Scopes
       end
     end

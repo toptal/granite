@@ -6,7 +6,7 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Dictionary do
   end
 
   describe '.build' do
-    before { stub_class(:target) }
+    before { stub_class_granite_form(:target) }
 
     specify do
       described_class.build(Class.new, Target, :field)
@@ -21,7 +21,7 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Dictionary do
   end
 
   describe '#generate_methods' do
-    before { stub_class(:target) }
+    before { stub_class_granite_form(:target) }
 
     specify do
       described_class.generate_methods(:field_alias, Target)

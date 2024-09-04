@@ -16,8 +16,8 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Represents::BuildT
   let(:owner) { Owner.new }
 
   before do
-    stub_model :author
-    stub_model(:owner) do
+    stub_model_granite_form :author
+    stub_model_granite_form(:owner) do
       def author
         @author ||= Author.new
       end
@@ -36,7 +36,7 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Represents::BuildT
 
   context 'when defined in represented attribute' do
     before do
-      stub_model(:real_author) do
+      stub_model_granite_form(:real_author) do
         attribute :name, Boolean
       end
       Author.class_eval do
@@ -54,7 +54,7 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Represents::BuildT
 
   context 'when defined in references_many' do
     before do
-      stub_class(:user, ActiveRecord::Base)
+      stub_class_granite_form(:user, ActiveRecord::Base)
       Author.class_eval do
         include Granite::Form::Model::Associations
         references_many :users
@@ -94,7 +94,7 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Represents::BuildT
 
   context 'when defined in ActiveRecord::Base' do
     before do
-      stub_class(:author, ActiveRecord::Base) do
+      stub_class_granite_form(:author, ActiveRecord::Base) do
         alias_attribute :full_name, :name
       end
     end

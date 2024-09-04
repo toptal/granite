@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Associations::EmbedsOne do
   before do
-    stub_model(:author) do
+    stub_model_granite_form(:author) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
@@ -10,7 +10,7 @@ RSpec.describe Granite::Form::Model::Associations::EmbedsOne do
       validates :name, presence: true
     end
 
-    stub_model(:book) do
+    stub_model_granite_form(:book) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
@@ -332,7 +332,7 @@ RSpec.describe Granite::Form::Model::Associations::EmbedsOne do
 
     context 'persisted owner' do
       specify do
-        expect { association.writer(stub_model(:dummy).new) }
+        expect { association.writer(stub_model_granite_form(:dummy).new) }
           .to raise_error Granite::Form::AssociationTypeMismatch
       end
 
@@ -352,7 +352,7 @@ RSpec.describe Granite::Form::Model::Associations::EmbedsOne do
       specify do
         expect do
           muffle(Granite::Form::AssociationTypeMismatch) do
-            existing_association.writer(stub_model(:dummy).new)
+            existing_association.writer(stub_model_granite_form(:dummy).new)
           end
         end
           .not_to(change { existing_association.reader })

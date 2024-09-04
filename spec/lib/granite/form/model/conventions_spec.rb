@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Conventions do
-  let(:model) { stub_model }
+  let(:model) { stub_model_granite_form }
 
   specify { expect([model].flatten).to eq([model]) }
   specify { expect(model.i18n_scope).to eq(:granite) }

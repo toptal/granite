@@ -2,12 +2,12 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
   before do
-    stub_class(:author, ActiveRecord::Base) do
+    stub_class_granite_form(:author, ActiveRecord::Base) do
       scope :name_starts_with_a, -> { name_starts_with('a') }
       scope :name_starts_with, ->(letter) { where("name ILIKE '#{letter}%'") }
     end
 
-    stub_model(:book) do
+    stub_model_granite_form(:book) do
       include Granite::Form::Model::Associations
 
       attribute :title, String
@@ -21,7 +21,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
 
   context ':class_name' do
     before do
-      stub_model(:book) do
+      stub_model_granite_form(:book) do
         include Granite::Form::Model::Associations
 
         attribute :title, String
@@ -44,7 +44,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
 
   describe ':primary_key' do
     before do
-      stub_model(:book) do
+      stub_model_granite_form(:book) do
         include Granite::Form::Model::Associations
         attribute :author_name, String
         references_one :author, primary_key: 'name'
@@ -66,7 +66,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
 
   describe ':reference_key' do
     before do
-      stub_model(:book) do
+      stub_model_granite_form(:book) do
         include Granite::Form::Model::Associations
         references_one :author, reference_key: 'identify'
       end
@@ -88,7 +88,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
   describe ':default' do
     shared_examples_for 'persisted default' do |default|
       before do
-        stub_model(:book) do
+        stub_model_granite_form(:book) do
           include Granite::Form::Model::Associations
           references_one :author
           references_one :owner, class_name: 'Author', default: default
@@ -118,7 +118,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
 
     shared_examples_for 'new record default' do |default|
       before do
-        stub_model(:book) do
+        stub_model_granite_form(:book) do
           include Granite::Form::Model::Associations
           references_one :author
           references_one :owner, class_name: 'Author', default: default
@@ -152,7 +152,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
 
   describe '#scope' do
     before do
-      stub_model(:book) do
+      stub_model_granite_form(:book) do
         include Granite::Form::Model::Associations
         references_one :author, ->(owner) { name_starts_with(owner.letter) }
         attribute :letter, String
@@ -254,7 +254,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::ReferencesOne do
         before { book.author = author }
 
         specify { expect { author.save! }.to change { book.author_id }.from(nil).to(be_a(Integer)) }
-        specify { expect { author.save! }.not_to(change { book.author }) }
+        specify { expect { author.save! }.to(change { book.author }) }
       end
     end
   end

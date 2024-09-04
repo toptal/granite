@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Granite::Form::Model::Primary do
   context 'undefined' do
     let(:model) do
-      stub_model do
+      stub_model_granite_form do
         include Granite::Form::Model::Primary
 
         attribute :name, String
@@ -26,7 +26,7 @@ RSpec.describe Granite::Form::Model::Primary do
 
   context 'defined' do
     let(:model) do
-      stub_model do
+      stub_model_granite_form do
         include Granite::Form::Model::Primary
 
         primary_attribute
@@ -52,7 +52,7 @@ RSpec.describe Granite::Form::Model::Primary do
 
   context 'defined' do
     let(:model) do
-      stub_model do
+      stub_model_granite_form do
         include Granite::Form::Model::Primary
 
         primary_attribute type: Integer

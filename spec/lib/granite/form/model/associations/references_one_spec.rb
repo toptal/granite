@@ -2,11 +2,11 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Associations::ReferencesOne do
   before do
-    stub_class(:author, ActiveRecord::Base) do
+    stub_class_granite_form(:author, ActiveRecord::Base) do
       validates :name, presence: true
     end
 
-    stub_model(:book) do
+    stub_model_granite_form(:book) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
@@ -119,7 +119,7 @@ RSpec.describe Granite::Form::Model::Associations::ReferencesOne do
       let(:new_author) { Author.create!(name: 'Morty') }
 
       specify do
-        expect { association.writer(stub_model(:dummy).new) }
+        expect { association.writer(stub_model_granite_form(:dummy).new) }
           .to raise_error Granite::Form::AssociationTypeMismatch
       end
 
@@ -143,7 +143,7 @@ RSpec.describe Granite::Form::Model::Associations::ReferencesOne do
 
       context do
         before do
-          stub_class(:dummy, ActiveRecord::Base) do
+          stub_class_granite_form(:dummy, ActiveRecord::Base) do
             self.table_name = :authors
           end
         end

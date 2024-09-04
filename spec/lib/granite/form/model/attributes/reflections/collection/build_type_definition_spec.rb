@@ -14,8 +14,8 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Collection::BuildT
   end
 
   before do
-    stub_class :owner
-    stub_class(:dummy, String)
+    stub_class_granite_form :owner
+    stub_class_granite_form(:dummy, String)
   end
 
   let(:owner) { Owner.new }

@@ -9,7 +9,7 @@ RSpec.describe Granite::Form::Types::HasSubtype do
   let(:reflection) { Granite::Form::Model::Attributes::Reflections::Base.new(:field) }
   let(:dummy_object) { Dummy.new }
 
-  before { stub_class :dummy }
+  before { stub_class_granite_form :dummy }
 
   describe '#build_duplicate' do
     subject { type.build_duplicate(new_reflection, new_model) }

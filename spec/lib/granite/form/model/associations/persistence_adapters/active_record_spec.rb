@@ -4,7 +4,7 @@ RSpec.describe Granite::Form::Model::Associations::PersistenceAdapters::ActiveRe
   subject(:adapter) { described_class.new(Author, primary_key, scope_proc) }
 
   before do
-    stub_class(:author, ActiveRecord::Base)
+    stub_class_granite_form(:author, ActiveRecord::Base)
   end
 
   let(:primary_key) { :id }

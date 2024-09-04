@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Validations::NestedValidator do
   before do
-    stub_model(:validated_assoc) do
+    stub_model_granite_form(:validated_assoc) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Primary
 
@@ -12,13 +12,13 @@ RSpec.describe Granite::Form::Model::Validations::NestedValidator do
       validates_presence_of :name
     end
 
-    stub_model(:unvalidated_assoc) do
+    stub_model_granite_form(:unvalidated_assoc) do
       include Granite::Form::Model::Persistence
 
       attribute :name, String
     end
 
-    stub_model(:main) do
+    stub_model_granite_form(:main) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
@@ -128,12 +128,12 @@ RSpec.describe Granite::Form::Model::Validations::NestedValidator do
     subject(:instance) { Main.instantiate name: 'hello', object: object }
 
     before do
-      stub_model(:validated_object) do
+      stub_model_granite_form(:validated_object) do
         attribute :title, String
         validates_presence_of :title
       end
 
-      stub_model(:main) do
+      stub_model_granite_form(:main) do
         include Granite::Form::Model::Persistence
 
         attribute :object, Object
@@ -158,7 +158,7 @@ RSpec.describe Granite::Form::Model::Validations::NestedValidator do
 
       context 'nested validation runs twice' do
         before do
-          stub_model(:main) do
+          stub_model_granite_form(:main) do
             include Granite::Form::Model::Persistence
 
             attribute :object, Object
@@ -174,7 +174,7 @@ RSpec.describe Granite::Form::Model::Validations::NestedValidator do
 
         context 'nested object validation has condition' do
           before do
-            stub_model(:validated_object) do
+            stub_model_granite_form(:validated_object) do
               attribute :title, String
               validates_presence_of :title, if: -> { true }
             end
@@ -188,7 +188,7 @@ RSpec.describe Granite::Form::Model::Validations::NestedValidator do
 
         context 'nested object validation has message' do
           before do
-            stub_model(:validated_object) do
+            stub_model_granite_form(:validated_object) do
               attribute :title, String
               validates_presence_of :title, message: 'test'
             end

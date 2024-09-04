@@ -3,7 +3,7 @@ require 'spec_helper'
 RSpec.describe Granite::Form::Model::Attributes::Base do
   let(:model) { Dummy.new }
 
-  before { stub_model(:dummy) }
+  before { stub_model_granite_form(:dummy) }
 
   def attribute(*args)
     options = args.extract_options!

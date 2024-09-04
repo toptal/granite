@@ -6,7 +6,7 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Base do
   end
 
   describe '.build' do
-    before { stub_class(:target) }
+    before { stub_class_granite_form(:target) }
 
     specify do
       described_class.build(Class.new, Target, :field)
@@ -18,8 +18,8 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Base do
 
   describe '.attribute_class' do
     before do
-      stub_class('SomeScope::Borogoves', described_class)
-      stub_class('Granite::Form::Model::Attributes::Borogoves')
+      stub_class_granite_form('SomeScope::Borogoves', described_class)
+      stub_class_granite_form('Granite::Form::Model::Attributes::Borogoves')
     end
 
     specify { expect(described_class.attribute_class).to eq(Granite::Form::Model::Attributes::Base) }
@@ -34,9 +34,9 @@ RSpec.describe Granite::Form::Model::Attributes::Reflections::Base do
     subject { reflection.build_attribute(owner, nil) }
 
     before do
-      stub_class('SomeScope::Borogoves', described_class)
-      stub_class('Granite::Form::Model::Attributes::Borogoves', Granite::Form::Model::Attributes::Base)
-      stub_class(:owner)
+      stub_class_granite_form('SomeScope::Borogoves', described_class)
+      stub_class_granite_form('Granite::Form::Model::Attributes::Borogoves', Granite::Form::Model::Attributes::Base)
+      stub_class_granite_form(:owner)
     end
 
     let(:reflection) { SomeScope::Borogoves.new(:field, type: Object) }

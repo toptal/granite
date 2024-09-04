@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::ActiveRecord::Associations do
   before do
-    stub_model(:project) do
+    stub_model_granite_form(:project) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
@@ -17,7 +17,7 @@ RSpec.describe Granite::Form::ActiveRecord::Associations do
       end
     end
 
-    stub_model(:profile) do
+    stub_model_granite_form(:profile) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 
@@ -26,7 +26,7 @@ RSpec.describe Granite::Form::ActiveRecord::Associations do
       attribute :admin, Boolean
     end
 
-    stub_class(:user, ActiveRecord::Base) do
+    stub_class_granite_form(:user, ActiveRecord::Base) do
       embeds_many :projects
       embeds_one :profile
 
@@ -176,7 +176,7 @@ RSpec.describe Granite::Form::ActiveRecord::Associations do
   context 'class determine errors' do
     specify do
       expect do
-        stub_class(:book, ActiveRecord::Base) do
+        stub_class_granite_form(:book, ActiveRecord::Base) do
           embeds_one :author, class_name: 'Borogoves'
         end.reflect_on_association(:author).klass
       end.to raise_error NameError
@@ -184,7 +184,7 @@ RSpec.describe Granite::Form::ActiveRecord::Associations do
 
     specify do
       expect do
-        stub_class(:user, ActiveRecord::Base) do
+        stub_class_granite_form(:user, ActiveRecord::Base) do
           embeds_many :projects, class_name: 'Borogoves' do
             attribute :title
           end
@@ -195,7 +195,7 @@ RSpec.describe Granite::Form::ActiveRecord::Associations do
 
   context 'on the fly' do
     before do
-      stub_class(:user, ActiveRecord::Base) do
+      stub_class_granite_form(:user, ActiveRecord::Base) do
         embeds_many :projects do
           attribute :title, String
         end

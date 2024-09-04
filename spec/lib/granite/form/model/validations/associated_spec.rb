@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Validations::AssociatedValidator do
   before do
-    stub_model(:validated_assoc) do
+    stub_model_granite_form(:validated_assoc) do
       include Granite::Form::Model::Persistence
 
       attribute :name, String
@@ -10,13 +10,13 @@ RSpec.describe Granite::Form::Model::Validations::AssociatedValidator do
       validates_presence_of :name
     end
 
-    stub_model(:unvalidated_assoc) do
+    stub_model_granite_form(:unvalidated_assoc) do
       include Granite::Form::Model::Persistence
 
       attribute :name, String
     end
 
-    stub_model(:main) do
+    stub_model_granite_form(:main) do
       include Granite::Form::Model::Persistence
       include Granite::Form::Model::Associations
 

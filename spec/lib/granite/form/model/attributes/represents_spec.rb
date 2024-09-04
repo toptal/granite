@@ -2,8 +2,8 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Attributes::Represents do
   before do
-    stub_model :author
-    stub_model(:model) do
+    stub_model_granite_form :author
+    stub_model_granite_form(:model) do
       def author
         @author ||= Author.new
       end

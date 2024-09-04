@@ -8,7 +8,7 @@ RSpec.describe Granite::Form::Types::Collection do
   let(:reflection) { Granite::Form::Model::Attributes::Reflections::Base.new(:field) }
   let(:dummy_object) { Dummy.new }
 
-  before { stub_class :dummy }
+  before { stub_class_granite_form :dummy }
 
   describe '#prepare' do
     specify { expect(subject.prepare([dummy_object, Object.new])).to eq([dummy_object, nil]) }

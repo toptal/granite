@@ -4,7 +4,7 @@ RSpec.describe Granite::Form::Util do
   subject(:dummy) { Dummy.new('John') }
 
   before do
-    stub_class(:dummy, Object) do
+    stub_class_granite_form(:dummy, Object) do
       attr_accessor :name
 
       def initialize(name)

@@ -9,7 +9,7 @@ RSpec.describe Granite::Form::Types::Object do
   let(:reflection) { build_reflection }
 
   before do
-    stub_model :model
+    stub_model_granite_form :model
   end
 
   def build_reflection(name: :field, **options)
@@ -34,7 +34,7 @@ RSpec.describe Granite::Form::Types::Object do
   end
 
   describe 'typecasting' do
-    before { stub_class(:descendant) }
+    before { stub_class_granite_form(:descendant) }
 
     context 'with Object type' do
       include_context 'type setup', 'Object'
@@ -49,7 +49,7 @@ RSpec.describe Granite::Form::Types::Object do
     context 'with Descendant type' do
       include_context 'type setup', 'Descendant'
 
-      before { stub_class(:descendant2, Descendant) }
+      before { stub_class_granite_form(:descendant2, Descendant) }
 
       specify { expect(typecast('hello')).to be_nil }
       specify { expect(typecast([])).to be_nil }

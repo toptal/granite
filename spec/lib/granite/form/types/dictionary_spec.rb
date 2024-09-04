@@ -15,7 +15,7 @@ RSpec.describe Granite::Form::Types::Dictionary do
     Granite::Form::Model::Attributes::Reflections::Dictionary.new(:field, options)
   end
 
-  before { stub_class :dummy }
+  before { stub_class_granite_form :dummy }
 
   describe '#prepare' do
     specify { expect(subject.prepare(one: dummy, two: Object.new)).to eq('one' => dummy, 'two' => nil) }

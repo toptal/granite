@@ -4,7 +4,7 @@ RSpec.describe Granite::Form::Model::Validations do
   let!(:add_validations) { model.validates :name, presence: true }
 
   let(:model) do
-    stub_model(:model) do
+    stub_model_granite_form(:model) do
       attribute :name, String
     end
   end

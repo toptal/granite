@@ -2,7 +2,7 @@ require 'spec_helper'
 
 shared_examples 'nested attributes' do
   before do
-    stub_model :project do
+    stub_model_granite_form :project do
       include Granite::Form::Model::Primary
       include Granite::Form::Model::Associations
 
@@ -10,7 +10,7 @@ shared_examples 'nested attributes' do
       attribute :title, String
     end
 
-    stub_model :profile do
+    stub_model_granite_form :profile do
       include Granite::Form::Model::Primary
       include Granite::Form::Model::Associations
 
@@ -118,7 +118,7 @@ shared_examples 'nested attributes' do
 
     context 'not primary' do
       before do
-        stub_model :profile do
+        stub_model_granite_form :profile do
           attribute :identifier, Integer
           attribute :first_name, String
         end
@@ -340,7 +340,7 @@ shared_examples 'nested attributes' do
 
     context 'primary absence causes exception' do
       before do
-        stub_model :project do
+        stub_model_granite_form :project do
           include Granite::Form::Model::Primary
 
           attribute :slug, String

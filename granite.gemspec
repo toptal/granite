@@ -14,12 +14,12 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'actionpack', '>= 6.0', '< 7.2'
   s.add_dependency 'activemodel', '>= 6.0', '< 7.2'
+  s.add_dependency 'activerecord'
   s.add_dependency 'activesupport', '>= 6.0', '< 7.2'
   s.add_dependency 'memoist', '~> 0.16'
   s.add_dependency 'ruby2_keywords', '~> 0.0.5'
   s.add_dependency 'tzinfo'
 
-  s.add_development_dependency 'activerecord'
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'bump'
   s.add_development_dependency 'database_cleaner'

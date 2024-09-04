@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Granite::Form::Model do
-  let(:model) { stub_model }
+  let(:model) { stub_model_granite_form }
 
   specify { expect { model.blablabla }.to raise_error NoMethodError }
 

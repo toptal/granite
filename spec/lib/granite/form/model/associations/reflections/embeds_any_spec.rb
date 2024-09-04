@@ -6,10 +6,10 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::EmbedsAny do
     subject { described_class.build(User, User, :projects) {}.klass.new }
 
     before do
-      stub_model(:project) do
+      stub_model_granite_form(:project) do
         attribute :title, String
       end
-      stub_model(:user) do
+      stub_model_granite_form(:user) do
         include Granite::Form::Model::Associations
 
         attribute :name, String
@@ -28,7 +28,7 @@ RSpec.describe Granite::Form::Model::Associations::Reflections::EmbedsAny do
 
         allow(Granite::Form).to receive(:base_concern).and_return(MyModule)
 
-        stub_model(:user) do
+        stub_model_granite_form(:user) do
           include Granite::Form::Model::Associations
 
           embeds_many :projects

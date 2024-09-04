@@ -5,3 +5,5 @@ module MuffleHelpers
     nil
   end
 end
+
+RSpec.configuration.include MuffleHelpers

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Granite::Form::Model::Persistence do
   let(:model) do
-    stub_model do
+    stub_model_granite_form do
       include Granite::Form::Model::Persistence
 
       attribute :name
