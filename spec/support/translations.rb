@@ -18,4 +18,8 @@ I18n.backend.store_translations(:en, YAML.safe_load(<<-YAML))
         key: 'dummy action dummy projector key'
         result:
           key: 'dummy action dummy projector result key'
+  activerecord:
+    errors:
+      messages:
+        invalid_name: "must be Author"
 YAML

@@ -12,16 +12,22 @@ require 'rspec/its'
 require 'rspec/rails'
 require 'rspec/matchers/fail_matchers'
 require 'simplecov'
+require 'active_record'
+require 'rack/test'
+require 'action_controller/metal/strong_parameters'
+require 'granite'
+require 'granite/rspec'
+require 'database_cleaner'
+
 SimpleCov.start do
   minimum_coverage 99.66
 end
 
-require 'granite'
 Granite.tap do |config|
   config.base_controller = 'ApplicationController'
 end
 
-require 'granite/rspec'
+Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
 
 RSpec.configure do |config|
   config.fail_if_no_examples = true
@@ -49,6 +55,20 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.max_formatted_output_length = nil
   end
-end
 
-Dir['./spec/support/**/*.rb'].sort.each { |f| require f }
+  config.before(:suite) do
+    DatabaseCleaner.clean_with :truncation
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
+  end
+
+  config.include ModelHelpers
+  config.include MuffleHelpers
+end

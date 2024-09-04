@@ -12,15 +12,17 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
   s.required_ruby_version = '>= 2.6'
 
-  s.add_runtime_dependency 'actionpack', '>= 6.0', '< 7.2'
-  s.add_runtime_dependency 'activesupport', '>= 6.0', '< 7.2'
-  s.add_runtime_dependency 'granite-form', '>= 0.3.0'
-  s.add_runtime_dependency 'memoist', '~> 0.16'
-  s.add_runtime_dependency 'ruby2_keywords', '~> 0.0.5'
+  s.add_dependency 'actionpack', '>= 6.0', '< 7.2'
+  s.add_dependency 'activemodel', '>= 6.0', '< 7.2'
+  s.add_dependency 'activesupport', '>= 6.0', '< 7.2'
+  s.add_dependency 'memoist', '~> 0.16'
+  s.add_dependency 'ruby2_keywords', '~> 0.0.5'
+  s.add_dependency 'tzinfo'
 
   s.add_development_dependency 'activerecord'
   s.add_development_dependency 'appraisal'
   s.add_development_dependency 'bump'
+  s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'fuubar', '~> 2.0'
   s.add_development_dependency 'pg', '< 2'
   s.add_development_dependency 'pry-byebug'
@@ -35,6 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop-rspec', '~> 3.0.1'
   s.add_development_dependency 'rubocop-rspec_rails', '~> 2.30'
   s.add_development_dependency 'simplecov', '~> 0.15'
+  s.add_development_dependency 'uuidtools'
 
   s.metadata['rubygems_mfa_required'] = 'true'
 end
