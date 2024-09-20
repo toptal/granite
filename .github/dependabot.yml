@@ -18,6 +18,7 @@ updates:
       - "ruby"
       - "dependencies"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     registries:
@@ -57,6 +58,7 @@ updates:
       - "dependencies"
       - "gha"
       - "WIP"
+      - "DevX"
     reviewers:
       - "toptal/devx"
     open-pull-requests-limit: 10
