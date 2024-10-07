@@ -36,14 +36,11 @@ module Granite
       # database transaction. Returns the result of execute_perform! method execution
       # or true if method execution returned false or nil
       #
-      # @deprecated Use {#perform!} or {#try_perform!} instead
       # @param context [Symbol] can be optionally provided to define which
       #   validations to test against (the context is defined on validations
       #   using `:on`)
       # @return [Object] result of execute_perform! method execution or false in case of errors
       def perform(context: nil, **options)
-        Granite.deprecator.warn('Granite::Action#perform is deprecated, use #perform! or #try_perform! instead')
-
         transaction do
           raise Rollback unless valid?(context)
 

@@ -1,5 +1,9 @@
 ## Next
 
+## v0.17.4
+
+* Undeprecate the `Granite::Action#perform` method.
+
 ## v0.17.3
 
 * Stopped preconditions from being executed twice on `#try_perform!`
