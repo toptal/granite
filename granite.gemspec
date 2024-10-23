@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.6'
 
   s.add_runtime_dependency 'actionpack', '>= 6.0', '< 7.2'
-  s.add_runtime_dependency 'activesupport', '>= 6.0', '< 7.2'
+  s.add_runtime_dependency 'activesupport', '>= 6.0', '< 7.3'
   s.add_runtime_dependency 'granite-form', '>= 0.3.0'
   s.add_runtime_dependency 'memoist', '~> 0.16'
   s.add_runtime_dependency 'ruby2_keywords', '~> 0.0.5'
