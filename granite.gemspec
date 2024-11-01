@@ -30,9 +30,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-its', '~> 1.2 '
   s.add_development_dependency 'rspec_junit_formatter', '~> 0.2'
   s.add_development_dependency 'rspec-rails', '~> 6.0'
-  s.add_development_dependency 'rubocop', '~> 1.65.1'
-  s.add_development_dependency 'rubocop-rails', '~> 2.25.0'
-  s.add_development_dependency 'rubocop-rspec', '~> 3.0.1'
+  s.add_development_dependency 'rubocop', '~> 1.68.0'
+  s.add_development_dependency 'rubocop-rails', '~> 2.27.0'
+  s.add_development_dependency 'rubocop-rspec', '~> 3.2.0'
   s.add_development_dependency 'rubocop-rspec_rails', '~> 2.30'
   s.add_development_dependency 'simplecov', '~> 0.15'
 
