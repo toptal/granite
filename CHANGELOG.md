@@ -1,5 +1,9 @@
 ## Next
 
+## v0.17.5
+
+* Support for Rails 7.2 and 8.0 by @galathius and @dependabot in https://github.com/toptal/granite/pull/144
+
 ## v0.17.4
 
 * Undeprecate the `Granite::Action#perform` method.
