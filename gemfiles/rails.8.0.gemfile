@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "granite-form", git: "https://github.com/toptal/granite-form.git"
+gem "granite-form", '~> 0.6.1'
 gem "actionpack", "~> 8.0.0"
 gem "activesupport", "~> 8.0.0"
 gem "activerecord", "~> 8.0.0"
