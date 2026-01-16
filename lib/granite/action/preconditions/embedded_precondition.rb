@@ -34,8 +34,8 @@ module Granite
         def decline_action(context, action)
           return if action.satisfy_preconditions?
 
-          action.errors[:base].each { |error| context.errors.add(:base, error) }
-          action.failed_preconditions.each { |error| context.failed_preconditions << error }
+          action.errors.where(:base).each { context.errors.import(_1) }
+          action.failed_preconditions.each { context.failed_preconditions << _1 }
         end
       end
     end
