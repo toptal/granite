@@ -1,0 +1,1785 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../testing/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Tutorial - Granite Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#application-example" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Granite Manual" class="md-header__button md-logo" aria-label="Granite Manual" data-md-component="logo">
+      
+  <img src="../img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Granite Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tutorial
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/toptal/granite" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Granite Manual" class="md-nav__button md-logo" aria-label="Granite Manual" data-md-component="logo">
+      
+  <img src="../img/logo.png" alt="logo">
+
+    </a>
+    Granite Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/toptal/granite" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../projectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#book-library-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book library requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Book library requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rental-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The rental system
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-books-wishlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The books wishlist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New project setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New project setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a new project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-devise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Devise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-granite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Granite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#books-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Books domain
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Books domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bookcreate-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book::Create action
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Book::Create action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perform
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookrent-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book::Rent action
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Book::Rent action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookreturn-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book::Return action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i18n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I18n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-view-context-for-granite-projector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup view context for Granite projector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inline-projector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inline projector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inline projector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projector-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projector Helpers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wishlist-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist domain
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wishlist domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wishlistadd-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist::Add action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wishlistremove-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist::Remove action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wishlistnotifyavailability-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist::NotifyAvailability action
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#book-library-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book library requirements
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Book library requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-rental-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The rental system
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-books-wishlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The books wishlist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#new-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        New project setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New project setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generating a new project
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-devise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Devise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-granite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup Granite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#books-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Books domain
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Books domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bookcreate-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book::Create action
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Book::Create action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perform
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookrent-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book::Rent action
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Book::Rent action">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bookreturn-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Book::Return action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i18n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I18n
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application layer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-view-context-for-granite-projector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setup view context for Granite projector
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inline-projector" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inline projector
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Inline projector">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projector-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projector Helpers
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wishlist-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist domain
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Wishlist domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wishlistadd-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist::Add action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wishlistremove-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist::Remove action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wishlistnotifyavailability-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wishlist::NotifyAvailability action
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="application-example">Application example<a class="headerlink" href="#application-example" title="Permanent link">&para;</a></h1>
+<p>The business we will be discussing is simple. We plan to establish a book library where registered users can create new books and rent them.</p>
+<h2 id="book-library-requirements">Book library requirements<a class="headerlink" href="#book-library-requirements" title="Permanent link">&para;</a></h2>
+<p>We need a basic book tracking system in which every book is identified by a title. The following rules will apply:</p>
+<ul>
+<li>The book list will be publicly accessible to everyone.</li>
+<li><em>Only</em> users who are logged in will be allowed to modify the book list.</li>
+<li>Logged-in users will have the ability to <em>edit</em> or <em>delete</em> a book.</li>
+</ul>
+<h3 id="the-rental-system">The rental system<a class="headerlink" href="#the-rental-system" title="Permanent link">&para;</a></h3>
+<p>Logged-in users will have the ability to manage <strong>books</strong>, taking into account the following:</p>
+<ul>
+<li>Users should be able to <em>rent any available</em> book.</li>
+<li><em>Only logged-in users</em> will be able to rent books.</li>
+<li>A book will be marked as <em>unavailable</em> while it is rented out to someone.</li>
+<li>After a book is returned, it will be marked as <em>available</em> once again.</li>
+</ul>
+<h3 id="the-books-wishlist">The books wishlist<a class="headerlink" href="#the-books-wishlist" title="Permanent link">&para;</a></h3>
+<p>Logged-in users will have the ability to manage their <strong>wishlist</strong>, taking into account the following:</p>
+<ul>
+<li>Users should be able to add books to their wishlist if the book is currently <em>unavailable</em> and they <em>have not yet read</em> it.</li>
+<li>If a user <em>has already read</em> a book, adding it to their wishlist would not be practical.</li>
+<li>Once a book on a user's wishlist becomes available, the system <em>should notify</em> them.</li>
+<li>When the book is rented by someone that has the book on the wishlist, it <em>should be removed after return</em>.</li>
+</ul>
+<p>The application domain is straightforward, and we will be building this small logic case step by step to demonstrate how Granite can simplify and streamline certain aspects of your application.</p>
+<h2 id="new-project-setup">New project setup<a class="headerlink" href="#new-project-setup" title="Permanent link">&para;</a></h2>
+<p>We are working here with Rails 5.1, however, Granite currently supports Rails versions up to <code>7.x.x</code>. You can find an example of this application following the link: https://github.com/toptal/example_granite_application</p>
+<h3 id="generating-a-new-project">Generating a new project<a class="headerlink" href="#generating-a-new-project" title="Permanent link">&para;</a></h3>
+<p>This tutorial is using Rails version <code>5.1.4</code>, and the first step is to install it:</p>
+<div class="highlight"><pre><span></span><code>gem<span class="w"> </span>install<span class="w"> </span>rails<span class="w"> </span>-v<span class="o">=</span><span class="m">5</span>.1.4
+</code></pre></div>
+<p>Now, with the proper Rails version, let's start a new project:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>new<span class="w"> </span>library
+<span class="nb">cd</span><span class="w"> </span>library
+</code></pre></div>
+<p>Let's start setting up the database for development:
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>db:setup
+</code></pre></div></p>
+<h3 id="setup-devise">Setup Devise<a class="headerlink" href="#setup-devise" title="Permanent link">&para;</a></h3>
+<p>Let's add devise to control users access and have a simple control over logged
+users. Adding it to <code>Gemfile</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">gem</span><span class="w"> </span><span class="s1">&#39;devise&#39;</span>
+</code></pre></div>
+<p>Run <code>bundle install</code> and then generate the default devise resources.</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>generate<span class="w"> </span>devise:install
+</code></pre></div>
+<p>And then, let's create a simple devise model to interact with:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>generate<span class="w"> </span>devise<span class="w"> </span>user
+</code></pre></div>
+<p>And migrate again:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>db:migrate
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If you get in any trouble in this section, please check the updated
+documentation on the official <a href="https://github.com/plataformatec/devise">website</a>.</p>
+</div>
+<h3 id="setup-granite">Setup Granite<a class="headerlink" href="#setup-granite" title="Permanent link">&para;</a></h3>
+<p>Add <code>granite</code> to your <code>Gemfile</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">gem</span><span class="w"> </span><span class="s1">&#39;granite&#39;</span>
+</code></pre></div>
+<p>And <code>bundle install</code> again.</p>
+<p>Add <code>require 'granite/rspec'</code> to your <code>rails_helper.rb</code>. Check more details on
+the <a href="../testing/">testing</a> section.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you get in any trouble in this section, please
+<a href="https://github.com/toptal/granite/issues/new">report an issue</a>.</p>
+</div>
+<h2 id="books-domain">Books domain<a class="headerlink" href="#books-domain" title="Permanent link">&para;</a></h2>
+<h3 id="bookcreate-action">Book::Create action<a class="headerlink" href="#bookcreate-action" title="Permanent link">&para;</a></h3>
+<p>It's time to create our first model and has some domain on it.</p>
+<p>Let's use a scaffold to have a starting point with the <code>Book</code> model:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>g<span class="w"> </span>scaffold<span class="w"> </span>book<span class="w"> </span>title:string
+</code></pre></div>
+<p>Now, we can start working on the first business action.</p>
+<p>Let's generate the boilerplate business action class with Rails <code>granite</code> generator:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rails</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="n">granite</span><span class="w"> </span><span class="n">book</span><span class="o">/</span><span class="n">create</span>
+</code></pre></div>
+<p>The following class was generated:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># apq/actions/ba/book/create.rb</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">BusinessAction</span>
+<span class="w">  </span><span class="n">allow_if</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kp">false</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">precondition</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="kp">private</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">execute_perform!</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="n">subject</span><span class="o">.</span><span class="n">save!</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Additionally, a "base", shared class is generated, that defines the subject
+type for all the inherited classes in the namespace Book.</p>
+<div class="highlight"><pre><span></span><code>class BA::Book::BusinessAction &lt; BaseAction
+  subject :book
+end
+</code></pre></div>
+<h4 id="policies">Policies<a class="headerlink" href="#policies" title="Permanent link">&para;</a></h4>
+<p>The generated code says <code>allow_if { false }</code> and we need to restrict it to
+logged in users. Let's replace this line to restrict the action only for logged in users:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># apq/actions/ba/book/create.rb</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">BusinessAction</span>
+<span class="w">  </span><span class="n">allow_if</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performer</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">User</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And let's start testing it:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;rails_helper&#39;</span>
+<span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">subject</span><span class="p">(</span><span class="ss">:action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">described_class</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">performer</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:performer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">describe</span><span class="w"> </span><span class="s1">&#39;policies&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">to</span><span class="w"> </span><span class="n">be_allowed</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;when the user is not authorized&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">let</span><span class="p">(</span><span class="ss">:performer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">double</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">not_to</span><span class="w"> </span><span class="n">be_allowed</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<h4 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h4>
+<p>We also need to be specific about what attributes this action can touch and then
+we need to define attributes for it:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># apq/actions/ba/book/create.rb</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">BusinessAction</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="n">represents</span><span class="w"> </span><span class="ss">:title</span><span class="p">,</span><span class="w"> </span><span class="ss">of</span><span class="p">:</span><span class="w"> </span><span class="ss">:subject</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We can define some validations to not allow saving without specifying a title:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># apq/actions/ba/book/create.rb</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">BusinessAction</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="n">validates</span><span class="w"> </span><span class="ss">:title</span><span class="p">,</span><span class="w"> </span><span class="ss">presence</span><span class="p">:</span><span class="w"> </span><span class="kp">true</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And now we can properly test it:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">require</span><span class="w"> </span><span class="s1">&#39;rails_helper&#39;</span>
+
+<span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">subject</span><span class="p">(</span><span class="ss">:action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">described_class</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">performer</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:performer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:attributes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s1">&#39;Ruby Pickaxe&#39;</span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">describe</span><span class="w"> </span><span class="s1">&#39;policies&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">to</span><span class="w"> </span><span class="n">be_allowed</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;when the user is not authorized&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">let</span><span class="p">(</span><span class="ss">:performer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">double</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">not_to</span><span class="w"> </span><span class="n">be_allowed</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="n">describe</span><span class="w"> </span><span class="s1">&#39;validations&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">to</span><span class="w"> </span><span class="n">be_valid</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;when preconditions fail&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">let</span><span class="p">(</span><span class="ss">:attributes</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">not_to</span><span class="w"> </span><span class="n">be_valid</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<h4 id="perform">Perform<a class="headerlink" href="#perform" title="Permanent link">&para;</a></h4>
+<p>For now, the perform is a simple call to <code>book.save!</code> because Granite already
+assign the attributes.</p>
+<p>Then we need to test if it's generating the right record:</p>
+<div class="highlight"><pre><span></span><code>require &#39;rails_helper&#39;
+
+RSpec.describe BA::Book::Create do
+<span class="w"> </span> subject(:action) { described_class.as(performer).new(attributes) }
+
+<span class="w"> </span> let(:performer) { User.new }
+<span class="w"> </span> let(:attributes) { { &#39;title&#39; =&gt; &#39;Ruby Pickaxe&#39;} }
+
+<span class="w"> </span> describe &#39;policies&#39; do
+<span class="w"> </span>   it { is_expected.to be_allowed }
+
+<span class="w"> </span>   context &#39;when the user is not authorized&#39; do
+<span class="w"> </span>     let(:performer) { double }
+<span class="w"> </span>     it { is_expected.not_to be_allowed }
+<span class="w"> </span>   end
+<span class="w"> </span> end
+
+<span class="w"> </span> describe &#39;validations&#39; do
+<span class="w"> </span>   it { is_expected.to be_valid }
+
+<span class="w"> </span>   context &#39;when preconditions fail&#39; do
+<span class="w"> </span>     let(:attributes) { { } }
+<span class="w"> </span>     it { is_expected.not_to be_valid }
+<span class="w"> </span>   end
+<span class="w"> </span> end
+
+<span class="gi">+   describe &#39;#perform!&#39; do</span>
+<span class="gi">+     specify do</span>
+<span class="gi">+       expect { action.perform! }.to change { Book.count }.by(1)</span>
+<span class="gi">+       expect(action.subject.attributes.except(&#39;id&#39;, &#39;created_at&#39;, &#39;updated_at&#39;)).to eq(attributes)</span>
+<span class="gi">+     end</span>
+<span class="gi">+   end</span>
+end
+</code></pre></div>
+<p>The last step is to replace the current book creation in the controller to call
+the business action instead.</p>
+<p>First thing is rescue from <code>Granite::NotAllowed</code> when some action is not allowed
+to be executed.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BooksController</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">ApplicationController</span>
+<span class="w">  </span><span class="n">rescue_from</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span><span class="o">::</span><span class="no">NotAllowedError</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">exception</span><span class="o">|</span>
+<span class="w">    </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">books_path</span><span class="p">,</span><span class="w"> </span><span class="ss">alert</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;You&#39;re not allowed to execute this action.&quot;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>It will generically manage exceptions in case some unauthorized user tries to force acting without having access.</p>
+<p>The next step is to wrap the method <code>#create</code> with the proper business action call.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BooksController</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">ApplicationController</span>
+
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="w">  </span><span class="c1"># POST /books</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">create</span>
+<span class="w">    </span><span class="n">book_action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Create</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">book_params</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">book_action</span><span class="o">.</span><span class="n">perform</span>
+<span class="w">        </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">book_action</span><span class="o">.</span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="ss">notice</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Book was successfully created.&#39;</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="vi">@book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book_action</span><span class="o">.</span><span class="n">subject</span>
+<span class="w">        </span><span class="n">render</span><span class="w"> </span><span class="ss">:new</span>
+<span class="w">      </span><span class="k">end</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div>
+<h3 id="bookrent-action">Book::Rent action<a class="headerlink" href="#bookrent-action" title="Permanent link">&para;</a></h3>
+<p>To start renting the book, we need a few steps:</p>
+<ol>
+<li>Generate migration to create the rental table referencing the book and the user</li>
+<li>Add an <code>available</code> boolean column in the books table</li>
+<li>Create a business action <code>Book::Rent</code> and test the conditions above</li>
+</ol>
+<p>Let's create <code>Rental</code> model first:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>g<span class="w"> </span>model<span class="w"> </span>rental<span class="w"> </span>book:references<span class="w"> </span>user:references<span class="w"> </span>returned_at:timestamp
+</code></pre></div>
+<p>and add an <code>available</code> column in the books table:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>g<span class="w"> </span>migration<span class="w"> </span>add_availability_to_books<span class="w"> </span>available:boolean
+</code></pre></div>
+<p>Now it's time to generate the next Granite action:</p>
+<div class="highlight"><pre><span></span><code>rails<span class="w"> </span>g<span class="w"> </span>granite<span class="w"> </span>book/rent
+</code></pre></div>
+<h4 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h4>
+<p>Let's write specs for the preconditions first:</p>
+<div class="highlight"><pre><span></span><code><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Rent</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">subject</span><span class="p">(</span><span class="ss">:action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">described_class</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">performer</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:performer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">User</span><span class="o">.</span><span class="n">new</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">Book</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;First book&#39;</span><span class="p">,</span><span class="w"> </span><span class="ss">available</span><span class="p">:</span><span class="w"> </span><span class="n">available</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">describe</span><span class="w"> </span><span class="s1">&#39;preconditions&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;with an available book&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">let</span><span class="p">(</span><span class="ss">:available</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kp">true</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">to</span><span class="w"> </span><span class="n">satisfy_preconditions</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;with an unavailable book&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">let</span><span class="p">(</span><span class="ss">:available</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="kp">false</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">to</span><span class="w"> </span><span class="n">be_invalid</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">not_to</span><span class="w"> </span><span class="n">satisfy_preconditions</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><a href="/granite/#preconditions">Preconditions</a> are related to the book in the context.
+And the action will decline the context not to be executed if it does not satisfy the preconditions.</p>
+<p>Let's implement the <code>precondition</code> and <code>perform!</code> code:</p>
+<div class="highlight"><pre><span></span><code>class BA::Book::Rent &lt; BA::Book::BusinessAction
+<span class="gi">+ precondition { book.available? }</span>
+
+<span class="w"> </span> private
+
+<span class="w"> </span> def execute_perform!(*)
+<span class="w"> </span>   Rental.create!(book: subject, user: performer)
+<span class="w"> </span>   subject.available = false
+<span class="w"> </span>   subject.save!
+<span class="w"> </span> end
+end
+</code></pre></div>
+<p>Now, let's cover the perform with another spec:</p>
+<div class="highlight"><pre><span></span><code>RSpec.describe BA::Book::Rent do
+<span class="w"> </span> subject(:action) { described_class.as(performer).new(book) }
+
+<span class="w"> </span> let(:performer) { User.new }
+
+<span class="w"> </span> let(:book) { Book.new(title: &#39;First book&#39;, available: available) }
+
+<span class="gi">+ describe &#39;preconditions&#39; do</span>
+<span class="gi">+   context &#39;with an available book&#39; do</span>
+<span class="gi">+     let(:available) { true }</span>
+<span class="gi">+     it { is_expected.to satisfy_preconditions }</span>
+<span class="gi">+   end</span>
+<span class="gi">+</span>
+<span class="gi">+   context &#39;with an unavailable book&#39; do</span>
+<span class="gi">+     let(:available) { false }</span>
+<span class="gi">+     it { is_expected.to be_invalid }</span>
+<span class="gi">+     it { is_expected.not_to satisfy_preconditions }</span>
+<span class="gi">+   end</span>
+<span class="gi">+ end</span>
+
+<span class="w"> </span> describe &#39;#perform!&#39; do
+<span class="w"> </span>   specify do
+<span class="w"> </span>     expect { action.perform! }
+<span class="w"> </span>       .to change(book, :available).from(true).to(false)
+<span class="w"> </span>       .and change(Rental, :count).by(1)
+<span class="w"> </span>   end
+<span class="w"> </span> end
+end
+</code></pre></div>
+<h3 id="bookreturn-action">Book::Return action<a class="headerlink" href="#bookreturn-action" title="Permanent link">&para;</a></h3>
+<p>First, think about the policies: to return the book, it needs to be rented by the person that is logged in.</p>
+<p>Then we need to have a precondition to verify if the current book is being
+rented by this person:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Return</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">BusinessAction</span>
+<span class="w">  </span><span class="n">precondition</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">rental_conditions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="ss">book</span><span class="p">:</span><span class="w"> </span><span class="n">subject</span><span class="p">,</span><span class="w"> </span><span class="ss">user</span><span class="p">:</span><span class="w"> </span><span class="n">performer</span><span class="p">,</span><span class="w"> </span><span class="ss">returned_at</span><span class="p">:</span><span class="w"> </span><span class="kp">nil</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="no">Rental</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">rental_conditions</span><span class="p">)</span><span class="o">.</span><span class="n">exists?</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The logic of the return, we just need to pick the current rental and
+assign the <code>returned_at</code> date. Also, make the book available again.</p>
+<p>Let's start by testing the preconditions and guarantee that only the user that
+rent the book can return it.</p>
+<div class="highlight"><pre><span></span><code><span class="no">RSpec</span><span class="o">.</span><span class="n">describe</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Return</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">subject</span><span class="p">(</span><span class="ss">:action</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">described_class</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">performer</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">Book</span><span class="o">.</span><span class="n">create!</span><span class="w"> </span><span class="ss">title</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Learn to fly&#39;</span><span class="p">,</span><span class="w"> </span><span class="ss">available</span><span class="p">:</span><span class="w"> </span><span class="kp">true</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="n">let</span><span class="p">(</span><span class="ss">:performer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">User</span><span class="o">.</span><span class="n">create!</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">describe</span><span class="w"> </span><span class="s1">&#39;preconditions&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;when the user rented the book&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">before</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Rent</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">performer</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="o">.</span><span class="n">perform!</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">to</span><span class="w"> </span><span class="n">satisfy_preconditions</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="s1">&#39;when preconditions fail&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">      </span><span class="n">it</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">is_expected</span><span class="o">.</span><span class="n">not_to</span><span class="w"> </span><span class="n">satisfy_preconditions</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And implementing the preconditions:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Return</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">BusinessAction</span>
+
+<span class="w">  </span><span class="n">subject</span><span class="w"> </span><span class="ss">:book</span>
+<span class="w">  </span><span class="n">allow_if</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performer</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="no">User</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="n">precondition</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">decline_with</span><span class="p">(</span><span class="ss">:not_renting</span><span class="p">)</span><span class="w"> </span><span class="k">unless</span><span class="w"> </span><span class="n">performer</span><span class="o">.</span><span class="n">renting?</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And the <code>User</code> now have a few scopes and the <code>#renting?</code> method:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">ApplicationRecord</span>
+<span class="w">  </span><span class="n">devise</span><span class="w"> </span><span class="ss">:database_authenticatable</span><span class="p">,</span><span class="w"> </span><span class="ss">:registerable</span>
+<span class="w">  </span><span class="n">has_many</span><span class="w"> </span><span class="ss">:rentals</span>
+<span class="w">  </span><span class="n">has_many</span><span class="w"> </span><span class="ss">:books</span><span class="p">,</span><span class="w"> </span><span class="ss">through</span><span class="p">:</span><span class="w"> </span><span class="ss">:rentals</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">renting?</span><span class="p">(</span><span class="n">book</span><span class="p">)</span>
+<span class="w">    </span><span class="n">rentals</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="ss">book</span><span class="p">:</span><span class="w"> </span><span class="n">book</span><span class="p">)</span><span class="o">.</span><span class="n">exists?</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now implementing the spec that covers the logic of return, is expected to
+make the book available and mark the rental with the given date.</p>
+<div class="highlight"><pre><span></span><code>RSpec.describe BA::Book::Return do
+<span class="w"> </span> subject(:action) { described_class.as(performer).new(book) }
+
+<span class="w"> </span> let(:book) { Book.create! title: &#39;Learn to fly&#39;, available: true }
+<span class="w"> </span> let(:performer) { User.create! }
+
+<span class="w"> </span> describe &#39;preconditions&#39; do
+<span class="w"> </span>   context &#39;when the user rented the book&#39; do
+<span class="w"> </span>     before { BA::Book::Rent.as(performer).new(book).perform! }
+<span class="w"> </span>     it { is_expected.to satisfy_preconditions }
+<span class="w"> </span>   end
+
+<span class="w"> </span>   context &#39;when preconditions fail&#39; do
+<span class="w"> </span>     it { is_expected.not_to satisfy_preconditions }
+<span class="w"> </span>   end
+<span class="w"> </span> end
+
+<span class="gi">+   describe &#39;#perform!&#39; do</span>
+<span class="gi">+     let!(:rental) { Rental.create! book: book, user: performer }</span>
+<span class="gi">+</span>
+<span class="gi">+     specify do</span>
+<span class="gi">+       expect { action.perform! }</span>
+<span class="gi">+         .to change { book.reload.available }.from(false).to(true)</span>
+<span class="gi">+         .and change { rental.reload.returned_at }.from(nil)</span>
+<span class="gi">+     end</span>
+<span class="gi">+   end</span>
+end
+</code></pre></div>
+<h3 id="i18n">I18n<a class="headerlink" href="#i18n" title="Permanent link">&para;</a></h3>
+<p>The last step to make it user-friendly and return a personalized
+message when the business action calls <code>decline_with(:unavailable)</code>.</p>
+<p>It's time to create the internationalization file for it.</p>
+<p>File: <code>config/locales/granite.en.yml</code>
+<div class="highlight"><pre><span></span><code>en:
+  granite_action:
+    errors:
+      models:
+        ba/book/rent:
+          attributes:
+            base:
+              unavailable: &#39;The book is unavailable.&#39;
+</code></pre></div></p>
+<h3 id="application-layer">Application layer<a class="headerlink" href="#application-layer" title="Permanent link">&para;</a></h3>
+<p>Great! Now it's time to change our views to allow people to interact with the
+actions we created.</p>
+<p>First, we need to add controller methods to call the <code>Rent</code> and <code>Return</code>
+business actions and create routes for it.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BooksController</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">ApplicationController</span>
+
+<span class="w">  </span><span class="c1"># a few other scaffold methods here</span>
+
+<span class="w">  </span><span class="c1"># POST /books/1/rent</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">rent</span>
+<span class="w">    </span><span class="vi">@book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">Book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:book_id</span><span class="o">]</span><span class="p">)</span>
+<span class="w">    </span><span class="n">book_action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Rent</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@book</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">book_action</span><span class="o">.</span><span class="n">perform</span>
+<span class="w">      </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">books_url</span><span class="p">,</span><span class="w"> </span><span class="ss">notice</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Enjoy the book!&#39;</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">books_url</span><span class="p">,</span><span class="w"> </span><span class="ss">alert</span><span class="p">:</span><span class="w">  </span><span class="n">book_action</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="c1"># POST /books/1/return_book</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">return_book</span>
+<span class="w">    </span><span class="vi">@book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">Book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:book_id</span><span class="o">]</span><span class="p">)</span>
+<span class="w">    </span><span class="n">book_action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">BA</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Return</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="vi">@book</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">book_action</span><span class="o">.</span><span class="n">perform</span>
+<span class="w">        </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">books_url</span><span class="p">,</span><span class="w"> </span><span class="ss">notice</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Thanks for delivering it back.&#39;</span>
+<span class="w">      </span><span class="k">else</span>
+<span class="w">        </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">books_url</span><span class="p">,</span><span class="w"> </span><span class="ss">alert</span><span class="p">:</span><span class="w">  </span><span class="n">book_action</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span>
+<span class="w">      </span><span class="k">end</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And add routes for <code>rent</code> and <code>return_book</code> in <code>config/routes.rb</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="n">resources</span><span class="w"> </span><span class="ss">:books</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">post</span><span class="w"> </span><span class="ss">:rent</span>
+<span class="w">    </span><span class="n">post</span><span class="w"> </span><span class="ss">:return_book</span>
+<span class="w">  </span><span class="k">end</span>
+</code></pre></div>
+<p>Now, it's time to change the current view to add such actions:</p>
+<div class="highlight"><pre><span></span><code><span class="x">  &lt;tbody&gt;</span>
+<span class="x">    </span><span class="cp">&lt;%</span><span class="w"> </span><span class="vi">@books</span><span class="o">.</span><span class="n">each</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">book</span><span class="o">|</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">      &lt;tr&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">book</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">book</span><span class="o">.</span><span class="n">available?</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">          &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">link_to</span><span class="w"> </span><span class="s1">&#39;Rent&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">rent_book_path</span><span class="p">(</span><span class="n">book</span><span class="p">),</span><span class="w"> </span><span class="nb">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">          &lt;td&gt;(Rented)&lt;/td&gt;</span>
+<span class="x">        </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">        </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">current_user</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">current_user</span><span class="o">.</span><span class="n">renting?</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">           &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">link_to</span><span class="w"> </span><span class="s1">&#39;Return&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">return_book_path</span><span class="p">(</span><span class="n">book</span><span class="p">),</span><span class="w"> </span><span class="nb">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">link_to</span><span class="w"> </span><span class="s1">&#39;Show&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">book</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">link_to</span><span class="w"> </span><span class="s1">&#39;Edit&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">edit_book_path</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">link_to</span><span class="w"> </span><span class="s1">&#39;Destroy&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">book</span><span class="p">,</span><span class="w"> </span><span class="nb">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:delete</span><span class="p">,</span><span class="w"> </span><span class="ss">data</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="ss">confirm</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Do you really want to destroy this book?&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">      &lt;/tr&gt;</span>
+<span class="x">    </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">  &lt;/tbody&gt;</span>
+</code></pre></div>
+<p>Now is a good opportunity to introduce <a href="../projectors/">projectors</a>.</p>
+<p>The actual implementation contains a few boilerplate code in the controller that make us repeat a
+few different logics that are already in the business action.</p>
+<p>Projectors can help with that. Avoiding the need for creating repetitive
+controller methods and re-verify preconditions and policies to decide what
+actions can be executed.</p>
+<h3 id="setup-view-context-for-granite-projector">Setup view context for Granite projector<a class="headerlink" href="#setup-view-context-for-granite-projector" title="Permanent link">&para;</a></h3>
+<p>You'll need to set up the master controller class. Let's create a file to configure what will be the base controller for Granite:</p>
+<p>File: <code>config/initializers/granite.rb</code>
+<div class="highlight"><pre><span></span><code><span class="no">Granite</span><span class="o">.</span><span class="n">tap</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">m</span><span class="o">|</span>
+<span class="w">  </span><span class="n">m</span><span class="o">.</span><span class="n">base_controller</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ApplicationController&#39;</span>
+<span class="k">end</span>
+</code></pre></div></p>
+<p>The next step is to change <code>ApplicationController</code> to setup context
+view and allow Granite to inherit behavior from it.</p>
+<p><code>app/controllers/application_controller</code>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ApplicationController</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
+<span class="w">  </span><span class="n">protect_from_forgery</span><span class="w"> </span><span class="ss">with</span><span class="p">:</span><span class="w"> </span><span class="ss">:exception</span>
+
+<span class="w">  </span><span class="n">around_action</span><span class="w"> </span><span class="ss">:setup_granite_view_context</span>
+<span class="w">  </span><span class="n">before_action</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">view_context</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kp">protected</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">setup_granite_view_context</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+<span class="w">    </span><span class="no">Granite</span><span class="o">.</span><span class="n">with_view_context</span><span class="p">(</span><span class="n">view_context</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></p>
+<h3 id="inline-projector">Inline projector<a class="headerlink" href="#inline-projector" title="Permanent link">&para;</a></h3>
+<p>The current <code>rent</code> and <code>returned_at</code> methods have a very similar structure.</p>
+<p>And the projectors allows to declare the HTTP method like <code>get</code> or <code>post</code> and mount it in a route as an anonymous controller.</p>
+<p>Inside the block, the action is already set with all parameters from the web
+request and ready to be executed.</p>
+<p>As the current controller actions are executed with <code>POST</code>, let's follow the same line and
+create a simple projector that allows to receive some post data and redirect to the resources list back.</p>
+<p>The projector will have a default <code>success_redirect</code> and <code>failure_redirect</code> after the action execution.
+By default, let's assume that we'll redirect it to the collection and render a
+positive notice or a negative alert to the previous action.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">InlineProjector</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Projector</span>
+
+<span class="w">  </span><span class="n">post</span><span class="w"> </span><span class="ss">:perform</span><span class="p">,</span><span class="w"> </span><span class="ss">as</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">action</span><span class="o">.</span><span class="n">perform!</span>
+<span class="w">      </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">projector</span><span class="o">.</span><span class="n">success_redirect</span><span class="p">,</span><span class="w"> </span><span class="ss">notice</span><span class="p">:</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;.notice&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="n">messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">projector</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">full_messages</span><span class="o">.</span><span class="n">to_sentence</span>
+<span class="w">      </span><span class="n">redirect_to</span><span class="w"> </span><span class="n">projector</span><span class="o">.</span><span class="n">failure_redirect</span><span class="p">,</span><span class="w"> </span><span class="ss">alert</span><span class="p">:</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="s1">&#39;.error&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">collection_subject</span>
+<span class="w">    </span><span class="n">action</span><span class="o">.</span><span class="n">subject</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">downcase</span><span class="o">.</span><span class="n">pluralize</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">success_redirect</span>
+<span class="w">    </span><span class="n">h</span><span class="o">.</span><span class="n">public_send</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">collection_subject</span><span class="si">}</span><span class="s2">_path&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">build_action</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="w">    </span><span class="n">action_class</span><span class="o">.</span><span class="n">with</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">proxy_context</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span><span class="ss">performer</span><span class="p">:</span><span class="w"> </span><span class="n">h</span><span class="o">.</span><span class="n">current_user</span><span class="p">})</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We also need to say who is the performer of the action.
+The <code>build_action</code> method in the projector is implemented to override the
+current performer in action with the <code>current_user</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Note that <code>h</code> is an alias for <code>view_context</code> and you can access anything
+from the controller through it.</p>
+</div>
+<p>Now, it's time to say that we're going to use the projector inside the <code>Rent</code> action:</p>
+<p>File: <code>apq/actions/ba/book/rent.rb</code>
+<div class="highlight"><pre><span></span><code>class BA::Book::Rent &lt; BaseAction
+<span class="w"> </span> subject :book
+
+<span class="gi">+  projector :inline</span>
+
+<span class="w"> </span> allow_if { performer.is_a?(User) }
+
+<span class="w"> </span> precondition do
+<span class="w"> </span>   decline_with(:unavailable) unless book.available?
+<span class="w"> </span> end
+
+<span class="w"> </span> private
+
+<span class="w"> </span> def execute_perform!(*)
+<span class="w"> </span>   subject.available = false
+<span class="w"> </span>   subject.save!
+<span class="w"> </span>   Rental.create!(book: subject, user: performer)
+<span class="w"> </span> end
+end
+</code></pre></div></p>
+<p>And also drop the method from the <code>BooksController</code>:</p>
+<p>File: <code>app/controllers/books_controller.rb</code>
+<div class="highlight"><pre><span></span><code><span class="gu">@@ -25,28 +25,6 @@ class BooksController &lt; ApplicationController</span>
+<span class="w"> </span>    @book = Book.find(params[:id])
+<span class="w"> </span>  end
+
+<span class="gd">-  # POST /books/1/rent</span>
+<span class="gd">-  def rent</span>
+<span class="gd">-    @book = Book.find(params[:book_id])</span>
+<span class="gd">-    book_action = BA::Book::Rent.as(current_user).new(@book)</span>
+<span class="gd">-    if book_action.perform</span>
+<span class="gd">-      redirect_to books_url, notice: &#39;Book was successfully rented.&#39;</span>
+<span class="gd">-    else</span>
+<span class="gd">-      redirect_to books_url, alert:  book_action.errors.full_messages.to_sentence</span>
+<span class="gd">-    end</span>
+<span class="gd">-  end</span>
+</code></pre></div></p>
+<p>As the last step, we need to change the <code>config/routes.rb</code> to use the <code>granite</code>
+to mount the <code>action#projector</code> into the defined routes.</p>
+<p>File: <code>config/routes.rb</code>
+<div class="highlight"><pre><span></span><code>Rails.application.routes.draw do
+<span class="w"> </span> root &#39;books#index&#39;
+
+<span class="w"> </span> devise_for :users
+
+<span class="w"> </span> resources :books do
+<span class="gd">-   post :rent</span>
+<span class="gi">+   granite &#39;BA/book/rent#inline&#39;</span>
+<span class="w"> </span>   post &#39;return&#39;, to: &#39;books#return_book&#39;, as &#39;return&#39;
+<span class="w"> </span> end
+end
+</code></pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As it's a tutorial, your next task is to do the same for <code>return_book</code>.</p>
+<ol>
+<li>Add <code>projector :inline</code> to <code>BA::Book::Return</code> class.</li>
+<li>Remove the controller method</li>
+<li>Refactor the <code>config/routes.rb</code> declaring the <code>granite 'action#projector'</code></li>
+</ol>
+</div>
+<h4 id="projector-helpers">Projector Helpers<a class="headerlink" href="#projector-helpers" title="Permanent link">&para;</a></h4>
+<p>You can define useful methods for helping you rendering your view and improving
+the experience with your actions. Now, let's create a <code>button</code> function,
+to replace the action links in the current list.</p>
+<p>First, we need to have a method in our projector that can render the button if
+the action is performable.</p>
+<p>It will render nothing if the current user does not have access or it's an
+anonymous session.</p>
+<p>We'll render the action name stricken if the action is not performable with the
+error messages in the title, because if people mouse over, they can see the
+"tooltip" with why it's not possible to execute the action.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">InlineProjector</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Projector</span>
+
+<span class="w">  </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="c1"># The previous methods remain here</span>
+<span class="w">  </span><span class="c1"># ...</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">button</span><span class="p">(</span><span class="n">link_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">unless</span><span class="w"> </span><span class="n">action</span><span class="o">.</span><span class="n">allowed?</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">action</span><span class="o">.</span><span class="n">performable?</span>
+<span class="w">      </span><span class="n">h</span><span class="o">.</span><span class="n">link_to</span><span class="w"> </span><span class="n">action_label</span><span class="p">,</span><span class="w"> </span><span class="n">perform_path</span><span class="p">,</span><span class="w"> </span><span class="nb">method</span><span class="p">:</span><span class="w"> </span><span class="ss">:post</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">action_label</span>
+<span class="w">    </span><span class="n">action</span><span class="o">.</span><span class="n">class</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">demodulize</span><span class="o">.</span><span class="n">underscore</span><span class="o">.</span><span class="n">humanize</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And now, we can replace the links with the new <code>button</code> function:</p>
+<div class="highlight"><pre><span></span><code><span class="x">  &lt;tbody&gt;</span>
+<span class="x">    </span><span class="cp">&lt;%</span><span class="w"> </span><span class="vi">@books</span><span class="o">.</span><span class="n">each</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">book</span><span class="o">|</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">      &lt;tr&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="n">book</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="no">Ba</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Rent</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">button</span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        &lt;td&gt;</span><span class="cp">&lt;%=</span><span class="w"> </span><span class="no">Ba</span><span class="o">::</span><span class="no">Book</span><span class="o">::</span><span class="no">Return</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="n">current_user</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="o">.</span><span class="n">inline</span><span class="o">.</span><span class="n">button</span><span class="cp">%&gt;</span><span class="x">&lt;/td&gt;</span>
+<span class="x">        &lt;td&gt;... more links here ...&lt;/td&gt;</span>
+<span class="x">      &lt;/tr&gt;</span>
+<span class="x">    </span><span class="cp">&lt;%</span><span class="w"> </span><span class="k">end</span><span class="w"> </span><span class="cp">%&gt;</span>
+<span class="x">  &lt;/tbody&gt;</span>
+</code></pre></div>
+<p>Now it's clear, and the "Return" link will appear only for the user that rented the book.</p>
+<h2 id="wishlist-domain">Wishlist domain<a class="headerlink" href="#wishlist-domain" title="Permanent link">&para;</a></h2>
+<p>As we are still working on the description of the wishlist domain, we encourage you to take the initiative and implement it yourself. We believe this will be a great opportunity for you to apply your own creativity and problem-solving skills, and we are always here to support you along the way.</p>
+<h3 id="wishlistadd-action">Wishlist::Add action<a class="headerlink" href="#wishlistadd-action" title="Permanent link">&para;</a></h3>
+<p>To be done.</p>
+<h3 id="wishlistremove-action">Wishlist::Remove action<a class="headerlink" href="#wishlistremove-action" title="Permanent link">&para;</a></h3>
+<p>To be done.</p>
+<h3 id="wishlistnotifyavailability-action">Wishlist::NotifyAvailability action<a class="headerlink" href="#wishlistnotifyavailability-action" title="Permanent link">&para;</a></h3>
+<p>To be done.</p>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>To conclude, you have learned how to work with Granite, and we are excited to see you apply this knowledge to your upcoming project. We are confident that Granite will simplify your development process and allow you to focus on the more important aspects of your application. As always, please do not hesitate to reach out to us if you have any questions or need further assistance.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2013 - 2018 Toptal
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

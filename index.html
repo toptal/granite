@@ -1,0 +1,1500 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+        <link rel="next" href="projectors/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="img/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Granite Manual</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#granite-framework" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="Granite Manual" class="md-header__button md-logo" aria-label="Granite Manual" data-md-component="logo">
+      
+  <img src="img/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Granite Manual
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/toptal/granite" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="Granite Manual" class="md-nav__button md-logo" aria-label="Granite Manual" data-md-component="logo">
+      
+  <img src="img/logo.png" alt="logo">
+
+    </a>
+    Granite Manual
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/toptal/granite" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-problems-does-granite-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What problems does Granite solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Business actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Business actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hello World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Callbacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#after_initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        after_initialize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after_commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        after_commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-and-after-execute_perform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        before and after execute_perform
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-and-performer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context and performer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#representing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assigning the data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#associations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Associations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#policies-preconditions-and-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies, preconditions, and validations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Policies, preconditions, and validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preconditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preconditions-as-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions as objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context validations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Injection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i18n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I18n
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="projectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="tutorial/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorial
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-problems-does-granite-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What problems does Granite solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Business actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Business actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hello-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hello World
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#callbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Callbacks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Callbacks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#after_initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        after_initialize
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#after_commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        after_commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#before-and-after-execute_perform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        before and after execute_perform
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-and-performer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context and performer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Attributes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Attributes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#representing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Representing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assigning the data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#associations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Associations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nested-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#subject" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subject
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#policies-preconditions-and-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies, preconditions, and validations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Policies, preconditions, and validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Policies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preconditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preconditions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preconditions-as-objects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preconditions as objects
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#context-validations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context validations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exception-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exception handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Injection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i18n" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I18n
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conclusion
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="granite-framework">Granite Framework<a class="headerlink" href="#granite-framework" title="Permanent link">&para;</a></h1>
+<p>Granite is an architecture for business actions in Rails applications, combining user interaction (attributes and validations), context (preconditions), and permissions (authorization policies).</p>
+<h2 id="what-problems-does-granite-solve">What problems does Granite solve<a class="headerlink" href="#what-problems-does-granite-solve" title="Permanent link">&para;</a></h2>
+<p>Granite employs patterns to increase productivity in developing growing applications. Instead of bloating the controller and model, business logic is placed in the <code>app/actions</code> directory.</p>
+<p>These atomic actions process data and execute arbitrary operations in response to user requests or programmatically, such as by a background worker or another action.</p>
+<h2 id="business-actions">Business actions<a class="headerlink" href="#business-actions" title="Permanent link">&para;</a></h2>
+<p>The fundamental concept of Granite is the business action, which can be initiated with a simple <code>execute_perform!</code> method.</p>
+<h3 id="hello-world">Hello World<a class="headerlink" href="#hello-world" title="Permanent link">&para;</a></h3>
+<p>In essence, a business action is an ActiveModel-like class (form object) designed to execute a sequence of commands. The basic business action takes the following form:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">execute_perform!</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">puts</span><span class="w"> </span><span class="s1">&#39;Hello World&#39;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>There are 2 ways to execute a recently defined business action: <code>#perform!</code>, or <code>try_perform!</code>:</p>
+<ol>
+<li>
+<p><code>perform!</code> raises an exception when encountering errors.</p>
+</li>
+<li>
+<p><code>try_perform!</code> is comparable to <code>perform!</code> but doesn't execute the action if preconditions are not met.</p>
+</li>
+</ol>
+<p>Note: Business actions can currently also be executed with <code>#perform</code> method. It behaves the same as <code>try_perform!</code>, is deprecated and will be removed in next major version.</p>
+<h3 id="transactions">Transactions<a class="headerlink" href="#transactions" title="Permanent link">&para;</a></h3>
+<p>To ensure proper data management, each action execution is enclosed in a DB transaction using <code>ActiveRecord::Base.transaction(requires_new: true)</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="go">pry(main)&gt; Action.new.perform! # the same for `try_perform!`</span>
+<span class="go">   (0.3ms)  BEGIN</span>
+<span class="go">Hello World</span>
+<span class="go">   (0.1ms)  COMMIT</span>
+<span class="go">=&gt; true</span>
+</code></pre></div>
+<p>You can explicitly use <code>Granite::Action.transaction</code> and encapsulate any logic within a transaction:</p>
+<div class="highlight"><pre><span></span><code><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span><span class="o">.</span><span class="n">transaction</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">some_other_logic</span>
+<span class="w">  </span><span class="no">Action</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">perform!</span>
+<span class="w">  </span><span class="no">AnotherAction</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">perform!</span>
+<span class="k">end</span>
+</code></pre></div>
+<h3 id="callbacks">Callbacks<a class="headerlink" href="#callbacks" title="Permanent link">&para;</a></h3>
+<h4 id="after_initialize"><code>after_initialize</code><a class="headerlink" href="#after_initialize" title="Permanent link">&para;</a></h4>
+<p>This callback is triggered after an action has been initialized.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">attribute</span><span class="w"> </span><span class="ss">:name</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span>
+
+<span class="w">  </span><span class="n">after_initialize</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">self</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Default&#39;</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="c1"># OR</span>
+<span class="w">  </span><span class="c1"># after_initialize :method_to_trigger</span>
+<span class="k">end</span>
+
+<span class="no">Action</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">name</span>
+<span class="c1"># =&gt; &#39;Default&#39;</span>
+</code></pre></div>
+<h4 id="after_commit"><code>after_commit</code><a class="headerlink" href="#after_commit" title="Permanent link">&para;</a></h4>
+<p>This callback is triggered after DB transaction has been committed.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="o">...</span>
+
+<span class="w">  </span><span class="n">after_commit</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="c1"># any logic that relies on action results being in the database,</span>
+<span class="w">    </span><span class="c1"># such as scheduling jobs</span>
+<span class="w">    </span><span class="nb">puts</span><span class="w"> </span><span class="s1">&#39;after_commit triggered&#39;</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="c1"># OR</span>
+<span class="w">  </span><span class="c1"># after_commit :method_to_trigger</span>
+<span class="k">end</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">pry(main)&gt; Action.new.perform!</span>
+<span class="go">   (0.3ms)  BEGIN</span>
+<span class="go">Hello World</span>
+<span class="go">   (0.1ms)  COMMIT</span>
+<span class="go">after_commit triggered</span>
+<span class="go">=&gt; true</span>
+</code></pre></div>
+<h4 id="before-and-after-execute_perform">before and after <code>execute_perform</code><a class="headerlink" href="#before-and-after-execute_perform" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="o">...</span>
+
+<span class="w">  </span><span class="n">set_callback</span><span class="p">(</span><span class="ss">:execute_perform</span><span class="p">,</span><span class="w"> </span><span class="ss">:before</span><span class="p">)</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nb">puts</span><span class="w"> </span><span class="s1">&#39;before execute_perform&#39;</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="n">set_callback</span><span class="p">(</span><span class="ss">:execute_perform</span><span class="p">,</span><span class="w"> </span><span class="ss">:after</span><span class="p">,</span><span class="w"> </span><span class="ss">:after_execute_perform</span><span class="p">)</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">after_execute_perform</span>
+<span class="w">    </span><span class="nb">puts</span><span class="w"> </span><span class="s1">&#39;after execute_perform&#39;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">pry(main)&gt; Action.new.perform!</span>
+<span class="go">   (0.3ms)  BEGIN</span>
+<span class="go">before execute_perform</span>
+<span class="go">Hello World</span>
+<span class="go">after execute_perform</span>
+<span class="go">   (0.1ms)  COMMIT</span>
+<span class="go">=&gt; true</span>
+</code></pre></div>
+<h3 id="context-and-performer">Context and performer<a class="headerlink" href="#context-and-performer" title="Permanent link">&para;</a></h3>
+<p>Each business action has a context, represented by a hash that can be assigned using the <code>.with</code> class method before the business action is initialized. The context is typically used to pass the performer of the action, which is so common that specific methods are defined to access and set the <code>performer</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">MyAction</span><span class="o">.</span><span class="n">with</span><span class="p">(</span><span class="ss">performer</span><span class="p">:</span><span class="w"> </span><span class="no">Admin</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">action</span><span class="o">.</span><span class="n">ctx</span><span class="w"> </span><span class="c1">#=&gt; #&lt;Granite::ContextProxy::Data performer: Admin.first&gt;</span>
+<span class="n">action</span><span class="o">.</span><span class="n">performer</span><span class="w"> </span><span class="c1">#=&gt; Admin.first</span>
+
+<span class="n">action</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">MyAction</span><span class="o">.</span><span class="n">as</span><span class="p">(</span><span class="no">Admin</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">action</span><span class="o">.</span><span class="n">ctx</span><span class="w"> </span><span class="c1">#=&gt; #&lt;Granite::ContextProxy::Data performer: Admin.first&gt;</span>
+<span class="n">action</span><span class="o">.</span><span class="n">performer</span><span class="w"> </span><span class="c1">#=&gt; Admin.first</span>
+</code></pre></div>
+<p>If your application requires additional attributes in the context, you can override the <code>BaseAction.with</code> and <code>BaseProjector.with</code> methods.</p>
+<div class="highlight"><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="nn">GraniteContext</span>
+<span class="w">  </span><span class="k">class</span><span class="w"> </span><span class="nc">Data</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">ContextProxy</span><span class="o">::</span><span class="no">Data</span>
+<span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="ss">performer</span><span class="p">:</span><span class="w"> </span><span class="kp">nil</span><span class="p">,</span><span class="w"> </span><span class="ss">custom</span><span class="p">:</span><span class="w"> </span><span class="kp">false</span><span class="p">)</span>
+<span class="w">      </span><span class="k">super</span><span class="p">(</span><span class="ss">performer</span><span class="p">:</span><span class="w"> </span><span class="n">performer</span><span class="p">)</span>
+<span class="w">      </span><span class="vi">@custom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">custom</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">with</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="w">    </span><span class="no">Granite</span><span class="o">::</span><span class="no">ContextProxy</span><span class="o">::</span><span class="no">Proxy</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span><span class="w"> </span><span class="no">GraniteContext</span><span class="o">::</span><span class="no">Data</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">BaseAction</span><span class="o">.</span><span class="n">extend</span><span class="w"> </span><span class="no">GraniteContext</span>
+<span class="no">BaseProjector</span><span class="o">.</span><span class="n">extend</span><span class="w"> </span><span class="no">GraniteContext</span>
+
+<span class="no">BaseAction</span><span class="o">.</span><span class="n">with</span><span class="p">(</span><span class="ss">performer</span><span class="p">:</span><span class="w"> </span><span class="n">performer</span><span class="p">,</span><span class="w"> </span><span class="ss">custom</span><span class="p">:</span><span class="w"> </span><span class="kp">true</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h3>
+<p>The next step involves defining action attributes, which come in various types provided by the <code>granite-form</code> gem:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">attribute</span><span class="w"> </span><span class="ss">:name</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span>
+<span class="w">  </span><span class="n">collection</span><span class="w"> </span><span class="ss">:ids</span><span class="p">,</span><span class="w"> </span><span class="nb">Integer</span>
+
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">execute_perform!</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">puts</span><span class="w"> </span><span class="s2">&quot;Hello </span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">! We have the following ids: </span><span class="si">#{</span><span class="n">ids</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>For comprehensive information on the available types and usage examples, please refer to the <a href="https://github.com/toptal/granite-form#attributes">Granite Form documentation</a>.</p>
+<p>The behavior of the attributes is similar to that of <code>Granite::Form</code> objects, with the exception of <code>represents</code>.</p>
+<h4 id="representing">Representing<a class="headerlink" href="#representing" title="Permanent link">&para;</a></h4>
+<p>With Granite Form objects, when a model attribute is exposed via <code>represents</code> and the Active Record object changes, the exposed attribute is immediately updated.</p>
+<p><em>In contrast</em>, Granite actions use <code>assign_data</code> to update the represented attribute.</p>
+<h4 id="assigning-the-data">Assigning the data<a class="headerlink" href="#assigning-the-data" title="Permanent link">&para;</a></h4>
+<p><code>assign_data</code> can be used to set blocks and methods that are invoked before the business action is validated. In practice, it can be implemented as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CreateBook</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">attribute</span><span class="w"> </span><span class="ss">:name</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span>
+<span class="w">  </span><span class="n">attribute</span><span class="w"> </span><span class="ss">:year</span><span class="p">,</span><span class="w"> </span><span class="nb">Integer</span>
+<span class="w">  </span><span class="n">represents</span><span class="w"> </span><span class="ss">:author</span><span class="p">,</span><span class="w"> </span><span class="ss">of</span><span class="p">:</span><span class="w"> </span><span class="ss">:book</span>
+
+<span class="w">  </span><span class="n">assign_data</span><span class="w"> </span><span class="ss">:set_name</span>
+<span class="w">  </span><span class="n">assign_data</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="n">book</span><span class="o">.</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">set_name</span>
+<span class="w">    </span><span class="n">book</span><span class="o">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">name</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>In this example, before the business action is validated, Granite will invoke the <code>assign_data</code> callbacks and set the book's author, name, and year (in that order).</p>
+<h3 id="associations">Associations<a class="headerlink" href="#associations" title="Permanent link">&para;</a></h3>
+<p>Granite actions can also define several associations:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CreateBook</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">attribute</span><span class="w"> </span><span class="ss">:name</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span>
+<span class="w">  </span><span class="n">references_one</span><span class="w"> </span><span class="ss">:author</span>
+<span class="w">  </span><span class="n">embeds_many</span><span class="w"> </span><span class="ss">:reviews</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>For comprehensive information on the available associations and usage examples, please refer to the <a href="https://github.com/toptal/granite-form#associations">Granite Form documentation</a>.</p>
+<h3 id="nested-actions">Nested actions<a class="headerlink" href="#nested-actions" title="Permanent link">&para;</a></h3>
+<p>Some business actions call other actions as part of their own execution. In such cases, we need to define a memoizable method that returns an instance of the sub-action:</p>
+<div class="highlight"><pre><span></span><code><span class="n">memoize</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">subaction</span>
+<span class="w">  </span><span class="no">MySubactionClass</span><span class="o">.</span><span class="n">new</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Sub-actions validate their data and check preconditions when performed. However, it is not recommended to rely on this behavior. It is better to validate the sub-action when the main action is validated and check the preconditions of the sub-action when the preconditions of the main action are checked. For this, we use:</p>
+<div class="highlight"><pre><span></span><code><span class="n">precondition</span><span class="w"> </span><span class="ss">embedded</span><span class="p">:</span><span class="w"> </span><span class="ss">:subaction</span>
+<span class="n">validates</span><span class="w"> </span><span class="ss">:subaction</span><span class="p">,</span><span class="w"> </span><span class="ss">nested</span><span class="p">:</span><span class="w"> </span><span class="kp">true</span>
+</code></pre></div>
+<h3 id="subject">Subject<a class="headerlink" href="#subject" title="Permanent link">&para;</a></h3>
+<p>The definition of the subject does three things:</p>
+<ol>
+<li>
+<p>Defines a <code>references_one</code> association.</p>
+</li>
+<li>
+<p>Aliases its methods to common names (<code>subject</code> and <code>subject_id</code>)</p>
+</li>
+<li>
+<p>Modifies the action initializer to provide the ability to pass the subject as the first argument and restricts subject-less action initialization.</p>
+</li>
+</ol>
+<p>Let's take a look to an example below:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">subject</span><span class="w"> </span><span class="ss">:user</span>
+
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">execute_perform!</span><span class="p">(</span><span class="o">*</span><span class="p">);</span><span class="w"> </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">pry(main)&gt; Action.new</span>
+<span class="go">=&gt; ArgumentError</span>
+
+<span class="go">pry(main)&gt; Action.new(User.first)</span>
+<span class="go">=&gt; #&lt;Action user: #&lt;ReferencesOne #&lt;User id: 1...&gt;, user_id: 1&gt;</span>
+
+<span class="go">pry(main)&gt; Action.new(1)</span>
+<span class="go">=&gt; #&lt;Action user: #&lt;ReferencesOne #&lt;User id: 1...&gt;, user_id: 1&gt;</span>
+
+<span class="go">pry(main)&gt; Action.new(user: User.first)</span>
+<span class="go">=&gt; #&lt;Action user: #&lt;ReferencesOne #&lt;User id: 1...&gt;, user_id: 1&gt;</span>
+
+<span class="go">pry(main)&gt; Action.new(subject: User.first)</span>
+<span class="go">=&gt; #&lt;Action user: #&lt;ReferencesOne #&lt;User id: 1...&gt;, user_id: 1&gt;</span>
+
+<span class="go">pry(main)&gt; Action.new(user_id: 1)</span>
+<span class="go">=&gt; #&lt;Action user: #&lt;ReferencesOne #&lt;User id: 1...&gt;, user_id: 1&gt;</span>
+
+<span class="go">pry(main)&gt; Action.new(id: 1)</span>
+<span class="go">=&gt; #&lt;Action user: #&lt;ReferencesOne #&lt;User id: 1...&gt;, user_id: 1&gt;</span>
+</code></pre></div>
+<p>Notice that the method <code>#user</code> has been assigned to the alias <code>#subject</code>, and <code>#user_id</code> to <code>#id</code>. Furthermore, a <code>subject</code> call takes any combination of <code>references_one</code> possible options.</p>
+<h3 id="policies-preconditions-and-validations">Policies, preconditions, and validations<a class="headerlink" href="#policies-preconditions-and-validations" title="Permanent link">&para;</a></h3>
+<p>When deciding how to structure policies, preconditions, and validations, there are some simple rules to follow:</p>
+<ol>
+<li>
+<p>If the condition depends on <em>any user-provided attribute values</em> except for the subject, it is a <strong>validation</strong>.</p>
+</li>
+<li>
+<p>If the condition depends on <em>the subject or any value that depends on the subject</em>, it is a <strong>precondition</strong>.</p>
+</li>
+<li>
+<p>Otherwise, if it is <em>related to the performer</em>, choose a <strong>policy</strong>.</p>
+</li>
+</ol>
+<h4 id="policies">Policies<a class="headerlink" href="#policies" title="Permanent link">&para;</a></h4>
+<p>Policies are used to define restrictions on the performer of an action. The <code>allow_if</code> method can be used to specify a condition that must be met for the action to be allowed.</p>
+<p>For example, the following code specifies that an action can only be performed if the performer is present:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">allow_if</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">performer</span><span class="o">.</span><span class="n">present?</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="n">allow_self</span><span class="w"> </span><span class="c1"># equal to allow_if { performer == subject }</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>There is also an <code>allow_self</code> method that is equivalent to <code>allow_if { performer == subject }</code>, which allows an action to be performed by the subject itself.</p>
+<p>Granite policies also support strategies:</p>
+<ol>
+<li>
+<p>By default, the <a href="https://github.com/toptal/granite/blob/master/lib/granite/action/policies/any_strategy.rb"><code>AnyStrategy</code></a> is used, which allows an action to be performed if any policy allows it.</p>
+</li>
+<li>
+<p>Other built-in strategies include <a href="https://github.com/toptal/granite/blob/master/lib/granite/action/policies/always_allow_strategy.rb"><code>AlwaysAllowStrategy</code></a>, which allows all actions,</p>
+</li>
+<li>
+<p>And <a href="https://github.com/toptal/granite/blob/master/lib/granite/action/policies/required_performer_strategy.rb"><code>RequiredPerformerStrategy</code></a>, which requires that a performer be present for all actions.</p>
+</li>
+</ol>
+<p>You can also write your own custom policy strategy.</p>
+<p>To use a custom policy strategy, you can set the <code>_policies_strategy</code> class variable to the desired strategy, like so:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="nb">self</span><span class="o">.</span><span class="n">_policies_strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">MyCustomStrategy</span>
+<span class="k">end</span>
+</code></pre></div>
+<h4 id="preconditions">Preconditions<a class="headerlink" href="#preconditions" title="Permanent link">&para;</a></h4>
+<p>Preconditions are used for subject-related pre-validation and work similarly to validations with blocks. However, instead of using <code>errors.add</code>, the <code>decline_with</code> method is preferred.</p>
+<p>For example, you can use a precondition to check if the subject is active before performing an action:</p>
+<div class="highlight"><pre><span></span><code><span class="n">precondition</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">decline_with</span><span class="p">(</span><span class="ss">:inactive</span><span class="p">)</span><span class="w"> </span><span class="k">unless</span><span class="w"> </span><span class="n">subject</span><span class="o">.</span><span class="n">active?</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>If you have sub-actions that are performed within your main action, you can easily check their preconditions by embedding them:</p>
+<div class="highlight"><pre><span></span><code><span class="n">precondition</span><span class="w"> </span><span class="ss">embedded</span><span class="p">:</span><span class="w"> </span><span class="ss">:my_custom_action</span>
+</code></pre></div>
+<p>You can specify conditions for when the precondition block should be executed using the <code>:if</code> and <code>unless</code> statements:</p>
+<div class="highlight"><pre><span></span><code><span class="n">precondition</span><span class="w"> </span><span class="k">if</span><span class="p">:</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">subject</span><span class="o">.</span><span class="n">active?</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="n">decline_with</span><span class="p">(</span><span class="ss">:too_young</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">subject</span><span class="o">.</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">30</span>
+<span class="k">end</span>
+</code></pre></div>
+<h5 id="preconditions-as-objects">Preconditions as objects<a class="headerlink" href="#preconditions-as-objects" title="Permanent link">&para;</a></h5>
+<p>The <code>precondition</code> method can also accept a class that inherits from <code>Granite::Action::Precondition</code>. When defining a precondition this way, you can pass additional parameters to the precondition object, making it more reusable.</p>
+<p>The precondition method with a class argument supports the same options (<code>:if</code> and <code>:unless</code>) as defining a precondition as a block:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AgeCheck</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span><span class="o">::</span><span class="no">Precondition</span>
+<span class="w">  </span><span class="n">description</span><span class="w"> </span><span class="s1">&#39;Must be old enough&#39;</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">call</span><span class="p">(</span><span class="o">**</span><span class="p">)</span>
+<span class="w">    </span><span class="n">decline_with</span><span class="p">(</span><span class="ss">:too_young</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">subject</span><span class="o">.</span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">30</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>This precondition can be used like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">precondition</span><span class="w"> </span><span class="no">AgeCheck</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="p">:</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">subject</span><span class="o">.</span><span class="n">active?</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h4 id="validations">Validations<a class="headerlink" href="#validations" title="Permanent link">&para;</a></h4>
+<p>Granite supports using any of the validations provided by Active Model.</p>
+<h5 id="context-validations">Context validations<a class="headerlink" href="#context-validations" title="Permanent link">&para;</a></h5>
+<p>Granite supports and encourages the use of <a href="http://api.rubyonrails.org/classes/ActiveModel/Validations.html#method-i-valid-3F">context validations</a>, which can be specified using the <code>on:</code> key with any validation to declare the context in which the validation should be executed. This means that these validations will only be triggered when the provided context is explicitly specified.</p>
+<p>To specify a context when using the built-in ActiveModel methods <code>valid?</code> and <code>invalid?</code>, simply provide the context as the first argument. When using <code>perform!</code>, or <code>try_perform!</code>, pass the name of the context as a keyword argument <code>context:</code>.</p>
+<p>Context validations should be used when different validation behavior is required in different scenarios (e.g., by a staff member and a non-staff user). For example, consider a simplified business action for updating a user's portfolio:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BA</span><span class="o">::</span><span class="no">User</span><span class="o">::</span><span class="no">UpdatePortfolio</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">subject</span><span class="w"> </span><span class="ss">:user</span>
+
+<span class="w">  </span><span class="n">represents</span><span class="w"> </span><span class="ss">:full_name</span><span class="p">,</span><span class="w"> </span><span class="ss">of</span><span class="p">:</span><span class="w"> </span><span class="ss">:subject</span>
+
+<span class="w">  </span><span class="n">validates</span><span class="w"> </span><span class="ss">:full_name</span><span class="p">,</span><span class="w"> </span><span class="ss">presence</span><span class="p">:</span><span class="w"> </span><span class="kp">true</span><span class="p">,</span><span class="w"> </span><span class="ss">on</span><span class="p">:</span><span class="w"> </span><span class="ss">:user</span>
+
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">execute_perform!</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="c1"># ...</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>By default, running this business action using <code>perform!</code> won't require the <code>full_name</code> attribute to be present. However, if you want to enforce this validation, you can add a context argument to the perform call: <code>perform!(context: :user)</code>.</p>
+<h3 id="exception-handling">Exception handling<a class="headerlink" href="#exception-handling" title="Permanent link">&para;</a></h3>
+<p>Granite provides a built-in mechanism for exception handling, similar to the <code>rescue_from</code> method used in Action Controller. You can register handlers for any exception type using the <code>handle_exception</code> method.</p>
+<p><div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">handle_exception</span><span class="w"> </span><span class="no">ThirdPartyLib</span><span class="o">::</span><span class="no">APIError</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="o">|</span><span class="n">error</span><span class="o">|</span>
+<span class="w">    </span><span class="n">decline_with</span><span class="p">(</span><span class="ss">:third_party_lib_failed</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">execute_perform!</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">    </span><span class="no">ThirdPartyLib</span><span class="o">.</span><span class="n">api_call</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+In the example provided, <code>ThirdPartyLib::APIError</code> is caught, and the handler block adds an error to the action object with the message <code>:third_party_lib_failed</code>. It's important to add errors to the action object because, when a handled exception is raised, <code>Granite::Action::ValidationError</code> is raised with the same backtrace as the original error.</p>
+<h3 id="dependency-injection">Dependency Injection<a class="headerlink" href="#dependency-injection" title="Permanent link">&para;</a></h3>
+<p>Dependency Injection is a programming technique that allows you to remove hard-coded dependencies from your code and instead provide them externally. Granite's default attribute assignment mechanism may not always be suitable for this, but you can use custom initializers to achieve DI:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Action</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="no">Granite</span><span class="o">::</span><span class="no">Action</span>
+<span class="w">  </span><span class="n">attribute</span><span class="w"> </span><span class="ss">:name</span><span class="p">,</span><span class="w"> </span><span class="nb">String</span>
+
+<span class="w">  </span><span class="kp">private</span><span class="w"> </span><span class="kp">attr_reader</span><span class="w"> </span><span class="ss">:my_dep</span>
+
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">initialize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="ss">my_dep</span><span class="p">:</span><span class="w"> </span><span class="no">Foo</span><span class="o">.</span><span class="n">new</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+<span class="w">    </span><span class="vi">@my_dep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_dep</span>
+<span class="w">    </span><span class="k">super</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Action</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jane&quot;</span><span class="p">)</span><span class="w">                  </span><span class="c1"># uses default value for `my_dep&#39;</span>
+<span class="no">Action</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Jane&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">my_dep</span><span class="p">:</span><span class="w"> </span><span class="no">Bar</span><span class="o">.</span><span class="n">new</span><span class="p">)</span><span class="w"> </span><span class="c1"># uses custom value for `my_dep&#39;</span>
+</code></pre></div>
+<p>In the example code, <code>my_dep</code> is a dependency that is provided to the action through the initialize method, rather than being hardcoded in the attribute definition. The <code>my_dep</code> dependency is set to a default value of <code>Foo.new</code>, but it can be overridden by passing a <code>my_dep</code> keyword argument to the constructor.</p>
+<p>By using this technique, you can easily provide dependencies to your Granite actions from an external source, making your code more modular and testable.</p>
+<h3 id="i18n">I18n<a class="headerlink" href="#i18n" title="Permanent link">&para;</a></h3>
+<p>When using the I18n feature, if an identifier is prefixed with a dot (<code>t('.foobar')</code>), translations will be looked up in the following order:</p>
+<div class="highlight"><pre><span></span><code>granite_action.#{granite_action_name}.foobar
+granite_action.granite/action.foobar
+foobar
+</code></pre></div>
+<p>It's important to note that the lookup rules are different when performing an I18n lookup within a projector context. See the section on <a href="projectors/#i18n-projectors-lookup">I18n lookup inside a projector context</a> for more information.</p>
+<h2 id="generators">Generators<a class="headerlink" href="#generators" title="Permanent link">&para;</a></h2>
+<p>You can use the granite generator to create a starting point for your action. To do so, pass the name and path of your action as the first argument using the following syntax:</p>
+<div class="highlight"><pre><span></span><code>rails g granite SUBJECT/ACTION [PROJECTOR]
+</code></pre></div>
+<p>If you want to generate a collection action where the subject is not known at initialization, use the <code>-C</code> or <code>--collection</code> option.
+You can also specify the projector name as a second argument when using the generator.</p>
+<p>Here are some examples of using the rails g granite command:</p>
+<ol>
+<li>
+<p><code>rails g granite user/create</code></p>
+<p>This command generates a new action called "create" for the "user" <code>subject</code>. It creates three files: <code>apq/actions/ba/user/create.rb</code>, <code>apq/actions/ba/user/business_action.rb</code>, and <code>spec/apq/actions/ba/user/create_spec.rb</code>.</p>
+</li>
+<li>
+<p><code>rails g granite user/create -C</code></p>
+<p>Adding the <code>-C</code> option generates a collection action where the subject is not known at initialization. This command generates two files: <code>apq/actions/ba/user/create.rb</code> and <code>spec/apq/actions/ba/user/create_spec.rb</code>.</p>
+</li>
+<li>
+<p><code>rails g granite user/create simple</code></p>
+<p>Adding a second argument, such as "simple" specifies the name of the projector to use. This command generates a new directory called simple within the <code>apq/actions/ba/user/create directory</code>, as well as the same files as the first example: <code>apq/actions/ba/user/create.rb</code>, <code>apq/actions/ba/user/business_action.rb</code>, and <code>spec/apq/actions/ba/user/create_spec.rb</code>.</p>
+</li>
+</ol>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>We hope this introduction to Granite has piqued your interest and given you a glimpse into the power and simplicity of this framework. Give it a try and see how Granite can streamline your business logic and take your Ruby on Rails applications to the next level.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2013 - 2018 Toptal
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": [], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
