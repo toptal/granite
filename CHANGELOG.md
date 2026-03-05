@@ -1,5 +1,9 @@
 ## Next
 
+## v0.17.7
+
+* Support for Rails 8.1 and ruby 4.0 by @AlfonsoUceda in https://github.com/toptal/granite/pull/156
+
 ## v0.17.6
 
 * Fix error processing for embedded preconditions to preserve `ActiveModel::Error#type` field values
