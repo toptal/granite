@@ -8,7 +8,11 @@ RSpec.describe Granite::ContextProxy::Proxy do
   let(:klass) { stub_class('DummyClass') }
   let(:context) { { performer: '#Performer' } }
 
-  its(:inspect) { is_expected.to eq('<DummyClassContextProxy {:performer=>"#Performer"}>') }
+  it do
+    expected_attributes = { performer: '#Performer' }.inspect
+
+    expect(proxy.inspect).to eq("<DummyClassContextProxy #{expected_attributes}>")
+  end
 
   describe '#method_missing' do
     specify 'when klass does not respond to a method' do

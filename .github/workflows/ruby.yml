@@ -17,14 +17,21 @@ jobs:
   rspec:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
+
       matrix:
         include:
           - { ruby: '2.7', rails: '6.1' }
-          - { ruby: '3.0', rails: '7.0' }
-          - { ruby: '3.1', rails: '7.0' }
-          - { ruby: '3.2', rails: '7.1' }
-          - { ruby: '3.2', rails: '7.2' }
-          - { ruby: '3.2', rails: '8.0' }
+          - { ruby: '3.3', rails: '7.0' }
+          - { ruby: '3.4', rails: '7.0' }
+          - { ruby: '3.3', rails: '7.1' }
+          - { ruby: '3.4', rails: '7.1' }
+          - { ruby: '3.3', rails: '7.2' }
+          - { ruby: '3.4', rails: '7.2' }
+          - { ruby: '3.4', rails: '8.0' }
+          - { ruby: '4.0', rails: '8.0' }
+          - { ruby: '3.4', rails: '8.1' }
+          - { ruby: '4.0', rails: '8.1' }
     env:
       BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/rails.${{ matrix.rails }}.gemfile
 
@@ -45,15 +52,14 @@ jobs:
           - 5432:5432
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+
     - name: Set up Ruby
-      # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-      # change this to (see https://github.com/ruby/setup-ruby#versioning):
-      # uses: ruby/setup-ruby@v1
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true
+
     - name: Run tests
       env:
         DATABASE_URL: "postgres://granite:granite@localhost:5432/granite"
@@ -63,9 +69,11 @@ jobs:
   rubocop:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+
     - uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0
+        ruby-version: 3.3
         bundler-cache: true
+
     - run: bundle exec rubocop
