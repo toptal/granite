@@ -1,13 +1,13 @@
-require 'memoist'
+require 'memo_wise'
 require 'action_controller/metal/exceptions'
 
 module Granite
   class Dispatcher # :nodoc:
-    extend Memoist
+    prepend MemoWise
 
-    # Make dispatcher object pristine, clean memoist cache.
+    # Make dispatcher object pristine, clean memo_wise cache.
     def reset!
-      unmemoize_all
+      reset_memo_wise
     end
 
     def call(*)
@@ -45,20 +45,20 @@ module Granite
       ]
     end
 
-    memoize def action_name(request_method_symbol, granite_action, granite_projector, projector_action)
+    memo_wise def action_name(request_method_symbol, granite_action, granite_projector, projector_action)
       projector = projector(granite_action, granite_projector)
       return unless projector
 
       projector.action_for(request_method_symbol, projector_action.to_s)
     end
 
-    memoize def projector(granite_action, granite_projector)
+    memo_wise def projector(granite_action, granite_projector)
       action = business_action(granite_action)
 
       action.public_send(granite_projector) if action.respond_to?(granite_projector)
     end
 
-    memoize def business_action(granite_action)
+    memo_wise def business_action(granite_action)
       granite_action.camelize.safe_constantize ||
       raise(ActionController::RoutingError,
             "Granite action '#{granite_action}' is mounted but class '#{granite_action.camelize}' can't be found")

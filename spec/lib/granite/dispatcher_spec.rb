@@ -121,8 +121,8 @@ RSpec.describe Granite::Dispatcher do
   end
 
   describe '#reset!' do
-    it 'unmemoize all cached methods' do
-      expect(dispatcher).to receive(:unmemoize_all) # rubocop:disable RSpec/SubjectStub
+    it 'resets all cached methods' do
+      expect(dispatcher).to receive(:reset_memo_wise) # rubocop:disable RSpec/SubjectStub
       dispatcher.reset!
     end
   end

@@ -5,15 +5,15 @@ module Granite
     module Preconditions
       # Checks related business actions for precondition errors and adds them to current action.
       #
-      #   memoize def child_action
+      #   memo_wise def child_action
       #     ...
       #   end
       #   precondition embedded: :child_action
       #
-      #   memoize def child_action
+      #   memo_wise def child_action
       #     ...
       #   end
-      #   memoize def child_actions
+      #   memo_wise def child_actions
       #     ...
       #   end
       #   precondition embedded: [:child_action, :child_actions]

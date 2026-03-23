@@ -232,10 +232,10 @@ For comprehensive information on the available associations and usage examples, 
 
 ### Nested actions
 
-Some business actions call other actions as part of their own execution. In such cases, we need to define a memoizable method that returns an instance of the sub-action:
+Some business actions call other actions as part of their own execution. In such cases, we need to define a memoized method that returns an instance of the sub-action:
 
 ```ruby
-memoize def subaction
+memo_wise def subaction
   MySubactionClass.new
 end
 ```
