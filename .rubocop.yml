@@ -13,8 +13,8 @@ AllCops:
     - 'log/**/*'
     - 'spec/fixtures/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.6
-  TargetRailsVersion: 5.1
+  TargetRubyVersion: 3.3
+  TargetRailsVersion: 7.2
   NewCops: enable
 
 RSpec/MultipleExpectations:

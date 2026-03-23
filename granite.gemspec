@@ -10,10 +10,10 @@ Gem::Specification.new do |s|
   s.summary     = 'Another business actions architecture for Rails apps'
   s.files       = `git ls-files`.split("\n").grep(/\A(app|lib|config|LICENSE)/)
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 2.6'
+  s.required_ruby_version = '>= 3.3'
 
-  s.add_dependency 'actionpack', '>= 6.0'
-  s.add_dependency 'activesupport', '>= 6.0'
+  s.add_dependency 'actionpack', '>= 7.2'
+  s.add_dependency 'activesupport', '>= 7.2'
   s.add_dependency 'granite-form', '>= 0.3.0'
   s.add_dependency 'memo_wise'
   s.add_dependency 'ruby2_keywords', '~> 0.0.5'
