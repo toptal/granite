@@ -18,7 +18,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'memo_wise'
 
   s.add_development_dependency 'activerecord'
-  s.add_development_dependency 'appraisal'
   s.add_development_dependency 'bump'
   s.add_development_dependency 'fuubar'
   s.add_development_dependency 'pg'
