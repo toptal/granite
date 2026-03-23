@@ -14,9 +14,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'actionpack', '>= 7.2'
   s.add_dependency 'activesupport', '>= 7.2'
-  s.add_dependency 'granite-form', '>= 0.3.0'
+  s.add_dependency 'granite-form'
   s.add_dependency 'memo_wise'
-  s.add_dependency 'ruby2_keywords', '~> 0.0.5'
+  s.add_dependency 'ruby2_keywords'
 
   s.add_development_dependency 'activerecord'
   s.add_development_dependency 'appraisal'
