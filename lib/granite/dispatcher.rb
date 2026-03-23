@@ -60,8 +60,8 @@ module Granite
 
     memo_wise def business_action(granite_action)
       granite_action.camelize.safe_constantize ||
-      raise(ActionController::RoutingError,
-            "Granite action '#{granite_action}' is mounted but class '#{granite_action.camelize}' can't be found")
+        raise(ActionController::RoutingError,
+              "Granite action '#{granite_action}' is mounted but class '#{granite_action.camelize}' can't be found")
     end
   end
 end
