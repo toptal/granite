@@ -12,10 +12,10 @@ module Granite
         "<#{@klass}ContextProxy #{@context}>"
       end
 
-      ruby2_keywords def method_missing(method, *args, &block)
+      def method_missing(method, *args, **kwargs, &block)
         if @klass.respond_to?(method)
           @klass.with_context(@context) do
-            @klass.public_send(method, *args, &block)
+            @klass.public_send(method, *args, **kwargs, &block)
           end
         else
           super

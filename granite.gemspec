@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'activesupport', '>= 7.2'
   s.add_dependency 'granite-form'
   s.add_dependency 'memo_wise'
-  s.add_dependency 'ruby2_keywords'
 
   s.add_development_dependency 'activerecord'
   s.add_development_dependency 'appraisal'
