@@ -3,6 +3,7 @@ require 'action_controller'
 module Granite
   class Controller < Granite.base_controller_class # :nodoc:
     include Controller::Translations
+
     helper Controller::Translations
 
     singleton_class.__send__(:attr_accessor, :projector_class)

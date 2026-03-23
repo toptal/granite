@@ -9,6 +9,7 @@ module Granite
 
       included do
         include ContextProxy
+
         attr_reader :ctx
       end
 

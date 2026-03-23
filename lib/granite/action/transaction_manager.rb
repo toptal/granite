@@ -6,6 +6,9 @@ module Granite
     end
 
     module TransactionManager # :nodoc:
+      TRANSACTIONS_STACK_KEY = :granite_transaction_manager_transactions_stack
+      private_constant :TRANSACTIONS_STACK_KEY
+
       class << self
         # Runs a block in a transaction
         # It will open a new transaction or append a block to the current one if it exists
@@ -29,8 +32,6 @@ module Granite
         end
 
         private
-
-        TRANSACTIONS_STACK_KEY = :granite_transaction_manager_transactions_stack
 
         def transactions_stack
           Thread.current[TRANSACTIONS_STACK_KEY] ||= TransactionsStack.new

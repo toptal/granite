@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-rspec_rails
@@ -32,6 +32,12 @@ Gemspec/DevelopmentDependencies:
 Naming/FileName:
   Exclude:
     - 'lib/rubocop-granite.rb'
+
+Style/ArgumentsForwarding:
+  Enabled: false
+
+Naming/BlockForwarding:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false

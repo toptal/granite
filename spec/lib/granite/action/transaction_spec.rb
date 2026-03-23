@@ -120,7 +120,7 @@ RSpec.describe Granite::Action::Transaction do
       stub_class(:action, Granite::Action) do
         allow_if { true }
 
-        def execute_perform!(*)
+        def execute_perform!(*) # rubocop:disable Naming/PredicateMethod
           true
         end
       end

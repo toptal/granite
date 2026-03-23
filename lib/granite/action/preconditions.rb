@@ -106,7 +106,7 @@ module Granite
 
       private
 
-      def run_preconditions!(cache_result: false)
+      def run_preconditions!(cache_result: false) # rubocop:disable Naming/PredicateMethod
         _preconditions.execute!(self) if @preconditions_run.nil?
         @preconditions_run = true if cache_result
         errors.empty?

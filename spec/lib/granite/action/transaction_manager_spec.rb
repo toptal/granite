@@ -15,8 +15,8 @@ RSpec.describe Granite::Action::TransactionManager do
         described_class.after_commit(object_listener)
       end
 
-      let(:block_listener) { double(do_stuff: true) } # rubocop:disable RSpec/VerifiedDoubles
-      let(:object_listener) { double(_run_commit_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+      let(:block_listener) { double(do_stuff: true) }
+      let(:object_listener) { double(_run_commit_callbacks: true) }
 
       it 'returns result of a block and triggers registered callbacks' do
         expect(object_listener).to receive(:_run_commit_callbacks).ordered
@@ -43,8 +43,8 @@ RSpec.describe Granite::Action::TransactionManager do
           end
         end
 
-        let(:object_listener_one) { double(_run_commit_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
-        let(:object_listener_two) { double(_run_commit_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_one) { double(_run_commit_callbacks: true) }
+        let(:object_listener_two) { double(_run_commit_callbacks: true) }
 
         specify 'both transactions reverted and error bubbled' do
           expect(object_listener).not_to receive(:_run_commit_callbacks)
@@ -86,7 +86,7 @@ RSpec.describe Granite::Action::TransactionManager do
     end
 
     context 'with ActiveRecord' do
-      include_examples 'handles transaction'
+      include_examples 'handles transaction' # rubocop:disable RSpec/IncludeExamples
 
       context 'when transacton fails with Granite::Action::Rollback' do
         let(:block) { raise Granite::Action::Rollback }
@@ -110,8 +110,8 @@ RSpec.describe Granite::Action::TransactionManager do
           456
         end
 
-        let(:object_listener_one) { double(_run_commit_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
-        let(:object_listener_two) { double(_run_commit_callbacks: true) } # rubocop:disable RSpec/VerifiedDoubles
+        let(:object_listener_one) { double(_run_commit_callbacks: true) }
+        let(:object_listener_two) { double(_run_commit_callbacks: true) }
 
         context 'with Granite::Action::Rollback' do
           let(:error) { Granite::Action::Rollback }
@@ -143,7 +143,7 @@ RSpec.describe Granite::Action::TransactionManager do
         hide_const('ActiveRecord')
       end
 
-      include_examples 'handles transaction'
+      it_behaves_like 'handles transaction'
     end
   end
 end

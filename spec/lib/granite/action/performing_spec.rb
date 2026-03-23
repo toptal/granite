@@ -155,7 +155,7 @@ RSpec.describe Granite::Action::Performing do
 
           private
 
-          def execute_perform!(*)
+          def execute_perform!(*) # rubocop:disable Naming/PredicateMethod
             false
           end
         end
@@ -266,7 +266,7 @@ RSpec.describe Granite::Action::Performing do
 
           private
 
-          def execute_perform!(*)
+          def execute_perform!(*) # rubocop:disable Naming/PredicateMethod
             false
           end
         end
@@ -340,7 +340,7 @@ RSpec.describe Granite::Action::Performing do
 
           private
 
-          def execute_perform!(*)
+          def execute_perform!(*) # rubocop:disable Naming/PredicateMethod
             false
           end
         end
@@ -408,7 +408,7 @@ RSpec.describe Granite::Action::Performing do
 
           private
 
-          def execute_perform!(*)
+          def execute_perform!(*) # rubocop:disable Naming/PredicateMethod
             false
           end
         end
