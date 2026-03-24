@@ -1,5 +1,7 @@
 ## Next
 
+## v1.0.0
+
 * Replace `memoist` with `memo_wise` for memoization
 * Remove `ruby2_keywords` dependency (no longer needed with Ruby 3.3+)
 * [BREAKING] Raise minimum Ruby version to 3.3
