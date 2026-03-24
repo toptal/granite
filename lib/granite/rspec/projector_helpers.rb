@@ -4,7 +4,7 @@ module Granite
     include RSpec::Rails::ControllerExampleGroup
 
     included do
-      before { Granite::Routing::Declarer.dispatcher.unmemoize_all }
+      before { Granite::Routing::Declarer.dispatcher.reset_memo_wise }
     end
 
     module ClassMethods # :nodoc:

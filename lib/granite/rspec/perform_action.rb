@@ -68,7 +68,7 @@ RSpec::Matchers.define :perform_action do |klass| # rubocop:disable Metrics/Bloc
   end
 
   def actual_attributes(action)
-    @attributes.keys.to_h { |attr| [attr, action.public_send(attr)] }
+    @attributes.keys.index_with { |attr| action.public_send(attr) }
   end
 
   def action_matches?(action)

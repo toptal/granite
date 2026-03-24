@@ -8,6 +8,7 @@ require_relative '../../../lib/generators/granite_generator'
 
 RSpec.describe GraniteGenerator do
   include RSpec::Rails::RailsExampleGroup
+
   if Rails.version > '7.1'
     include Rails::Generators::Testing::Behavior
   else

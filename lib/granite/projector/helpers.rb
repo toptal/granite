@@ -12,9 +12,7 @@ Do you have #{projector.action_name}##{projector.projector_name} declared in rou
     module Helpers # :nodoc:
       extend ActiveSupport::Concern
 
-      def view_context
-        Granite.view_context
-      end
+      delegate :view_context, to: :Granite
       alias h view_context
 
       def action_url(action, **options)
@@ -35,7 +33,7 @@ Do you have #{projector.action_name}##{projector.projector_name} declared in rou
 
       def required_params
         corresponding_route.required_parts
-                           .to_h { |name| [name, action.public_send(name)] }
+                           .index_with { |name| action.public_send(name) }
       end
 
       def corresponding_route

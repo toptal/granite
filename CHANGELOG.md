@@ -1,5 +1,11 @@
 ## Next
 
+* Replace `memoist` with `memo_wise` for memoization
+* Remove `ruby2_keywords` dependency (no longer needed with Ruby 3.3+)
+* [BREAKING] Raise minimum Ruby version to 3.3
+* [BREAKING] Raise minimum Rails version to 7.2
+* Remove `appraisal` dependency and legacy Rails gemfiles
+
 ## v0.17.7
 
 * Support for Rails 8.1 and ruby 4.0 by @AlfonsoUceda in https://github.com/toptal/granite/pull/156

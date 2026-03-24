@@ -51,6 +51,7 @@ RSpec.describe Granite::Action do
       before do
         stub_class 'DummyUser' do
           include Granite::Form::Model
+
           attribute :email, String
           attribute :full_name, String
 

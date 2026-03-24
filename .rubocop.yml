@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-rspec_rails
@@ -13,8 +13,8 @@ AllCops:
     - 'log/**/*'
     - 'spec/fixtures/**/*'
   DisplayCopNames: true
-  TargetRubyVersion: 2.6
-  TargetRailsVersion: 5.1
+  TargetRubyVersion: 3.3
+  TargetRailsVersion: 7.2
   NewCops: enable
 
 RSpec/MultipleExpectations:
@@ -32,6 +32,12 @@ Gemspec/DevelopmentDependencies:
 Naming/FileName:
   Exclude:
     - 'lib/rubocop-granite.rb'
+
+Style/ArgumentsForwarding:
+  Enabled: false
+
+Naming/BlockForwarding:
+  Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false

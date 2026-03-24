@@ -1,7 +1,7 @@
 RSpec.describe Granite::Routing::Caching do
   subject(:caching) { dummy_class.new }
 
-  super_module = Module.new do
+  super_module = Module.new do # rubocop:disable RSpec/LeakyLocalVariable
     def clear_cache!; end
   end
 
