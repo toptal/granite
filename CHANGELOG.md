@@ -1,5 +1,9 @@
 ## Next
 
+## v1.1.0
+
+* Migrate RuboCop integration from `Inject.defaults!` monkey-patch to LintRoller plugin API (RuboCop 1.72+)
+
 ## v1.0.0
 
 * Replace `memoist` with `memo_wise` for memoization
