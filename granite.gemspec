@@ -28,11 +28,12 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec-its'
   s.add_development_dependency 'rspec_junit_formatter'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'rubocop'
+  s.add_development_dependency 'rubocop', '>= 1.72.1'
   s.add_development_dependency 'rubocop-rails'
   s.add_development_dependency 'rubocop-rspec'
   s.add_development_dependency 'rubocop-rspec_rails'
   s.add_development_dependency 'simplecov'
 
+  s.metadata['default_lint_roller_plugin'] = 'RuboCop::Granite::Plugin'
   s.metadata['rubygems_mfa_required'] = 'true'
 end
