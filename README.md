@@ -2,8 +2,6 @@
 
 Granite is an alternative Rails application architecture framework.
 
-[![Build Status](https://travis-ci.org/toptal/granite.svg?branch=master)](https://travis-ci.org/toptal/granite)
-
 ## Installation
 
 Add this line to your application's Gemfile:
