@@ -2,8 +2,6 @@
 
 Granite is an alternative Rails application architecture framework.
 
-[![Build Status](https://travis-ci.org/toptal/granite.svg?branch=master)](https://travis-ci.org/toptal/granite)
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -49,10 +47,13 @@ rspec
 
 Add this to your Rubocop config file:
 
+```yaml
+plugins:
+  - granite:
+      require_path: rubocop-granite
 ```
-require:
-  - rubocop-granite
-```
+
+The plugin system requires RuboCop 1.72+. For earlier versions, use `require: rubocop-granite` instead.
 
 This will add config for `Lint/UselessAccessModifier` to treat `projector` as separate context. It is equivalent to:
 
