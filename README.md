@@ -51,6 +51,7 @@ Add this to your Rubocop config file:
 plugins:
   - granite:
       require_path: rubocop-granite
+      plugin_class_name: RuboCop::Granite::Plugin
 ```
 
 The plugin system requires RuboCop 1.72+. For earlier versions, use `require: rubocop-granite` instead.
