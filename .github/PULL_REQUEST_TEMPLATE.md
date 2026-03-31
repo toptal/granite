@@ -2,7 +2,7 @@ Describe the changes and motivations for the pull request.
 
 ### Review
 
-- [ ] Document code according to [Getting Started with Yard](http://www.rubydoc.info/gems/yard/file/docs/GettingStarted.md).
+- [ ] Document code according to [Getting Started with Yard](https://rubydoc.info/gems/yard/file/docs/GettingStarted.md).
 - [ ] All tests are passing.
 - [ ] Test manually.
 - [ ] Get approval.
