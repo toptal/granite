@@ -5,5 +5,6 @@ source "https://rubygems.org"
 gem "actionpack", "~> 7.2.0"
 gem "activesupport", "~> 7.2.0"
 gem "activerecord", "~> 7.2.0"
+gem "json", "< 3"
 
 gemspec path: "../"

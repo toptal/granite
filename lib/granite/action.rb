@@ -11,6 +11,7 @@ require 'granite/action/precondition'
 require 'granite/action/preconditions'
 require 'granite/action/policies'
 require 'granite/action/projectors'
+require 'granite/action/steps'
 require 'granite/action/subject'
 require 'granite/action/translations'
 
@@ -73,17 +74,9 @@ module Granite
       _run_initialize_callbacks
     end
 
-    if ActiveModel.version < Gem::Version.new('6.1.0')
-      def merge_errors(other_errors)
-        errors.messages.deep_merge!(other_errors.messages) do |_, this, other|
-          (this + other).uniq
-        end
-      end
-    else
-      def merge_errors(other_errors)
-        other_errors.each do |error|
-          errors.import(error) unless errors.messages[error.attribute].include?(error.message)
-        end
+    def merge_errors(other_errors)
+      other_errors.each do |error|
+        errors.import(error) unless errors.messages[error.attribute].include?(error.message)
       end
     end
 

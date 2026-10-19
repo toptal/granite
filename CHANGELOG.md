@@ -1,5 +1,8 @@
 ## Next
 
+* Add opt-in `step` and `inline_step` DSL, enabled with `Granite::Action.include Granite::Action::Steps`
+* Assign subject together with other attributes and raise `SubjectNotFoundError` when subject is `nil?`
+
 ## v1.1.0
 
 * Migrate RuboCop integration from `Inject.defaults!` monkey-patch to LintRoller plugin API (RuboCop 1.72+)
