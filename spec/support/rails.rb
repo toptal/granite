@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 end
 
-class GraniteApplication < Rails::Application # rubocop:disable Style/OneClassPerFile
+class GraniteApplication < Rails::Application
 end
 
 Rails.application = GraniteApplication.new

@@ -62,10 +62,10 @@ module Granite
       end
 
       def assign_subject(args, attributes, reflection)
+        attributes = attributes.merge(reflection.name => args.first) unless args.empty?
         assign_attributes(attributes)
 
-        self.subject = args.first unless args.empty?
-        raise SubjectNotFoundError, self.class unless subject
+        raise SubjectNotFoundError, self.class if subject.nil?
       rescue Granite::Form::AssociationTypeMismatch
         raise SubjectTypeMismatchError.new(self.class, args.first.class.name, reflection.klass)
       end
