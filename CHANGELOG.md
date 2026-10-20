@@ -1,5 +1,7 @@
 ## Next
 
+## v1.2.0
+
 * Add opt-in `step` and `inline_step` DSL, enabled with `Granite::Action.include Granite::Action::Steps`
 * Assign subject together with other attributes and raise `SubjectNotFoundError` when subject is `nil?`
 
