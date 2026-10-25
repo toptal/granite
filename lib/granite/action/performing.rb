@@ -50,7 +50,7 @@ module Granite
 
       # Check precondition and validations for action and associated objects, then
       # raise exception in case of validation errors. In other case run defined procedure.
-      # Procedure is wraped with database transaction. After procedure execution check for
+      # Procedure is wrapped with database transaction. After procedure execution check for
       # errors, and raise exception if any. Returns the result of execute_perform! method execution
       # or true if block execution returned false or nil
       #

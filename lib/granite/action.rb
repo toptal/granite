@@ -31,7 +31,7 @@ module Granite
 
     # We are using a lot of stacked additional logic for `assign_attributes`
     # At least, represented and nested attributes modules in Granite::Form
-    # are having such a method redefiniions. Both are prepended to the
+    # are having such a method redefinitions. Both are prepended to the
     # Granite action, so we have to prepend our patch as well in order
     # to put it above all other, so it will handle the attributes first.
     module AssignAttributes

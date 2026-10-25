@@ -41,7 +41,7 @@ module Granite
         #
         # @param options [Hash] hash with
         # @option message [String, Symbol] error message
-        # @option group [Symbol] procondition group(s)
+        # @option group [Symbol] precondition group(s)
         # @param block [Block] which returns truthy value when precondition
         #   should pass.
         def precondition(*args, &block)
@@ -91,7 +91,7 @@ module Granite
 
       # Check if all preconditions are satisfied
       #
-      # @return [Boolean] wheter all preconditions are satisfied
+      # @return [Boolean] whether all preconditions are satisfied
       def satisfy_preconditions?(cache_result: false)
         errors.clear
         failed_preconditions.clear

@@ -31,7 +31,7 @@ module Granite
       end
 
       module ClassMethods # :nodoc:
-        # The simplies policy. Takes block and executes it returning
+        # The simplest policy. Takes block and executes it returning
         # boolean result. Multiple policies are reduced with ||
         #
         #   class Action < Granite::Action
